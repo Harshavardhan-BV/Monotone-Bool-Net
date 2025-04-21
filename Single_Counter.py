@@ -30,7 +30,7 @@ df.sort_index(inplace=True)
 #%%
 ninputs = df.shape[0]
 Dk = df.shape[1]
-Tot_freq = n ** Dk
+Tot_freq = Dk ** n
 #%%
 findex = pd.MultiIndex.from_product([range(ninputs)]*n, names=[f'f{i}' for i in range(n)])
 #%%
