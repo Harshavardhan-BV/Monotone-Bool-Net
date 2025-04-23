@@ -1,9 +1,6 @@
-#%%
+import os
 import numpy as np
-import pandas as pd
-#%%
-n = 1 # Number of boolean inputs B^n
-#%%
+
 def gen_inps(n):
     # Generate all possible inputs
     inputs = np.array(np.meshgrid(*[[0, 1]]*n)).T.reshape(-1, n)
@@ -27,23 +24,24 @@ def is_monotonic(func, inp_pair):
     # Check if func(b1) <= func(b2)
     return (func[inp_pair[0]] <= func[inp_pair[1]]).all()
 
-def return_func_if_monotonic(func_index):
+def return_func_if_monotonic(func_index, inputs, inp_pair):
     func = process_function(func_index, len(inputs))
     if is_monotonic(func, inp_pair):
         return func
-# %%
-inputs = gen_inps(n)
-inp_pair = input_pairs(inputs)
-all_funcs = range(2**len(inputs))
-# %%
-np.savetxt(f'Output/Inputs_B{n}.csv', inputs, delimiter=',', fmt='%d')
-# %%
-monotonic_funcs = list(map(return_func_if_monotonic, all_funcs))
-# %%
-# Remove None values from monotonic_funcs
-monotonic_funcs = [x for x in monotonic_funcs if x is not None]
-# %%
-# Save the monotonic functions
-monotonic_funcs = np.array(monotonic_funcs)
-np.savetxt(f'Output/MBF_B{n}.csv', monotonic_funcs, delimiter=',', fmt='%d')
-# %%
+
+def saveio(n):
+    inputs = gen_inps(n)
+    inp_pair = input_pairs(inputs)
+    all_funcs = range(2**len(inputs))
+    os.makedirs('Output/IO', exist_ok=True)
+    np.savetxt(f'Output/IO/Inputs_B{n}.csv', inputs, delimiter=',', fmt='%d')
+    monotonic_funcs = list(map(lambda func_index: return_func_if_monotonic(func_index, inputs, inp_pair), all_funcs))
+    # Remove None values from monotonic_funcs
+    monotonic_funcs = [x for x in monotonic_funcs if x is not None]
+    # Save the monotonic functions
+    monotonic_funcs = np.array(monotonic_funcs)
+    np.savetxt(f'Output/IO/MBF_B{n}.csv', monotonic_funcs, delimiter=',', fmt='%d')
+
+# Iterate over Number of boolean inputs B^n
+for n in range(1,5):
+    saveio(n)

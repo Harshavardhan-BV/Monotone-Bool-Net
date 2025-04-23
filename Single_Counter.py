@@ -1,8 +1,8 @@
 #%%
+import os
 import numpy as np
 import pandas as pd
-#%%
-n = 4 # Number of nodes
+os.makedirs('./Output/Count',exist_ok=True)
 #%%
 def df_index(df, j):
     # Convert j to a binary representation and make it an array
@@ -23,39 +23,40 @@ def freq_index(df, f):
         freqi *= (Dk - df_index(df,f[j+1]).loc[tuple(mask[::-1])].sum())
     return freqi
 #%%
-inputs = pd.read_csv(f'Output/Inputs_B{n-1}.csv', header=None)
-indx = pd.MultiIndex.from_frame(inputs)
-df = pd.read_csv(f'Output/MBF_B{n-1}.csv', header=None, names=indx).T
-df.sort_index(inplace=True)
-#%%
-ninputs = df.shape[0]
-Dk = df.shape[1]
-Tot_freq = Dk ** n
-#%%
-findex = pd.MultiIndex.from_product([range(ninputs)]*n, names=[f'f{i}' for i in range(n)])
-#%%
-df_count = pd.DataFrame(index=findex, columns=['Freq'])
-#%%
-for i in range(len(df_count)):
-    f = df_count.index[i]
-    df_count.iloc[i] = freq_index(df, f)
-#%%
-for i in range(df_count.index.nlevels):
-    # Reorder by shifting the order right
-    new_index = df_count.index.to_frame(index=False)
-    new_index = np.roll(new_index, i, axis=1)
-    new_index = pd.MultiIndex.from_arrays(new_index.T, names=df_count.index.names)
-    # Add a new columns where the orders are shifted
-    new_values = df_count['Freq'].reindex(new_index)
-    new_values.index = df_count.index
-    df_count[f'X{i}'] = new_values
-#%%
-# Drop the Freq column
-df_count.drop(columns='Freq', inplace=True)
-#%%
-# Sort by which has the highest sum
-df_count['Sum'] = df_count.sum(axis=1)
-df_count.sort_values(by='Sum', ascending=False, inplace=True)
-# %%
-df_count.to_csv(f'Output/{n}-node_count.csv')
+for n in range(2,5):
+    inputs = pd.read_csv(f'Output/IO/Inputs_B{n-1}.csv', header=None)
+    indx = pd.MultiIndex.from_frame(inputs)
+    df = pd.read_csv(f'Output/IO/MBF_B{n-1}.csv', header=None, names=indx).T
+    df.sort_index(inplace=True)
+    #%%
+    ninputs = df.shape[0]
+    Dk = df.shape[1]
+    Tot_freq = Dk ** n
+    #%%
+    findex = pd.MultiIndex.from_product([range(ninputs)]*n, names=[f'f{i}' for i in range(n)])
+    #%%
+    df_count = pd.DataFrame(index=findex, columns=['Freq'])
+    #%%
+    for i in range(len(df_count)):
+        f = df_count.index[i]
+        df_count.iloc[i] = freq_index(df, f)
+    #%%
+    for i in range(df_count.index.nlevels):
+        # Reorder by shifting the order right
+        new_index = df_count.index.to_frame(index=False)
+        new_index = np.roll(new_index, i, axis=1)
+        new_index = pd.MultiIndex.from_arrays(new_index.T, names=df_count.index.names)
+        # Add a new columns where the orders are shifted
+        new_values = df_count['Freq'].reindex(new_index)
+        new_values.index = df_count.index
+        df_count[f'X{i}'] = new_values
+    #%%
+    # Drop the Freq column
+    df_count.drop(columns='Freq', inplace=True)
+    #%%
+    # Sort by which has the highest sum
+    df_count['Sum'] = df_count.sum(axis=1)
+    df_count.sort_values(by='Sum', ascending=False, inplace=True)
+    # %%
+    df_count.to_csv(f'Output/Count/{n}-node_count.csv')
 # %%

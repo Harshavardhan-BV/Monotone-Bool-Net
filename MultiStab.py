@@ -1,9 +1,9 @@
-#%%
+import os
+import glob
 import numpy as np
 import pandas as pd
-#%%
-n = 2 # Number of nodes
-#%%
+import itertools as it
+
 def df_index(df, j):
     # Convert j to a binary representation and make it an array
     index = df.index.to_frame(index=False)
@@ -14,13 +14,14 @@ def df_index(df, j):
     df1.index = df.index
     return df1
 
-def inpclass_multi_satisfy(multi, df):
+def inpclass_multi_satisfy(multi, df, n):
     # Provide the steady states we want to have as multi-stable as rows
     inpclass_all = {}
     for i in range(n):
         # Map the input and output to satisfy the multi-stability
-        multi_out = multi[:,0]
-        multi_idx = np.delete(multi,0, axis=1)
+        multii = np.roll(multi, -i, axis=1)
+        multi_out = multii[:,0]
+        multi_idx = np.delete(multii,0, axis=1)
         multi_df = pd.Series(multi_out, index=pd.MultiIndex.from_arrays(multi_idx.T))
         multi_df.sort_index(inplace=True)
         inpclass = []
@@ -31,21 +32,22 @@ def inpclass_multi_satisfy(multi, df):
             if bleh:
                 inpclass.append(j)
         inpclass_all[i] = inpclass
-    return pd.DataFrame(inpclass_all)
-#%%
-inputs = pd.read_csv(f'Output/Inputs_B{n-1}.csv', header=None)
-indx = pd.MultiIndex.from_frame(inputs)
-df = pd.read_csv(f'Output/MBF_B{n-1}.csv', header=None, names=indx).T
-df.sort_index(inplace=True)
-#%%
-multi = np.empty((0,n), dtype=int)
-for j in range(0, n):
-    mask = np.zeros(n, dtype=int)
-    mask[j] = 1
-    multi = np.vstack((multi, mask))
-np.savetxt(f'Output/{n}-node_multistable-states.csv', multi, fmt='%d', delimiter=',')
-# %%
-multi_class = inpclass_multi_satisfy(multi, df)
-# %%
-multi_class.to_csv(f'Output/{n}-node_multistable-classes.csv', index=False)
-# %%
+    return inpclass_all
+
+def multi_class(fname):
+    multi = pd.read_csv(f'Output/Multi/{fname}', header=None)
+    n = multi.shape[1]
+    inputs = pd.read_csv(f'Output/IO/Inputs_B{n-1}.csv', header=None)
+    indx = pd.MultiIndex.from_frame(inputs)
+    df = pd.read_csv(f'Output/IO/MBF_B{n-1}.csv', header=None, names=indx).T
+    df.sort_index(inplace=True)
+    mc = inpclass_multi_satisfy(multi, df, n)
+    outname = fname.replace('_states','_classes')
+    class_comb = list(it.product(*(mc[idx] for idx in mc.keys())))
+    class_comb = pd.DataFrame(class_comb, columns=[f'f{i}' for i in range(n)])
+    class_comb.to_csv(f'Output/Multi/{outname}', index=False)
+
+fnames = glob.glob('*_states.csv', root_dir='Output/Multi/')
+for fname in fnames:
+    multi_class(fname)
+
