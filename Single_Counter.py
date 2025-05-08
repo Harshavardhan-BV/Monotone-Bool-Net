@@ -2,18 +2,9 @@
 import os
 import numpy as np
 import pandas as pd
+from common_func import df_index, read_IO
 os.makedirs('./Output/Count',exist_ok=True)
 #%%
-def df_index(df, j):
-    # Convert j to a binary representation and make it an array
-    index = df.index.to_frame(index=False)
-    j = np.fromiter(np.binary_repr(j, width=index.shape[1]), dtype=int)
-    new_index = (index  + j) % 2
-    new_index = pd.MultiIndex.from_frame(new_index, names=[f'X{i}' for i in range(index.shape[1])])
-    df1 = df.loc[new_index]
-    df1.index = df.index
-    return df1
-
 def freq_index(df, f):
     n = df.index.nlevels
     freqi = df_index(df,f[0]).loc[tuple(np.zeros(n))].sum()
@@ -24,10 +15,7 @@ def freq_index(df, f):
     return freqi
 #%%
 for n in range(2,5):
-    inputs = pd.read_csv(f'Output/IO/Inputs_B{n-1}.csv', header=None)
-    indx = pd.MultiIndex.from_frame(inputs)
-    df = pd.read_csv(f'Output/IO/MBF_B{n-1}.csv', header=None, names=indx).T
-    df.sort_index(inplace=True)
+    df = read_IO(n)
     #%%
     ninputs = df.shape[0]
     Dk = df.shape[1]

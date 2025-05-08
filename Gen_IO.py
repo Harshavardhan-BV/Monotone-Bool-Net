@@ -1,10 +1,6 @@
 import os
 import numpy as np
-
-def gen_inps(n):
-    # Generate all possible inputs
-    inputs = np.array(np.meshgrid(*[[0, 1]]*n)).T.reshape(-1, n)
-    return inputs
+from common_func import gen_inps
 
 def input_pairs(inputs):
     inp_sum = np.sum(inputs, axis=1)

@@ -3,51 +3,34 @@ import glob
 import numpy as np
 import pandas as pd
 import itertools as it
+from common_func import multi_satish
 
-def df_index(df, j):
-    # Convert j to a binary representation and make it an array
-    index = df.index.to_frame(index=False)
-    j = np.fromiter(np.binary_repr(j, width=index.shape[1]), dtype=int)
-    new_index = (index  + j) % 2
-    new_index = pd.MultiIndex.from_frame(new_index, names=[f'X{i}' for i in range(index.shape[1])])
-    df1 = df.loc[new_index]
-    df1.index = df.index
-    return df1
-
-def inpclass_multi_satisfy(multi, df, n):
-    # Provide the steady states we want to have as multi-stable as rows
-    inpclass_all = {}
-    for i in range(n):
-        # Map the input and output to satisfy the multi-stability
-        multii = np.roll(multi, -i, axis=1)
-        multi_out = multii[:,0]
-        multi_idx = np.delete(multii,0, axis=1)
-        multi_df = pd.Series(multi_out, index=pd.MultiIndex.from_arrays(multi_idx.T))
-        multi_df.sort_index(inplace=True)
-        inpclass = []
-        # Iterate over all input classes
-        for j in range(2**(n-1)):
-            df_j = df_index(df, j)
-            bleh = df_j.loc[multi_df.index].eq(multi_df, axis=0).all(axis=0).any()
-            if bleh:
-                inpclass.append(j)
-        inpclass_all[i] = inpclass
-    return inpclass_all
+def inpclass_multi_satisfy(multi, topo, fname):
+    inpclass = multi_satish(multi,topo)
+    class_comb = (inpclass.value_counts() == multi.shape[0])
+    class_comb = class_comb.index[class_comb].to_frame(index=False)
+    if len(class_comb)>0:
+        class_comb.to_csv(f'Output/Multi/{fname}_topo-{topo}_params.csv', index=False)
+    return len(class_comb)
 
 def multi_class(fname):
-    multi = pd.read_csv(f'Output/Multi/{fname}', header=None)
+    # Read the multistable array where each row represents a state
+    multi = pd.read_csv(f'Output/Multi/{fname}', header=None).values
     n = multi.shape[1]
-    inputs = pd.read_csv(f'Output/IO/Inputs_B{n-1}.csv', header=None)
-    indx = pd.MultiIndex.from_frame(inputs)
-    df = pd.read_csv(f'Output/IO/MBF_B{n-1}.csv', header=None, names=indx).T
-    df.sort_index(inplace=True)
-    mc = inpclass_multi_satisfy(multi, df, n)
-    outname = fname.replace('_states','_classes')
-    class_comb = list(it.product(*(mc[idx] for idx in mc.keys())))
-    class_comb = pd.DataFrame(class_comb, columns=[f'f{i}' for i in range(n)])
-    class_comb.to_csv(f'Output/Multi/{outname}', index=False)
+    # Iterate over all the topology classes 
+    topo_class = list(it.product(range(2**(n-1)), repeat=n))
+    fname = fname.replace('_states.csv','')
+    counts = []
+    for topo in topo_class:
+        # Find parameters that satisfy stability of multi for a given topology
+        counts.append(inpclass_multi_satisfy(multi, topo, fname))
+    class_comb = pd.DataFrame(topo_class, columns=[f'f{i}' for i in range(n)])
+    class_comb['n_params'] = counts
+    class_comb = class_comb[class_comb['n_params']>0]
+    class_comb.to_csv(f'Output/Multi/{fname}_classes.csv', index=False)
 
 fnames = glob.glob('*_states.csv', root_dir='Output/Multi/')
 for fname in fnames:
+    print(fname)
     multi_class(fname)
 
