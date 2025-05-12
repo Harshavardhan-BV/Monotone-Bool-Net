@@ -29,7 +29,7 @@ def multi_class(fname):
     class_comb = class_comb[class_comb['n_params']>0]
     class_comb.to_csv(f'Output/Multi/{fname}_classes.csv', index=False)
 
-fnames = glob.glob('*_states.csv', root_dir='Output/Multi/')
+fnames = sorted(glob.glob('*_states.csv', root_dir='Output/Multi/'))
 for fname in fnames:
     print(fname)
     multi_class(fname)

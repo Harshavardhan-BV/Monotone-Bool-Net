@@ -11,7 +11,7 @@ def multi_states(n, i):
     np.savetxt(f'Output/Multi/{n}-node_{i}-stable_states.csv', multi, fmt='%d', delimiter=',')
 
 for n in range(2,5):
-    multi_states(n,n)
-    multi_states(n,n-1)
+    for i in range(1,n+1):
+        multi_states(n,i)
     
     
