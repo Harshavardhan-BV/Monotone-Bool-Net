@@ -1,0 +1,10 @@
+Source	Target
+A	A
+A	B
+B	A
+B	B
+B	C
+A	C
+C	A
+C	B
+C	C

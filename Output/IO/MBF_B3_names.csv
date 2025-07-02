@@ -1,0 +1,20 @@
+0
+X ∧ Y ∧ Z
+X ∧ Z
+Y ∧ Z
+(X ∧ Z) ∨ (Y ∧ Z)
+Z
+X ∧ Y
+(X ∧ Y) ∨ (X ∧ Z)
+(X ∧ Y) ∨ (Y ∧ Z)
+α
+Z ∨ (X ∧ Y)
+X
+X ∨ (Y ∧ Z)
+X ∨ Z
+Y
+Y ∨ (X ∧ Z)
+Y ∨ Z
+X ∨ Y
+X ∨ Y ∨ Z
+1
