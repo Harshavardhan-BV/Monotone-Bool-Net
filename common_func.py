@@ -11,6 +11,11 @@ def read_IO(n):
     inputs = pd.read_csv(f'Output/IO/Inputs_B{n-1}.csv', header=None)
     indx = pd.MultiIndex.from_frame(inputs)
     df = pd.read_csv(f'Output/IO/MBF_B{n-1}.csv', header=None, names=indx).T
+    try:
+        column_names = pd.read_csv(f'Output/IO/MBF_B{n-1}_names.csv', header=None).iloc[:, 0]
+        df.columns = column_names
+    except FileNotFoundError:
+        pass
     df.sort_index(inplace=True)
     return df
 
