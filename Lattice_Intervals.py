@@ -37,7 +37,7 @@ for source, target_paths in nx.all_pairs_all_shortest_paths(G):
         all_nodes = set()
         for path in paths:
             all_nodes.update(path)
-        all_nodes -= {source,target}
+        # all_nodes -= {source,target}
         intervals.at[source, target] = len(all_nodes)
 # %%
 def interval_hmap(intervals, pfx):
@@ -45,14 +45,14 @@ def interval_hmap(intervals, pfx):
     print(unique_vals)
     fig, ax = plt.subplots()
     sns.heatmap(intervals, cbar_kws={'ticks': unique_vals}, ax=ax,square=True)
-    ax.set_ylabel('Source (L)')
-    ax.set_xlabel('Target (U)')
+    ax.set_ylabel('Source (U)')
+    ax.set_xlabel('Target (L)')
     fig.tight_layout()
     plt.savefig(f'./figures/Intervals/{pfx}-intervals.svg')
 #%%
 interval_hmap(intervals, pfx=f'B{n}-fn')
 # %%
-LUinter = intervals.iloc[L,U]
+LUinter = intervals.iloc[U,L]
 LUinter.columns = df.index
 LUinter.index = df.index
 # %%
