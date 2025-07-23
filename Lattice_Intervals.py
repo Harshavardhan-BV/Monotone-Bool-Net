@@ -11,7 +11,7 @@ plt.rcParams['svg.hashsalt'] = ''
 os.makedirs('./figures/Intervals/',exist_ok=True)
 os.makedirs('./Output/Intervals/',exist_ok=True)
 #%%
-n = 4
+n = 5
 #%%
 df = read_IO(n+1)
 df = df.loc[df.sum(axis=1).sort_values().index]
@@ -84,4 +84,9 @@ UUinter.index = df.index
 UUinter.to_csv(f'./Output/Intervals/B{n}-UUinter.csv')
 # %%
 interval_hmap(UUinter,pfx=f'B{n}-UU', xlabel='U', ylabel='U')
+# %%
+U_df = pd.DataFrame(G.in_degree(df.columns[U]), index=df.index, columns=['U_fn','U_in'])
+L_df = pd.DataFrame(G.out_degree(df.columns[L]), index=df.index, columns=['L_fn', 'L_out'])
+fn_df = pd.concat((U_df,L_df),axis=1)
+fn_df.to_csv(f'Output/Intervals/B{n}-degree.csv')
 # %%
