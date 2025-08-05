@@ -10,9 +10,12 @@ plt.rcParams['svg.hashsalt'] = ''
 os.makedirs('figures/Bionet', exist_ok=True)
 os.makedirs('Output/Bionet', exist_ok=True)
 #%%
+# topo = 'EMT6N'
 # topo = 'EMT22N'
+topo = 'EMT26N'
 # topo = 'SCLC'
-topo = 'Pluripotency'
+# topo = 'Pluripotency'
+# topo = '3ntest'
 #%%
 df = pd.read_csv(f'./Inputs/Topo_bionet/{topo}.topo', sep=r'\s+')
 df.rename(columns={df.columns[2]: 'weight'}, inplace=True)
@@ -32,7 +35,7 @@ for node in G.nodes:
     if indeg[node] == 0:
         continue
     if adjmat.loc[node,node] == -1:
-        print('NOOOOOOOOOOOOOOOOOO',node)
+        print(node,'has self-inhibition')
     inpt = adjmat.loc[:,node]
     inpt.at[node] = 1
     all_sol.append(inpt)
