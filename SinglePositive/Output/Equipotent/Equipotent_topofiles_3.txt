@@ -1,0 +1,3 @@
+0_0.topo	45	True
+3_3.topo	15	False
+6_0.topo	9	False

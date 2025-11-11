@@ -28,6 +28,9 @@ repository = "https://github.com/Harshavardhan-BV/MBF-Topo"
 documentation = "https://Harshavardhan-BV.github.io/MBF-Topo/"
 "Bug Tracker" = "https://github.com/Harshavardhan-BV/MBF-Topo/issues"
 
+[project.scripts]
+state_count = "mbfnet.state_count:main"
+
 [build-system]
 requires = ["uv_build>=0.9.5,<0.10.0"]
 build-backend = "uv_build"

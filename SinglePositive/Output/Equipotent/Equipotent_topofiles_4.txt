@@ -1,0 +1,10 @@
+0_0.topo	4104	False
+12_0.topo	2744	False
+4_20.topo	4104	False
+4_24.topo	2744	False
+4_26.topo	2744	False
+6_16.topo	4104	True
+6_46.topo	2744	False
+8_20.topo	2744	False
+8_24.topo	4104	False
+8_26.topo	4104	False
