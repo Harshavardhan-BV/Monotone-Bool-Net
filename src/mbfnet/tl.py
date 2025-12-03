@@ -30,3 +30,30 @@ def n_mbm_topo(topo:str):
     nMBF.index = bBn.astype(str).sum(axis=1)
     nMBF['Total'] = nMBF.product(axis=1)
     return nMBF
+
+def lat_mbm_topo(topo:str):
+    """
+    Lattice representation of monotone Boolean functions (MBFs) for each Boolean state for a given network topology.
+
+    Parameters
+    ----------
+        topo: str
+            Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
+    
+    Returns
+    -------
+        pd.DataFrame: DataFrame containing the lattice representation of MBF for each target node. The index gives the Boolean state in same order as the columns.
+    """
+    adjmat = mn.utils.topo_to_adj(topo)
+    n = adjmat.shape[1]
+    bBn = mn.utils.B(n)
+    bBn = pd.DataFrame(bBn,columns=adjmat.columns)
+    nMBF = pd.DataFrame(columns=bBn.columns, index=bBn.index)
+    for tgt in adjmat.columns:
+        inps = adjmat.loc[:,tgt]
+        inpt = ((1 - inps) // 2) + inps * bBn
+        inpt = inpt.loc[:,inps!=0]
+        oupt = bBn.loc[:,tgt]
+        nMBF.loc[:,tgt] = oupt.replace({1:'U(',0:'L('}) + inpt.astype(str).sum(axis=1) + ')'
+    nMBF.index = bBn.astype(str).sum(axis=1)
+    return nMBF

@@ -107,4 +107,5 @@ def topo_to_adj(topo:str):
     df[df.columns[2]] = df[df.columns[2]].replace(2,-1)
     G = nx.from_pandas_edgelist(df, source=df.columns[0], target=df.columns[1], edge_attr=df.columns[2], create_using=nx.DiGraph)
     adjMat = nx.to_pandas_adjacency(G, weight=df.columns[2], nonedge=0)
+    adjMat.loc[pd.Series(dict(G.out_degree())) > 0,pd.Series(dict(G.in_degree())) > 0]
     return adjMat
