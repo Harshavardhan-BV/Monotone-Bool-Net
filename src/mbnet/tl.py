@@ -1,5 +1,5 @@
 import pandas as pd
-import mbfnet as mn
+import mbnet as mn
 
 def n_mbm_topo(topo:str):
     """
@@ -7,8 +7,8 @@ def n_mbm_topo(topo:str):
 
     Parameters
     ----------
-        topo: str
-            Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
+    topo: str
+        Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
     
     Returns
     -------
@@ -37,8 +37,8 @@ def lat_mbm_topo(topo:str):
 
     Parameters
     ----------
-        topo: str
-            Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
+    topo: str
+        Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
     
     Returns
     -------

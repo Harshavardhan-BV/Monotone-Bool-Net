@@ -1,4 +1,4 @@
-import mbfnet.const
+import mbnet.const
 import numpy as np
 import pandas as pd
 import networkx as nx
@@ -39,7 +39,7 @@ def D(k:int):
     if k <= 0:
         raise ValueError("k must be a positive integer.")
     try:
-        return mbfnet.const.Dk[k]
+        return mbnet.const.Dk[k]
     except KeyError:
         raise NotImplementedError("Dedekind number not computed for k>9")
 
@@ -65,7 +65,7 @@ def U(k:int,i:int):
     if k < i < 0:
         raise ValueError("i should be between 0 and k")
     try:
-        return mbfnet.const.phi[k][i]
+        return mbnet.const.phi[k][i]
     except KeyError:
         raise NotImplementedError("Not computed for MBFs with k>5")
 

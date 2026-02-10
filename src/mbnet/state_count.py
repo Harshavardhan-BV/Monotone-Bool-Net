@@ -1,7 +1,7 @@
 import os
 import glob
 import pandas as pd
-import mbfnet as mn
+import mbnet as mn
 import argparse
 from multiprocessing import Pool
 
@@ -12,7 +12,7 @@ def tot_mbm(topo):
 def main():
     parser = argparse.ArgumentParser(
         prog="state_count",
-        description="Counts the number of monotone Boolean models (MBMs) supporting each steady state for",
+        description="Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies",
     )
     parser.add_argument(
         "topo", type=str, help="topo file name", default="all", nargs="?"

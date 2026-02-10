@@ -1,0 +1,95 @@
+site_name: MBNet
+site_url: https://Harshavardhan-BV.github.io/Monotone-Bool-Net
+repo_url: https://github.com/Harshavardhan-BV/Monotone-Bool-Net
+repo_name: Harshavardhan-BV/Monotone-Bool-Net
+site_description: "MBNet: Monotone Boolean Network Analysis Documentation"
+copyright: Copyright &copy; Harshavardhan BV
+
+theme:
+  name: material
+  features:
+    - navigation.sections  # Sections are included in the navigation on the left.
+    # - toc.integrate  # Table of contents is integrated on the left; does not appear separately on the right.
+    - header.autohide  # header disappears as you scroll
+    - content.code.copy
+    - content.code.annotate
+
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+    handlers:
+        python:
+          options:
+            show_root_heading: true
+            # show_root_toc_heading: true
+            # show_root_toc: true 
+            show_source : true
+            group_by_category: true
+            # show_root_full_path: true
+            docstring_style: numpy
+            docstring_section_style: list
+            # docstring_options:
+            #   ignore_init_summary: true
+            filters: ["!^_"]
+            heading_level: 3
+            # inherited_members: true
+            # merge_init_into_class: true
+            # parameter_headings: true
+            # preload_modules: [mkdocstrings]
+            # separate_signature: true
+            # show_signature_annotations: true
+            # show_symbol_type_heading: true
+            # show_symbol_type_toc: true
+            # signature_crossrefs: true
+            # summary: true
+            # unwrap_annotated: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji
+  - pymdownx.tabbed
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+
+nav:
+  - Home: 'index.md'
+  - Tutorials: 
+    - 'usage/state_count.md'
+  - API:
+    - 'api/pl.md'
+    - 'api/tl.md'
+    - 'api/utils.md'
+  # - Developers:
+  #   - 'dev/setup.md'
+  #   - 'dev/test.md'
+  #   - 'dev/build.md'
+  #   - 'dev/docs.md'

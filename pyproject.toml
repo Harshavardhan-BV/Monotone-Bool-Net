@@ -1,5 +1,5 @@
 [project]
-name = "mbfnet"
+name = "mbnet"
 version = "0.1.0"
 description = "Analysis of Monotone Boolean Functions across Network Topologies"
 authors = [
@@ -29,7 +29,7 @@ documentation = "https://Harshavardhan-BV.github.io/MBF-Topo/"
 "Bug Tracker" = "https://github.com/Harshavardhan-BV/MBF-Topo/issues"
 
 [project.scripts]
-state_count = "mbfnet.state_count:main"
+state_count = "mbnet.state_count:main"
 
 [build-system]
 requires = ["uv_build>=0.9.5,<0.10.0"]
