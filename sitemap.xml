@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/</loc>
-         <lastmod>2026-02-10</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/api/pl/</loc>
-         <lastmod>2026-02-10</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/api/tl/</loc>
-         <lastmod>2026-02-10</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/api/utils/</loc>
-         <lastmod>2026-02-10</lastmod>
+         <lastmod>2026-02-11</lastmod>
     </url>
     <url>
          <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/usage/state_count/</loc>
-         <lastmod>2026-02-10</lastmod>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
+         <loc>https://Harshavardhan-BV.github.io/Monotone-Bool-Net/usage/rep_tab2/</loc>
+         <lastmod>2026-02-11</lastmod>
     </url>
 </urlset>

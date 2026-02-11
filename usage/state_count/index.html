@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://Harshavardhan-BV.github.io/Monotone-Bool-Net/usage/state_count/">
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../rep_tab2/">
       
       
         <link rel="next" href="../../api/pl/">
@@ -350,6 +350,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../rep_tab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducing Table 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -583,7 +611,7 @@
   <span class="md-ellipsis">
     
   
-    Utilities utils
+    Utilities: utils
   
 
     
@@ -684,12 +712,12 @@
 
 
 <h1 id="state-count">State Count</h1>
-<p>Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies.</p>
+<p>Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies. Only supported if the in-degree of any of the nodes in the network is &lt;6.</p>
 <h2 id="usage">Usage:</h2>
 <p><div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>state_count<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>--topodir<span class="w"> </span>TOPODIR<span class="o">]</span><span class="w"> </span><span class="o">[</span>--output<span class="w"> </span>OUTPUT<span class="o">]</span><span class="w"> </span><span class="o">[</span>topo<span class="o">]</span>
 </span></code></pre></div>
-- Count MBMs for the topology <code>EMT22N.topo</code> and save results in <code>Counts_EMT22N.csv</code>.
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>state_count<span class="w"> </span>--output<span class="w"> </span>Counts_EMT22N.csv<span class="w"> </span>EMT22N.topo
+- Count MBMs for the topology <code>EMT6N.topo</code> and save results in <code>Counts_EMT6N.csv</code>. 
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>state_count<span class="w"> </span>--output<span class="w"> </span>Counts_EMT6N.csv<span class="w"> </span>EMT6N.topo
 </span></code></pre></div>
 - Count MBMs for all the topology files in <code>Inputs/Topo/topofiles_4</code> and save results in <code>Output/Count/4-node_count.csv</code>. If you are counting over multiple topofiles, make sure that they all have same number of nodes.
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>state_count<span class="w"> </span>--topodir<span class="w"> </span>Input/topofiles_4<span class="w"> </span>--output<span class="w"> </span>Output/Count/4-node_count.csv<span class="w"> </span>
