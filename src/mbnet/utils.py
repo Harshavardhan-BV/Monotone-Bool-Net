@@ -2,6 +2,7 @@ import mbnet.const
 import numpy as np
 import pandas as pd
 import networkx as nx
+from importlib import resources
 
 def B(k:int):
     """
@@ -109,3 +110,39 @@ def topo_to_adj(topo:str):
     adjMat = nx.to_pandas_adjacency(G, weight=df.columns[2], nonedge=0)
     adjMat.loc[pd.Series(dict(G.out_degree())) > 0,pd.Series(dict(G.in_degree())) > 0]
     return adjMat
+
+def _readfiles(fname):
+    # Read from package data
+    inputs_data = resources.files('mbnet').joinpath('mbfs', fname).read_text()
+    return pd.read_csv(__import__('io').StringIO(inputs_data), header=None)
+
+def MBF(k):
+    """
+    Loads the precomputed Monotone Boolean Functions (MBFs) for k inputs.
+
+    Parameters
+    ----------
+    k : int
+        The number of inputs for which to load MBF data.
+
+    Returns
+    -------
+    pd.DataFrame 
+        DataFrame containing MBF values indexed by input combinations. Column names for the functions are included if available.
+
+    Raises
+    ------
+    FileNotFoundError 
+        If the required input files are not found.
+    """
+    inputs = _readfiles(f'Inputs_B{k}.csv')
+    indx = pd.MultiIndex.from_frame(inputs)
+    df = _readfiles(f'MBF_B{k}.csv').T
+    df.index = indx
+    try:
+        column_names = _readfiles(f'MBF_B{k}_names.csv').iloc[:, 0]
+        df.columns = column_names
+    except FileNotFoundError:
+        pass
+    df.sort_index(inplace=True)
+    return df

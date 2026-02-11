@@ -1,7 +1,10 @@
-# Utilities `utils`
+# Utilities: `utils`
 
 ## Boolean
 ::: mbnet.utils.B
+
+## Monotone Boolean Functions
+::: mbnet.utils.MBF
 
 ## Counts
 ::: mbnet.utils.D

@@ -1,3 +1,6 @@
 # Plotting: `pl`
 
-Work in progress
+## Lattice representation
+::: mbnet.pl.lattice
+
+## Parameter Graph

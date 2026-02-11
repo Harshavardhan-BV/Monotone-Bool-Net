@@ -1,12 +1,12 @@
 # State Count
 
-Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies.
+Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies. Only supported if the in-degree of any of the nodes in the network is <6.
 
 ## Usage: 
 ```bash
 state_count [-h] [--topodir TOPODIR] [--output OUTPUT] [topo]
 ```
-- Count MBMs for the topology `EMT6N.topo` and save results in `Counts_EMT6N.csv`. Only supported if the in-degree of any of the nodes in the network is <6.
+- Count MBMs for the topology `EMT6N.topo` and save results in `Counts_EMT6N.csv`. 
 ```bash
 uv run state_count --output Counts_EMT6N.csv EMT6N.topo
 ```
