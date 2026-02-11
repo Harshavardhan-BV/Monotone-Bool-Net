@@ -5,4 +5,6 @@
 ::: mbnet.tl.UL_mbm
 
 ## Lattice representation
+::: mbnet.tl.lattice
 ::: mbnet.tl.lattice_B
+::: mbnet.tl.lattice_MBF

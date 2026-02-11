@@ -17,10 +17,9 @@ mn.function_name
 ```
 
 ## Documentation
-You can access the  documentation at [harshavardhan-bv.github.io/monotone-bool-net](https://harshavardhan-bv.github.io/monotone-bool-net)
+You can access the  documentation at [hbv.io.in/Monotone-Bool-Net](https://www.hbv.io.in/Monotone-Bool-Net/)
 
 ## Citation
-
 If you found this useful please cite the associated manuscript
 ```
 @article {Adigwe2025.10.16.682751,

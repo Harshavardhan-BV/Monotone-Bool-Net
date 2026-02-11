@@ -61,9 +61,45 @@ def UL_mbm(adjmat):
     nMBF.index = bBn.astype(str).sum(axis=1)
     return nMBF
 
+def lattice(df):
+    """
+    Constructs a directed lattice graph from a DataFrame of binary vectors.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        A DataFrame where each row represents a binary vector and each column represents a dimension.
+        The index of the DataFrame will be used as node names in the resulting graph.
+
+    Returns
+    -------
+    networkx.DiGraph
+        A directed graph representing the lattice structure of the input vectors.
+        - Nodes: Named according to the DataFrame index.
+        - Node attribute "level": Sum of 1s in each binary vector.
+        - Directed edges: (u -> v) whenever v is obtained from u by flipping exactly one 0 to 1 (Partially ordered).
+
+    Notes
+    -----
+    - Edges are directed from lower to higher vectors in the partial order.
+    - The function identifies candidate edges by computing pairwise Hamming distances and keeps only those exactly 1 unit apart.
+    - Edge orientation is determined by element-wise comparison of the binary vectors.
+    """
+    lvl = df.sum(axis=1)
+    # Calculate Hamming distances between all pairs of columns and choose only those 1 away
+    adj_mat = squareform(pdist(df, metric='hamming'))
+    adj_mat = (adj_mat == 1/df.shape[1])
+    # Only compare less than equal for 1 hamming distant and add edge
+    idx = np.where(adj_mat)
+    adj_dist = (df.T.iloc[:,idx[0]].values <= df.T.iloc[:,idx[1]].values).all(axis=0)
+    adj_mat[idx[0],idx[1]] = adj_dist
+    G = nx.from_numpy_array(adj_mat, create_using=nx.DiGraph,nodelist=df.index)
+    nx.set_node_attributes(G, lvl, "level")
+    return G
+
 def lattice_B(n:int):
     """
-    Construct the Boolean lattice as a directed graph.
+    Constructs the lattice as a directed graph for n-dimensional Boolean vectors.
 
     Parameters
     ----------
@@ -85,14 +121,24 @@ def lattice_B(n:int):
     """
     df = pd.DataFrame(mn.utils.B(n))
     df.index = df.astype(str).sum(axis=1)
-    lvl = df.sum(axis=1)
-    # Calculate Hamming distances between all pairs of columns and choose only those 1 away
-    adj_mat = squareform(pdist(df, metric='hamming'))
-    adj_mat = (adj_mat == 1/n)
-    # Only compare less than equal for 1 hamming distant and add edge
-    idx = np.where(adj_mat)
-    adj_dist = (df.T.iloc[:,idx[0]].values <= df.T.iloc[:,idx[1]].values).all(axis=0)
-    adj_mat[idx[0],idx[1]] = adj_dist
-    G = nx.from_numpy_array(adj_mat, create_using=nx.DiGraph,nodelist=df.index)
-    nx.set_node_attributes(G, lvl, "level")
-    return G
+    return lattice(df)
+
+def lattice_MBF(n:int):
+    """
+    Constructs the lattice as a directed graph for monotone Boolean functions with n inputs.
+
+    Parameters
+    ----------
+    n : int
+        The number of inputs for the monotone Boolean functions (MBF). Must be a non-negative integer.
+    
+    Returns
+    -------
+    networkx.DiGraph
+        A directed graph representing the n-input MBF lattice.
+        - Nodes: MBF names.
+        - Node attribute "level": Number of 1 outputs of the function.
+        - Directed edges: (u -> v) if the truth set of u is a subset of the truth set of v.
+    """
+    df = mn.utils.MBF(n).T
+    return lattice(df)
