@@ -4,21 +4,20 @@ import mbnet as mn
 import networkx as nx
 from scipy.spatial.distance import pdist, squareform
 
-def n_mbm_topo(topo:str):
+def n_mbm(adjmat):
     """
     Computes the number of monotone Boolean functions (MBFs) for each Boolean state for a given network topology.
 
     Parameters
     ----------
-    topo: str
-        Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
+    adjmat: pd.DataFrame
+        Adjacency matrix of the network topology.
     
     Returns
     -------
     pd.DataFrame
         DataFrame containing the number of MBF for each target node and the total product across all nodes. The index gives the Boolean state in same order as the columns.
     """
-    adjmat = mn.utils.topo_to_adj(topo)
     n = adjmat.shape[1]
     bBn = mn.utils.B(n)
     bBn = pd.DataFrame(bBn,columns=adjmat.columns)
@@ -35,21 +34,20 @@ def n_mbm_topo(topo:str):
     nMBF['Total'] = nMBF.product(axis=1)
     return nMBF
 
-def lat_mbm_topo(topo:str):
+def UL_mbm(adjmat):
     """
     Lattice representation of monotone Boolean functions (MBFs) for each Boolean state for a given network topology.
 
     Parameters
     ----------
-    topo: str
-        Path to the topology file. topo file should be compatible with `mn.utils.topo_to_adj`.
+    adjmat: pd.DataFrame
+        Adjacency matrix of the network topology.
     
     Returns
     -------
     pd.DataFrame
         DataFrame containing the lattice representation of MBF for each target node. The index gives the Boolean state in same order as the columns.
     """
-    adjmat = mn.utils.topo_to_adj(topo)
     n = adjmat.shape[1]
     bBn = mn.utils.B(n)
     bBn = pd.DataFrame(bBn,columns=adjmat.columns)

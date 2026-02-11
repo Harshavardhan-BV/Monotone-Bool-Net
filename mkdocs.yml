@@ -37,6 +37,7 @@ theme:
 
 plugins:
 - search
+- ipynb
 - mkdocstrings:
     default_handler: python
     handlers:
@@ -83,6 +84,7 @@ markdown_extensions:
 nav:
   - Home: 'index.md'
   - Tutorials: 
+    - 'usage/rep_tab2.ipynb'
     - 'usage/state_count.md'
   - API:
     - 'api/pl.md'

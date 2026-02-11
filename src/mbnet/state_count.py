@@ -6,7 +6,8 @@ import argparse
 from multiprocessing import Pool
 
 def tot_mbm(topo):
-    nMBM = mn.tl.n_mbm_topo(topo)
+    adjmat = mn.utils.topo_to_adj(topo)
+    nMBM = mn.tl.n_mbm(adjmat)
     return nMBM['Total']
 
 def main():
