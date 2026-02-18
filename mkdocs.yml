@@ -86,6 +86,8 @@ nav:
   - Tutorials: 
     - 'usage/rep_tab2.ipynb'
     - 'usage/state_count.md'
+    - 'usage/pg.ipynb'
+    - 'usage/lattice.ipynb'
   - API:
     - 'api/pl.md'
     - 'api/tl.md'

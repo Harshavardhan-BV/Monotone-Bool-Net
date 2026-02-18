@@ -4,3 +4,4 @@
 ::: mbnet.pl.lattice
 
 ## Parameter Graph
+::: mbnet.pl.PG

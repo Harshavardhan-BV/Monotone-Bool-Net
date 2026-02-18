@@ -112,6 +112,18 @@ def topo_to_adj(topo:str):
     return adjMat
 
 def _readfiles(fname):
+    """
+    Read data from package resources and parse as CSV.
+    Parameters
+    ----------
+    fname : str
+        The filename to read from the 'mbfs' directory in package resources.
+    Returns
+    -------
+    pd.DataFrame
+        A pandas DataFrame containing the parsed CSV data without header row.
+    """
+
     # Read from package data
     inputs_data = resources.files('mbnet').joinpath('mbfs', fname).read_text()
     return pd.read_csv(__import__('io').StringIO(inputs_data), header=None)

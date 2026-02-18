@@ -143,7 +143,7 @@ def lattice_MBF(n:int):
     df = mn.utils.MBF(n).T
     return lattice(df)
 
-def param_set(adjmat, explode=False):
+def param_set(adjmat, explode=True):
     """
     Gives the set of parameter sets (MBF combinations) for each Boolean state for a given network topology.
 
@@ -151,7 +151,7 @@ def param_set(adjmat, explode=False):
     ----------
     adjmat: pd.DataFrame
         Adjacency matrix of the network topology.
-    explode: Bool, default=False
+    explode: Bool, default=True
         If True, explodes the resulting DataFrame to individual rows for each MBF combination.
         If False, each cell contains a set of valid MBF combinations.
 
@@ -216,6 +216,7 @@ def multistable(adjmat, states, explode=True):
     if explode:
         for tgt in MBF_set.columns:
             MBF_set = MBF_set.explode(tgt)
+            MBF_set.reset_index(inplace=True, drop=True)
     return MBF_set
 
     

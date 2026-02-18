@@ -2,6 +2,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import networkx as nx
+import mbnet as mn
 plt.rcParams['svg.hashsalt'] = ''
 
 def lattice(G, save=False):
@@ -32,3 +33,33 @@ def lattice(G, save=False):
     if save:
         plt.savefig(f'{save}')
     plt.show()
+
+def PG(MBFs, x ,y, k=None ,save=False):
+    """
+    Plots the parameter graph based on the provided parameter set. 
+
+    Parameters
+    ----------
+    MBFs: networkx.DiGraph
+        The input lattice (as a graph) to be visualized.
+    x : str
+        Column name in MBFs to use as the x-axis (columns) of the parameter graph.
+    y : str
+        Column name in MBFs to use as the y-axis (rows) of the parameter graph.
+    k : tuple (Optional)
+        Number of inputs for function of x and y. Used for arraging the axes.
+    save : bool or str 
+        If string is provide, saves the figure to the specified filename. If False, the figure is not saved. Default is False.
+    """
+    nstable = MBFs.groupby([y, x]).size().unstack(fill_value=0)
+    nstates = MBFs.groupby([y, x])['state'].apply('\n'.join).unstack(fill_value='')
+    if isinstance(k, tuple):
+        ordx = mn.utils._readfiles(f'MBF_B{k[0]}_names.csv')[0].values
+        ordy = mn.utils._readfiles(f'MBF_B{k[1]}_names.csv')[0].values
+        nstable = nstable.reindex(index=ordy[::-1], columns=ordx)
+        nstates = nstates.reindex(index=ordy[::-1], columns=ordx)
+    sns.heatmap(nstable, cmap='magma_r', linewidth=4, annot=nstates, fmt='s')
+    if save:
+        plt.savefig(f'{save}')
+    plt.show()
+# %%
