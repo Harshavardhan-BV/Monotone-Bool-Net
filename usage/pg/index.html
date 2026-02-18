@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://Harshavardhan-BV.github.io/Monotone-Bool-Net/usage/state_count/">
+        <link rel="canonical" href="https://Harshavardhan-BV.github.io/Monotone-Bool-Net/usage/pg/">
       
       
-        <link rel="prev" href="../rep_tab2/">
+        <link rel="prev" href="../state_count/">
       
       
-        <link rel="next" href="../pg/">
+        <link rel="next" href="../lattice/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>State Count - MBNet</title>
+        <title>Parameter Graphs - MBNet</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#state-count" class="md-skip">
+        <a href="#parameter-graphs" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              State Count
+              Parameter Graphs
             
           </span>
         </div>
@@ -378,6 +378,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../state_count/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Count
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -397,7 +425,7 @@
   <span class="md-ellipsis">
     
   
-    State Count
+    Parameter Graphs
   
 
     
@@ -415,7 +443,7 @@
   <span class="md-ellipsis">
     
   
-    State Count
+    Parameter Graphs
   
 
     
@@ -441,10 +469,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#toggle-switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usage:
+        Toggle Switch
       
     </span>
   </a>
@@ -452,10 +480,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#positional-arguments" class="md-nav__link">
+  <a href="#toggle-switch-with-self-activation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Positional arguments:
+        Toggle Switch with Self-Activation
       
     </span>
   </a>
@@ -463,10 +491,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#2-team-network-with-3-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Options:
+        2 Team network with 3 nodes
       
     </span>
   </a>
@@ -477,34 +505,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../pg/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parameter Graphs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -715,10 +715,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#toggle-switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usage:
+        Toggle Switch
       
     </span>
   </a>
@@ -726,10 +726,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#positional-arguments" class="md-nav__link">
+  <a href="#toggle-switch-with-self-activation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Positional arguments:
+        Toggle Switch with Self-Activation
       
     </span>
   </a>
@@ -737,10 +737,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#2-team-network-with-3-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Options:
+        2 Team network with 3 nodes
       
     </span>
   </a>
@@ -763,31 +763,97 @@
                   
 
 
-  
-  
 
-
-<h1 id="state-count">State Count</h1>
-<p>Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies. Only supported if the in-degree of any of the nodes in the network is &lt;6.</p>
-<h2 id="usage">Usage:</h2>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>state_count<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>--topodir<span class="w"> </span>TOPODIR<span class="o">]</span><span class="w"> </span><span class="o">[</span>--output<span class="w"> </span>OUTPUT<span class="o">]</span><span class="w"> </span><span class="o">[</span>topo<span class="o">]</span>
+<h1 id="parameter-graphs">Parameter Graphs</h1>
+<p>This tutorial showcases how one can generate parameter sets, i.e., $f_1 \times f_2 \times \ldots \times f_n$ supporting each steady state. </p>
+<p>Then we plots the corresponding parameter graphs, i.e., 2D projections of $f_a \times f_b$ combinations. The figures won't look the same or be as beautiful as the one in the manuscript as it has been done manually in TikZ.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mbnet</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mn</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </span></code></pre></div>
-- Count MBMs for the topology <code>EMT6N.topo</code> and save results in <code>Counts_EMT6N.csv</code>. 
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>state_count<span class="w"> </span>--output<span class="w"> </span>Counts_EMT6N.csv<span class="w"> </span>EMT6N.topo
+<h2 id="toggle-switch">Toggle Switch</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">topo</span> <span class="o">=</span> <span class="s1">&#39;../../Inputs/Topo/TS.topo&#39;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">adjmat</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">topo_to_adj</span><span class="p">(</span><span class="n">topo</span><span class="p">)</span>
 </span></code></pre></div>
-- Count MBMs for all the topology files in <code>Inputs/Topo/topofiles_4</code> and save results in <code>Output/Count/4-node_count.csv</code>. If you are counting over multiple topofiles, make sure that they all have same number of nodes.
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>state_count<span class="w"> </span>--topodir<span class="w"> </span>Input/topofiles_4<span class="w"> </span>--output<span class="w"> </span>Output/Count/4-node_count.csv<span class="w"> </span>
-</span></code></pre></div></p>
-<h2 id="positional-arguments">Positional arguments:</h2>
-<ul>
-<li><code>topo</code> topo file name</li>
-</ul>
-<h2 id="options">Options:</h2>
-<ul>
-<li><code>-h, --help</code> show this help message and exit</li>
-<li><code>--topodir TOPODIR</code> topo file directory</li>
-<li><code>--output OUTPUT</code> output file</li>
-</ul>
+<p>We can get a compact form of the parameter set for each node. The MBMs supporting these states can be arrived by taking combinations for each element in the set.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">ps</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">param_set</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">explode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ps</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>A        B
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>00      {0}      {0}
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>01  {0, ID}  {ID, 1}
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>10  {ID, 1}  {0, ID}
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>11      {1}      {1}
+</span></code></pre></div>
+<p>Otherwise, one can get the longer form where each parameter combination is present.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ps</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">param_set</span><span class="p">(</span><span class="n">adjmat</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">ps</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>state   A   B
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>0    00   0   0
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>1    01   0  ID
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>2    01   0   1
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>3    01  ID  ID
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>4    01  ID   1
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>5    10  ID   0
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>6    10  ID  ID
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>7    10   1   0
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>8    10   1  ID
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>9    11   1   1
+</span></code></pre></div>
+<p>This allows for subsetting, and counting the exact number of models supporting each state.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">len</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="n">ps</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;10&#39;</span><span class="p">])</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>4
+</span></code></pre></div>
+<p>We can then plot this as a parameter graph. The color of the heatmap gives the multistability it supports and the individual states are mentioned in the annotation, seperated by linebreak.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</span></code></pre></div>
+<p><img alt="img" src="../_data/9631a68877e84dc382b49010e6d4fa1d.png" /></p>
+<p>One can also get the parameter sets that support multistability between different states.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>A   B
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>0  ID  ID
+</span></code></pre></div>
+<h2 id="toggle-switch-with-self-activation">Toggle Switch with Self-Activation</h2>
+<p>Similar exercise can be done for networks with more inputs, but the visualization becomes tricky to interpret from the discontinuity due to partial order.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">topo</span> <span class="o">=</span> <span class="s1">&#39;../../Inputs/Topo/TSSA.topo&#39;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">adjmat</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">topo_to_adj</span><span class="p">(</span><span class="n">topo</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">ps</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">param_set</span><span class="p">(</span><span class="n">adjmat</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</span></code></pre></div>
+<p><img alt="img" src="../_data/2f068f4cb3b34ac088b56d4143686991.png" /></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>A    B
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>0  AND    Y
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>1  AND  AND
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>2    X    Y
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>3    X  AND
+</span></code></pre></div>
+<h2 id="2-team-network-with-3-nodes">2 Team network with 3 nodes</h2>
+<p>For networks with more than 2 nodes, 2D parameter graph visualization becomes challenging. The approach is to iterate over parameter values for the additional nodes, creating separate 2D projections where other node functions are held constant.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">topo</span> <span class="o">=</span> <span class="s1">&#39;../../Inputs/Topo/2Team3N.topo&#39;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">adjmat</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">topo_to_adj</span><span class="p">(</span><span class="n">topo</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">ps</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">param_set</span><span class="p">(</span><span class="n">adjmat</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">for</span> <span class="n">funC</span> <span class="ow">in</span> <span class="n">ps</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">pssub</span> <span class="o">=</span> <span class="n">ps</span><span class="p">[</span><span class="n">ps</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">funC</span><span class="p">]</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">pssub</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</span></code></pre></div>
+<p><img alt="img" src="../_data/98027ff48c5944de9ad5f6b4d87e6a55.png" /></p>
+<p><img alt="img" src="../_data/e3ec4c9fadc341539209f134f4a4a810.png" /></p>
+<p><img alt="img" src="../_data/fc236962e92e42bfa73ccf95d88e84ed.png" /></p>
+<p><img alt="img" src="../_data/b56091e5a823482d92d6ddf3a8a7321c.png" /></p>
+<p><img alt="img" src="../_data/566d3034f7d14505aa7250927097bd00.png" /></p>
+<p><img alt="img" src="../_data/76acaee42132439ab66882ceac0ea2c9.png" /></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">len</span><span class="p">(</span><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>64
+</span></code></pre></div>
 
 
 
