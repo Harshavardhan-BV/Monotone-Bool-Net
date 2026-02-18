@@ -146,3 +146,76 @@ def MBF(k):
         pass
     df.sort_index(inplace=True)
     return df
+
+def _state_set(state, value:int):
+    if isinstance(state, (tuple,pd.MultiIndex)):
+        pass
+    elif isinstance(state, (np.ndarray,list,pd.Series)):
+        state = tuple(state)
+    elif isinstance(state, (str)):
+        state = tuple(map(int, state))
+    else:
+        raise TypeError("Unsupported data type for state: {}".format(type(state)))
+    k = np.shape(state)[0]
+    mbfs = MBF(k)
+    return set(mbfs.columns[mbfs.loc[state,:]==value])
+
+def U_set(state):
+    """
+    Returns the set of monotone Boolean functions (MBFs) that evaluate to 1 for a given input.
+
+    Parameters
+    ----------
+    state: int
+        The input state for which the MBFs are evaluated.
+
+    Returns
+    -------
+    set
+        A set of MBFs (MBF names) that evaluate to 1 for the specified input state.
+    """
+    return _state_set(state,1)
+
+def L_set(state):
+    """
+    Returns the set of monotone Boolean functions (MBFs) that evaluate to 0 for a given input.
+
+    Parameters
+    ----------
+    state: int
+        The input state for which the MBFs are evaluated.
+
+    Returns
+    -------
+    set
+        A set of MBFs (MBF names) that evaluate to 0 for the specified input state.
+    """
+    return _state_set(state,0)
+
+def T(adjmat,states,tgt):
+    """
+    Applies transformation based on the topology for a given state to convert for inputs for increasing MBFs, split as inputs and outputs.
+
+    Parameters
+    ----------
+    adjmat: pd.DataFrame
+        Adjacency matrix of the network topology.
+    states: pd.Dataframe
+        State values of the network nodes, where rows are different states and columns are the nodes.
+    tgt: str
+        Target node identifier/column name in the adjacency matrix and states DataFrame.
+
+    Returns
+    -------
+    tuple of (pd.DataFrame, pd.Series)
+        inpt : pd.DataFrame
+            Transformed inputs for the target node. Only 
+            nodes with incoming edges are considered for inputs. NOT operation is done for the negative edges.
+        oupt : pd.Series
+            Output states for the target (tgt) node.
+    """
+    inps = adjmat.loc[:,tgt]
+    inpt = ((1 - inps) // 2) + inps * states
+    inpt = inpt.loc[:,inps!=0]
+    oupt = states.loc[:,tgt]
+    return inpt, oupt

@@ -142,3 +142,80 @@ def lattice_MBF(n:int):
     """
     df = mn.utils.MBF(n).T
     return lattice(df)
+
+def param_set(adjmat, explode=False):
+    """
+    Gives the set of parameter sets (MBF combinations) for each Boolean state for a given network topology.
+
+    Parameters
+    ----------
+    adjmat: pd.DataFrame
+        Adjacency matrix of the network topology.
+    explode: Bool, default=False
+        If True, explodes the resulting DataFrame to individual rows for each MBF combination.
+        If False, each cell contains a set of valid MBF combinations.
+
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame with columns corresponding to target nodes.
+        Each row contains either a set of valid MBF combinations (when explode=False) or individual MBF combinations (when explode=True).
+        The Boolean state is given in a 'state' column (when explode=True), otherwise as the index.
+
+    Notes
+    -----
+    - Uses mn.utils.L_set() for targets with output value 0
+    - Uses mn.utils.U_set() for targets with output value 1
+    """
+    n = adjmat.shape[1]
+    bBn = mn.utils.B(n)
+    bBn = pd.DataFrame(bBn,columns=adjmat.columns)
+    MBF_set = pd.DataFrame(columns=bBn.columns, index=bBn.index)
+    for tgt in adjmat.columns:
+        inpt, oupt = mn.utils.T(adjmat,bBn,tgt)
+        MBF_set.loc[:, tgt] = inpt.apply(
+            lambda row: mn.utils.L_set(row) if oupt.loc[row.name] == 0 else mn.utils.U_set(row),
+            axis=1
+        )
+    MBF_set.index = bBn.astype(str).sum(axis=1)
+    if explode:
+        for tgt in MBF_set.columns:
+            MBF_set = MBF_set.explode(tgt)
+        MBF_set.reset_index(inplace=True, names='state')
+    return MBF_set
+
+def multistable(adjmat, states, explode=True):
+    """
+    Gives parameter combinations that support multistability between the given states for a given topology.
+    
+    Parameters
+    ----------
+    adjmat: pd.DataFrame
+        Adjacency matrix of the network topology.
+    states: pd.DataFrame
+        DataFrame containing the states to consider for multistability.
+    explode: bool, default=True
+        If True, explodes the parameter sets into separate rows for each parameter combination.
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame where each column corresponds to a target node and each cell contains a set of MBF combinations that support multistability between the given states.
+        If explode is True, the sets are expanded into MBF combinations.
+    Notes
+    -----
+    This function identifies multistable functions by taking the intersection of corresponding L_set and U_set's.
+    """
+    MBF_set = pd.DataFrame(columns=states.columns, index=[0])
+    for tgt in adjmat.columns:
+        inpt, oupt = mn.utils.T(adjmat,states,tgt)
+        temp = inpt.apply(
+            lambda row: mn.utils.L_set(row) if oupt.loc[row.name] == 0 else mn.utils.U_set(row),
+            axis=1
+        )
+        MBF_set.loc[:, tgt] = set.intersection(*temp)
+    if explode:
+        for tgt in MBF_set.columns:
+            MBF_set = MBF_set.explode(tgt)
+    return MBF_set
+
+    

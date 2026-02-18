@@ -8,3 +8,7 @@
 ::: mbnet.tl.lattice
 ::: mbnet.tl.lattice_B
 ::: mbnet.tl.lattice_MBF
+
+## Parameter Sets
+::: mbnet.tl.param_set
+::: mbnet.tl.multistable
