@@ -22,15 +22,17 @@ You can access the  documentation at [hbv.io.in/Monotone-Bool-Net](https://www.h
 ## Citation
 If you found this useful please cite the associated manuscript
 ```
-@article {Adigwe2025.10.16.682751,
-	author = {Adigwe, Sarah and Harshavardhan, BV and Jolly, Mohit Kumar and Gedeon, Tom{\'a}{\v s}},
-	title = {Fixed points and multistability in monotone Boolean network models},
-	elocation-id = {2025.10.16.682751},
-	year = {2025},
-	doi = {10.1101/2025.10.16.682751},
-	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2025/10/16/2025.10.16.682751},
-	eprint = {https://www.biorxiv.org/content/early/2025/10/16/2025.10.16.682751.full.pdf},
-	journal = {bioRxiv}
+@article{10.1371/journal.pcsy.0000103,
+    doi = {10.1371/journal.pcsy.0000103},
+    author = {Adigwe, Sarah AND BV, Harshavardhan AND Jolly, Mohit Kumar AND Gedeon, Tomáš},
+    journal = {PLOS Complex Systems},
+    publisher = {Public Library of Science},
+    title = {Characterization of monotone Boolean models supporting fixed points and multistability in balanced networks},
+    year = {2026},
+    month = {05},
+    volume = {3},
+    url = {https://doi.org/10.1371/journal.pcsy.0000103},
+    pages = {1-28},
+    number = {5},
 }
 ```
