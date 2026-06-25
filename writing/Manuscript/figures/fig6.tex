@@ -1,0 +1,212 @@
+\documentclass[varwidth,border=10pt]{standalone}
+
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,arrows,positioning,calc,shapes,arrows.meta}
+\usepackage{xstring}
+\tikzset{  
+	-Latex,auto,node distance =1.5 cm and 1.3 cm, thick,% node distance is the distance between one node to other, where 1.5cm is the length of the edge between the nodes  
+	state/.style ={ellipse, draw, minimum width = 0.9 cm}, % the minimum width is the width of the ellipse, which is the size of the shape of vertex in the node graph  
+	point/.style = {circle, draw, inner sep=0.18cm, fill, node contents={}},  
+	bidirected/.style={Latex-Latex,dashed}, % it is the edge having two directions  
+	el/.style = {inner sep=2.5pt, align=right, sloped}  
+} 
+%\usepackage[subrefformat=parens, labelfont=up]{subcaption}
+%\usepackage{cleveref}
+%\crefname{thm}{Theorem}{Theorems}
+\setlength{\textwidth}{\dimexpr 6in\relax}
+\usepackage{makecell}
+
+
+
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bL}{\mathbb{L}}
+\newcommand{\bU}{\mathbb{U}}
+
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+
+\newcommand{\Targets}{\mathbf{T}}
+\newcommand{\Sources}{\mathbf{S}}
+
+\newcounter{countitems}
+
+
+\newcommand{\boolf}{{\mathfrak 0}}
+\newcommand{\boolt}{{\mathfrak 1}}
+
+\newcommand{\bzero}{{\bf 0}}
+\newcommand{\bone}{{\bf 1}}
+
+\newcommand{\setof}[1]{\left\{ {#1}\right\}}
+\newcommand{\setdef}[2]{\left\{{#1}\,\left|\,{#2}\right.\right\}}
+
+\usepackage[subrefformat=parens, labelfont=up]{subcaption}
+\begin{document}
+
+\begin{figure}[t]
+    \centering
+   \begin{tikzpicture}[node distance = .3cm]
+\tikzset{my node/.style = {circle, draw, very thick, inner sep=0pt,minimum size=0pt}}
+\tikzset{special node/.style={regular polygon,regular polygon sides=7]}}
+	\node[rectangle, dashed,draw,very thick] (1) {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+\node (A) {$\bone$};
+\end{tikzpicture}
+};
+	\node[rectangle, red,draw,very thick] (2) [below=of 1] {
+	\begin{tikzpicture}[ node distance = .2cm]
+%	\tikzset{special node/.style={regular polygon,regular polygon sides=7]}}
+%\tikzset{my node/.style = {circle,draw, inner sep=1pt,minimum size=0pt}}
+\node (2){ \small $X\vee Y \vee Z$};
+	\end{tikzpicture}
+};
+	\node[rectangle, red,draw,very thick] (3) [below=of 2] {
+	\begin{tikzpicture}[ node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (3){\small  $X\vee Y$};
+	\end{tikzpicture}
+};
+	\node[rectangle,red,draw,very thick] (4) [left=of 3] {
+	\begin{tikzpicture}[ node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (4){ \small $X\vee Z$};
+	\end{tikzpicture}
+};
+	\node[rectangle,red, draw,very thick] (5) [right=of 3] {
+	\begin{tikzpicture}[ node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (5){ \small $Y\vee Z$};
+	\end{tikzpicture}
+};
+	\node[rectangle,draw,very thick] (6) [below=of 3] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (6){ \tiny $Z\vee (X \wedge Y)$};
+	\end{tikzpicture}
+	};
+	\node[rectangle,draw,very thick] (7) [left=of 6] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (7){\tiny $X\vee (Y\wedge Z)$};
+	\end{tikzpicture}
+};
+	\node[rectangle,draw,very thick] (8) [right=of 6] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+\node (8){\tiny  $Y\vee (X \wedge Z)$};
+\end{tikzpicture}
+};
+	\node[rectangle,red, dashed,draw,very thick] (9) [below=of 6] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (9){ $Z$};
+	\end{tikzpicture}
+};
+	\node[rectangle,draw, very thick] (10) [right=of 9] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+\node (10){ \tiny $\alpha$};
+	\end{tikzpicture}
+};
+	\node[rectangle,red, dashed,draw,very thick] (11)  [below right=0.3cm  and -.2cm of 8] % [below=of 8] 
+	{\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (11){ $Y$};
+\end{tikzpicture}
+};
+	\node[rectangle,red, dashed, draw,very thick] (12) [below=of 7] {\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (12){ $X$};
+\end{tikzpicture}
+};
+	\node[rectangle,draw,very thick] (13) [below=of 10]{ %[below right=0.9cm and .5cm of 9] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node(13){ \tiny $(X\wedge Z) \vee (Y \wedge Z)$};
+\end{tikzpicture}
+};
+	\node[rectangle,draw,very thick] (14) [right=of 13] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (14){ \tiny $(X\wedge Y) \vee (Y \wedge Z)$};
+	\end{tikzpicture}
+};
+	\node[rectangle,draw,very thick] (15) [below=of 12] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (15){ \tiny $(X\wedge Y) \vee (X \wedge Z)$};
+	\end{tikzpicture}
+};
+	\node[rectangle, dashed,draw,very thick] (16) [below=of 13] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (16){ \small $X\wedge Y$};
+	\end{tikzpicture}
+};
+	\node[rectangle, dashed,draw,very thick] (17) [right=of 16] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (17){ \small $Y\wedge Z$};
+	\end{tikzpicture}
+};
+	\node[rectangle, dashed,draw,very thick] (18) [left=of 16] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (18){ \small $X\wedge Z$};
+\end{tikzpicture}
+};
+	\node[rectangle, dashed,draw,very thick] (19) [below=of 16] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+	\node (19){ \tiny $X\wedge Y \wedge Z$};
+\end{tikzpicture}
+};
+	\node[rectangle,red,draw,very thick] (20) [below=of 19] {
+	\begin{tikzpicture}[node distance = .2cm]
+\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
+\node (20){$\bzero$};
+
+	\end{tikzpicture}
+};
+	
+\tikzset{my edge/.style = {-, very thick}}	
+  \draw[my edge] [] (1) to [] (2);
+  \draw[my edge] [] (2) to [] (4);
+  \draw[my edge] [] (2) to [] (3);
+  \draw[my edge] [] (2) to [] (5);
+  \draw[my edge] [] (4) to [] (7);
+  \draw[my edge] [] (4) to [] (6);
+  \draw[my edge] [] (3) to [] (7);
+  \draw[my edge] [] (3) to [] (8);
+  \draw[my edge] [] (5) to [] (6);
+  \draw[my edge] [] (5) to [] (8);
+  \draw[my edge] [] (7) to [] (12);
+  \draw[my edge] [] (7) to [] (10);
+  \draw[my edge] [] (6) to [] (9);
+  \draw[my edge] [] (6) to [] (10);
+  \draw[my edge] [] (8) to [] (10);
+  \draw[my edge] [] (8) to [] (11);
+  \draw[my edge] [] (12) to [] (15);
+  \draw[my edge] [] (9) to [] (13);
+  \draw[my edge] [] (11) to [] (14);
+  \draw[my edge] [] (10) to [] (15);
+  \draw[my edge] [] (10) to [] (13);
+  \draw[my edge] [] (10) to [] (14);
+  \draw[my edge] [] (15) to [] (18);
+  \draw[my edge] [] (15) to [] (16);
+  \draw[my edge] [] (13) to [] (18);
+  \draw[my edge] [] (13) to [] (17);
+  \draw[my edge] [] (14) to [] (16);
+  \draw[my edge] [] (14) to [] (17);
+  \draw[my edge] [] (18) to [] (19);
+  \draw[my edge] [] (16) to [] (19);
+  \draw[my edge] [] (17) to [] (19);
+  \draw[my edge] [] (19) to [] (20);
+\end{tikzpicture}
+    \label{fig:megaPG}
+\end{figure}
+\end{document}

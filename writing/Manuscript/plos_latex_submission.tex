@@ -152,6 +152,7 @@
 %\pagestyle{myheadings}
 \pagestyle{fancy}
 \fancyhf{}
+% \usepackage{ulem}
 %\setlength{\headheight}{27.023pt}
 %\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
 \rfoot{\thepage/\pageref{LastPage}}
@@ -226,7 +227,7 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf{{Fixed points and multistability in monotone Boolean network models}}}
+\textbf{{Characterization of monotone Boolean models supporting fixed points and multistability in balanced networks}}}
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
@@ -253,7 +254,7 @@ Tom\'{a}\v{s} Gedeon\textsuperscript{1*},
 
 %
 \section*{Abstract}
-Gene regulatory networks (GRN) control the expression levels of proteins in cells, and understanding their dynamics is key to potentially controlling disease processes. Steady states of GRNs are interpreted as cellular phenotypes, and the first step in understanding GRN dynamics is describing  the collection of steady states the network can support in different conditions. We consider a collection of all monotone Boolean function models compatible with a given GRN, and ask which steady states are supported by most models. We find that for networks with no negative loops, there is an explicit hierarchy in the prevalence of individual steady states, as well as the prevalence of bistability and multistability. The key insight that we use is that monotone Boolean models supporting a given equilibrium are a product of prime ideals and prime filters of the lattices of monotone Boolean functions. To illustrate our result, we show that in the EMT network associated with cancer metastasis, the most common equilibria correspond to epithelial (E) and mesenchymal (M) states, and the bistability between them is the most common bistability among all network-compatible monotone Boolean models.
+Gene regulatory networks (GRN) control the expression levels of proteins in cells, and understanding their dynamics is key to potentially controlling disease processes. Steady states of GRNs are interpreted as cellular phenotypes, and the first step in understanding GRN dynamics is describing the collection of steady states the network can support in different conditions. We consider a collection of all monotone Boolean function models compatible with a given GRN, and ask which steady states are supported by most models. We find that for balanced networks, there is an explicit hierarchy in the prevalence of individual steady states, as well as the prevalence of bistability and multistability. The key insight that we use is that monotone Boolean models supporting a given equilibrium are a product of prime ideals and prime filters of the lattices of monotone Boolean functions. To illustrate our result, we show that in the EMT network associated with cancer metastasis, the most common equilibria correspond to epithelial (E) and mesenchymal (M) states, and the bistability between them is the most common bistability among all network-compatible monotone Boolean models.
 
 % Please keep the Author Summary between 150 and 200 words. Use first person.
 % PLOS ONE, PLOS Biology, PLOS Global Public Health, PLOS Mental Health, and PLOS Water authors please skip this step. Author Summary is not valid for submissions to these journals.
@@ -264,36 +265,39 @@ Gene regulatory networks (GRN) control the expression levels of proteins in cell
 % What do these findings mean?
 %
 \section*{Author summary}
-Cells adjust their behavior in response to external inputs via networks of genes that regulate each other's  expression, until they arrive at a new steady state. Each interacting network of genes can behave in different ways that depend on internal and external cellular conditions. In this paper we consider, for a given network, an entire collection of particular type of models (monotone Boolean models) that represent all different ways that network can behave. Then, for any given state a network can potentially be in, we describe all monotone Boolean models that have that state as a steady state.  We consider those states that are supported by more models to  more likely represent the states that the network will be in. 
-We apply our approach to EMT network that is important in cancer metastasis. We show that the most common steady states are those  correspond to epithelial and mesenchymal states, and that the  bistability between these two states  is the most common bistability.  This confirms the experimental results that  these are the most common states of the EMT network.
+Cells adjust their behavior in response to external inputs via networks of genes that regulate each other's expression until they arrive at a new steady state. Each network of genes can behave in different ways that depend on internal and external cellular conditions. In this paper, we consider, for a given network, an entire collection of a particular type of models (monotone Boolean models) that represent all different ways that the network can behave. Then, for any given state a network can potentially be in, we describe all monotone Boolean models that have that state as a steady state. We consider those states that are supported by more models to be more likely to represent the states that the network will be in. 
+We apply our approach to the EMT network, which is important in cancer metastasis. We show that the most common steady states correspond to epithelial and mesenchymal states, and that the bistability between these two states is the most common bistability. This confirms the experimental results that these are the most common states of the EMT network.
 
 
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section{Introduction}
-Unicellular organisms and cells in multicellular organisms solve complicated control problems related to the allocation of resources, division, and many others quickly and efficiently. Most of these tasks involve activation, deactivation, or expression of new proteins. The main conceptual model of how the chemical signal results in these changes takes the form of a \textit{network} of interactions, where the presence of one signal results in increased or decreased activity/abundance of a downstream signal. 
+Unicellular organisms and cells in multicellular organisms solve complicated control problems related to the allocation of resources, division, and many others quickly and efficiently. Most of these tasks involve activation, deactivation, or expression of new proteins. The main conceptual model of how the chemical signal results in these changes takes the form of a \textit{network} of directed interactions, where the presence of one signal results in increased or decreased activity/abundance of a downstream signal. 
 
 Many regulatory networks have been constructed \cite{zhang_network_2008,hong_ovol2-zeb1_2015,udyavar_novel_2017,abou-jaoude_logical_2016,rios_boolean_2015,chang_systematic_2011,huang_interrogating_2017} for organisms and tasks ranging from \textit{Escherichia coli} to humans. An important question with obvious biological implications is to understand the range of dynamics a given network can support. In particular, a first step is to describe the steady states the network can support, as these are interpreted as different phenotypes that the network can support. 
 
-Experimentally, this is an untractable question, since the answer depends on both the external conditions and the internal state of the cell. Using mathematical models to answer this question is difficult, as the answer may depend on the choice of a model, its parameterization, and the choice of an initial condition. Unknown parameters can be addressed using parameter sampling methods \cite{huang_racipe_2018} or using combinatorial parameterization of all ODE models with steep nonlinearities ~\cite{cummins_combinatorial_2016, gedeon_multi-parameter_2020}, but both of these approaches quickly approach their limits when dealing with large networks. An alternative modeling approach of using a Boolean network model ~\cite{albert_boolean_2014, stoll_maboss_2017, font-clos_topography_2018} has the (apparent) advantage of not needing any parameters, but the choice of update functions is a form of parameterization. Often, these models analyze a single, or only a few, Boolean models compatible with the network raising the question of whether some potential dynamics have been missed.
+Experimentally, this is an untractable question, since the answer depends on both the external conditions and the internal state of the cell. Using mathematical models to answer this question is difficult, as the answer may depend on the choice of a model, its parameterization, and the choice of an initial condition. Unknown parameters can be addressed using parameter sampling methods \cite{huang_racipe_2018} or using combinatorial parameterization of all ODE models with steep nonlinearities ~\cite{cummins_combinatorial_2016, gedeon_multi-parameter_2020}, but both of these approaches quickly approach their limits when dealing with large networks. An alternative modeling approach of using a Boolean network model ~\cite{albert_boolean_2014, stoll_maboss_2017, font-clos_topography_2018} has the (apparent) advantage of not needing any parameters, but the choice of update functions is a form of parameterization. Often, these models analyze a single, or only a few, Boolean models compatible with the network, raising the question of whether some potential dynamics have been missed.
 
-We propose a different approach ~\cite{gedeon_network_2024} by constructing a finite collection of all monotone Boolean models (MBM) compatible with the network ~\cite{gedeon_lattice_2024}. These are constructed as collections of monotone Boolean functions ~\cite{korshunov_monotone_2003} (MBF) that update the state of each node based on its inputs. The monotonicity of the Boolean function reflects the network activation vs. deactivation edges. Monotone Boolean functions can be constructed by induction, but their size grows rapidly ~\cite{fidytek_algorithms_2001, jakel_computation_2023}. In this approach, the network dynamics is a collection of all dynamics supported by all monotone Boolean models, which is weighted in importance by its prevalence. That is, if a particular steady state is supported by $80\%$ of all MBMs, then it is more important than a steady state that is only supported by $10\%$ of all MBMs.
+We propose a different approach ~\cite{gedeon_network_2024} by constructing a finite collection of all monotone Boolean models (MBM) compatible with the network ~\cite{gedeon_lattice_2024}. This includes monotone Boolean models whose influence graph is a strict subgraph of the directed graph of the network.These are constructed as collections of monotone Boolean functions ~\cite{korshunov_monotone_2003} (MBF) that update the state of each node based on its inputs. The monotonicity of the Boolean function reflects the network activation vs. deactivation edges. Monotone Boolean functions can be constructed by induction, but their size grows rapidly ~\cite{fidytek_algorithms_2001, jakel_computation_2023}. In this approach, the network dynamics is a collection of all dynamics supported by all monotone Boolean models, which is weighted in importance by its prevalence. That is, if a particular steady state is supported by $80\%$ of all MBMs, then it is more important than a steady state that is only supported by $10\%$ of all MBMs.
 
 Since the number of MBMs for a given network is finite, the prevalence of all dynamics is, in principle, computable. However, the number of MBM grows very quickly, and even computing steady states for a single MBM is NP-complete ~\cite{dubrova_finding_2012, tamura_detecting_2009}.
 
-In this paper, we concentrate on NL-free networks, which are networks that have no negative loops (cycles). We show that for such networks, the MBMs that support particular equilibria have a structure of products of down- and up-sets in lattices of MBFs. As a result of this characterization, we are able to completely describe the prevalence of each Boolean steady state, bistability, and multistability for any such network. This leads to a general computational procedure that we illustrate on monotone Boolean functions with $k=1,2,3$ inputs, MBF(k), and several monotone Boolean models comprised of such MBFs. 
+In this paper, we concentrate on \textit{balanced strongly connected networks}, which are networks that have no negative loops (cycles) and there is a directed path between any two nodes. We show that for such networks, the MBMs that support particular equilibria have a structure of products of down- and up-sets in lattices of MBFs. As a result of this characterization, we are able to completely describe the prevalence of each Boolean steady state, bistability, and multistability for any such network. This leads to a general computational procedure that we illustrate on monotone Boolean functions with $k=1,2,3$ inputs, MBF(k), and several monotone Boolean models comprised of such MBFs. 
 
-We start by showing that there is a change of variables that results in a one-to-one correspondence between monotone Boolean models for any NL-free network and monotone Boolean models compatible with networks with all activating edges. We then analyze such positive networks and use the change of variables to obtain results for the original NL-free networks.
+We start by showing that there is a change of variables that results in a one-to-one correspondence between monotone Boolean models for any balanced network~\cite{beineke_consistency_1978,harary_graphical_2014} and monotone Boolean models compatible with networks with all activating edges (positive networks). We then analyze positive networks and use the change of variables to obtain results for the original balanced networks.
+ Balanced directed signed graphs (networks) are closely related to \textit{balanced} undirected signed graphs. Balanced signed graphs are important in many areas of science~\cite{harary_notion_1953, shi_dynamics_2019,diaz-diaz_signed_2025}. In fact, in 
+strongly connected signed directed graphs, every undirected cycle is positive if every directed cycle is~\cite{harary1965structural}. Therefore, for balanced directed networks, considered in this paper, the underlying undirected signed graph is also balanced.
 
-After illustrating our approach on a toggle switch network, we consider networks with a 2-team network structure, which were recently described \cite{hari_landscape_2022,hari_low_2025}. Here, edges connecting the nodes from the same team are activating, but those connecting nodes from opposite teams are repressing. We show that such networks are NL-free and that the most prevalent phenotypes are those where one team is active, while the other is not, and the most prevalent bistability is between these two phenotypes.
 
-We then study two EMT networks: one a six-node network \cite{hong_ovol2-zeb1_2015} and one with $15$ nodes and 59 edges~\cite{huang_interrogating_2017}. We show that the most prevalent states supported by both networks are the epithelial and mesenchymal states, and that bistability between them is the most prevalent bistability. This work also allows studying the prevalence of other steady states apart from mesenchymal and epithelial states, which are linked with the discussion about so-called \textit{ intermediate steady states}, which have biological significance ~\cite{pastushenko_identification_2018}.
+After illustrating our approach on a toggle switch network, we consider networks with a 2-team network structure, which were recently described \cite{hari_landscape_2022,hari_low_2025}. Here, edges connecting the nodes from the same team are activating, but those connecting nodes from opposite teams are repressing. We show that such networks are balanced and that the most prevalent phenotypes are those where one team is active, while the other is not, and the most prevalent bistability is between these two phenotypes.
+
+We then study two EMT networks: one a six-node network \cite{hong_ovol2-zeb1_2015} and one with $15$ nodes and 59 edges~\cite{huang_interrogating_2017}. We show that the most prevalent states supported by both networks are the epithelial and mesenchymal states, and that bistability between them is the most prevalent bistability. This work also allows studying the prevalence of other steady states apart from mesenchymal and epithelial states, which are linked with the discussion about so-called \textit{intermediate steady states}, which have biological significance ~\cite{pastushenko_identification_2018}.
 
 The paper is organized as follows:
-After introducing basic definitions, we discuss negative-loop free (NL-free) networks in section \textit{NL-free networks}. The main result of this section is  that all monotone Boolean models of an NL-free network are in one-to-one correspondence with monotone Boolean models of a positive network.
-In section \textit{Steady states for positive MBMs} we characterize MBM that support a particular steady state, and in sections \textit{Bistability}  and \textit{Multistability}, those that support bistability and multistability, respectively. We illustrate our results throughout the text on several networks, including toggle switch, toggle switch with self-loops, 2-team network, and two EMT network models with $6$ and $15$ nodes.
-In the \textit{Methods} section we use lattice theory to describe the sets of MBF, which we use to construct MBMs that support steady states.
+After introducing basic definitions, we discuss balanced networks in section \textit{balanced networks}. The main result of this section is that all monotone Boolean models of a balanced network are in one-to-one correspondence with monotone Boolean models of a positive network.
+In section \textit{Steady states for positive MBMs}, we characterize MBMs that support a particular steady state, and in sections \textit{Bistability} and \textit{Multistability}, those that support bistability and multistability, respectively. We illustrate our results throughout the text on several networks, including toggle switch, toggle switch with self-loops, 2-team network, and two EMT network models with $6$ and $15$ nodes.
+In the \textit{Methods} section, we use lattice theory to describe the sets of MBF, which we use to construct MBMs that support steady states.
 We close the paper with a discussion.
 % Results and Discussion can be combined.
 
@@ -304,11 +308,12 @@ We close the paper with a discussion.
 
 
 \begin{defn} \label{def:RN}
-A \textit{regulatory network} $RN = (V,E,\delta)$ is a directed graph with nodes $V$ with $|V|=N$, directed edges $E$, and an edge sign function $\delta: E \to \{-1,1\}$. We denote an edge from node $v_i$ to node $v_j$ without indicating its sign by $(v_i, v_j)$ or $v_i\multimap v_j$. The edge $v_i \multimap v_j$ is \textit{activating} if $\delta(v_i, v_j) = 1$ and \textit{repressing} if $\delta(v_i, v_j) = -1$. Graphically, an activating edge of a regulatory network edge is denoted by $v_i\to v_j$ and a repressing edge by $v_i \dashv v_j$. The \textit{sources} and \textit{targets} of a node $v_i$ are given by 
+A \textit{regulatory network} $RN = (V,E,\delta)$ is a directed graph $G=(V,E)$ with nodes $V$ with $|V|=N$, directed edges $E$, and an edge sign function $\delta: E \to \{-1,1\}$. We denote an edge from node $v_i$ to node $v_j$ without indicating its sign by $(v_i, v_j)$ or $v_i\multimap v_j$. The edge $v_i \multimap v_j$ is \textit{activating} if $\delta(v_i, v_j) = 1$ and \textit{repressing} if $\delta(v_i, v_j) = -1$. Graphically, an activating edge of a regulatory network edge is denoted by $v_i\to v_j$ and a repressing edge by $v_i \dashv v_j$. The \textit{sources} and \textit{targets} of a node $v_i$ are given by 
 \[
 \Sources(v_i):= \setdef{v_k\in V}{v_k\multimap v_i \in E} \ \text{ and } \ \Targets(v_i):= \setdef{v_j\in V}{v_i\multimap v_j \in E},
 \]
 respectively.
+In addition, we assume that the directed graph is \textit{strongly connected} and so there is a directed path between any two nodes.
 \end{defn}
 
 \begin{defn}
@@ -318,7 +323,7 @@ is $1$ ($-1$).
 \end{defn}
 
 \begin{defn}
-A \textit{regulatory network} $RN = (V,E,\delta)$ is \textit{ negative loop free (NL-free)}, if it has no negative loops.
+A \textit{regulatory network} $RN = (V,E,\delta)$ is \textit{balanced} if it has no negative loops.
 \end{defn}
 
 \begin{defn}
@@ -340,75 +345,29 @@ It is \emph{strictly decreasing with respect to $j$} if there is at least one in
 A Boolean function $f \colon \bbB^k \to \bbB$ is \emph{monotone} if it is increasing or decreasing with respect to each input $i=1, \ldots, k$. In this case, $f$ is called a \emph{monotone Boolean function}.
 \end{defn}
 
-\begin{defn}
-\label{defn:MBFpositive}
-A set of increasing monotone Boolean functions $f \colon \bbB^k \to \bbB$ will be denoted $MBF(k)$. 
-\end{defn}
+%\begin{defn}
+%\label{defn:MBFpositive}
+A set of increasing monotone Boolean functions $f \colon \bbB^k \to \bbB$ will be denoted by $MBF(k)$. 
+%\end{defn}
 
 %%%%%%%%%%%%%%%
 \begin{figure}[t]
     \centering
     \begin{subfigure}[c]{0.3\textwidth}
-        \centering
-        \begin{tabular}{|c|| l|l|l|}
-            \hline
-            X &$\mathbf{0}$ & Id & $\mathbf{1}$ \\
-            \hline \hline
-            0 & 0 & 0 & 1 \\
-            1 & 0 & 1 & 1\\
-            \hline
-        \end{tabular}
-        \hspace{0.1cm}
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1) { $\bone$ };
-            \node[my node] (2) [below=of 1] {\tiny $Id$};
-            \node[my node] (3) [below=of 2] {$\bzero$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:MBF1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.69\textwidth}
-        \centering
-        \begin{tabular}{|c|| l| l| l| l| l| l| }
-            \hline
-            XY & $\mathbf{0}$ & $\wedge $ & X & Y & $\vee$ & $\mathbf{1}$ \\
-            \hline \hline
-            00 & 0 & 0 & 0 & 0 & 0 & 1\\
-            01 & 0 & 0 & 0 & 1 & 1 & 1\\
-            10 & 0 & 0 & 1 & 0 & 1 & 1\\
-            11 & 0 & 1 & 1 & 1 & 1 & 1\\
-            \hline
-        \end{tabular}
-        \hspace{0.5cm}
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1) { $\bone$ };
-            \node[my node] (2) [below=of 1] {\tiny $X \vee Y$};
-            \node[my node] (3) [below left=0.4 and 0.2 of 2] {$X$};
-            \node[my node] (4) [below right=0.4 and 0.2 of 2] {$Y$};
-            \node[my node] (5) [below left=0.4 and 0.2 of 4] {\tiny $X \wedge Y$};
-            \node[my node] (6) [below=of 5] {$\bzero$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (5);
-            \draw[my edge] (4) -- (5);
-            \draw[my edge] (5) -- (6);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:MBF2}
     \end{subfigure}
+    \includegraphics[width=\textwidth]{figures/fig1.pdf}
     \caption{\subref{fig:MBF1} There are three monotone Boolean functions with single input $MBF(1)$ and \subref{fig:MBF2} six monotone Boolean functions with 2 inputs $MBF(2)$}
     \label{fig:MBF}
 \end{figure}
 
-In Figure~\ref{fig:MBF1} we show three increasing monotone Boolean functions $MBF(1)$ with single input denoted $X$. These are the zero function $\bzero$, the identity function $Id$, and the one function $\bone$. We represent these three functions as nodes, connected by edges if their truth values differ on a single input string.
+In Figure~\ref{fig:MBF1}, we show three increasing monotone Boolean functions $MBF(1)$ with a single input denoted $X$. These are the zero function $\bzero$, the identity function $Id$, and the one function $\bone$. We represent these three functions as nodes, connected by edges if their truth values differ on a single input string.
 In Figure~\ref{fig:MBF2} we list six increasing monotone Boolean functions $MBF(2)$ with two inputs denoted $X$ and $Y$. Their names are in the top row of the table; function $X$ copies the values of the input $X$, while the function $Y$ copies the input $Y$. Similarly, we represent these functions in the form of a graph where again, nodes are connected by edges if their truth values differ on a single input string.
 
 As we will see in section~\ref{lattice_math}, the sets $MBF(k)$ for any $k$ form a mathematical structure called \textit{lattice}. The language and results from lattice theory will help in understanding which Boolean models support which steady states. 
@@ -417,31 +376,51 @@ We now discuss monotone Boolean models of network dynamics $f=(f_1, \ldots, f_N)
 
 \begin{defn}
 A Boolean model $f \colon \bbB^N \to \bbB^N, f=(f_1, \ldots, f_N)$, is \emph{monotone} if for every $i$ the function $f_i$ is monotone.
-\end{defn}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{NL-free networks }\label{sec:NL}
 
-Consider a monotone Boolean model $f=(f_1, \ldots, f_N)$.
+
+A Boolean model $f \colon \bbB^N \to \bbB^N$ is \emph{positive} if for every $i$ the function $f_i$ is monotone increasing.
+\end{defn}
+
+
+\begin{defn}
+    An influence graph $I_f=(V,\hat{E})$ of a monotone Boolean model $f \colon \bbB^N \to \bbB^N$ is a directed graph with nodes $v_i, i\in \{1, \ldots, N\}$ for each variable and a directed edge $v_j\to v_i$ if, and only if, $f_i$ is strictly increasing or strictly decreasing with respect to $j$. 
+\end{defn}
+
+Since our definition of monotonicity is not strict, for a given regulatory network $RN$ with directed graph $G=(V,E)$ we consider a monotone Boolean model $f$ to be a valid model of network dynamics if its influence network $I_f \subset G$ is a subnetwork of the directed graph $G$. Since the vertex set of $I_f$ and $G$ is the same, this is equivalent to the inclusion of the edges $\hat{E} \subset E$. The inclusion of the functions $f$ with $\hat{E} \subsetneq E$  makes $MBF(k)$ a lattice. This, in turn, allows a compact description of sets of functions that support a particular fixed point. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Balanced networks }\label{sec:NL}
+
+Consider a monotone Boolean model $f=(f_1, \ldots, f_N)$,
 where each $f_i \colon \bbB^{k_i} \to \bbB$.
 Apply a change of variables $\alpha=(\alpha_1, \ldots, \alpha_N)$ where 
-for each $i$ either $\alpha_i(x_i)= x_i$ or $\alpha_i(x_i)= \neg x_i$.
-Let $E\subset \{1, \ldots, N\}$ be the indices where $\alpha_i(x_i)= x_i$.
+for each $i$ either 
+ $\alpha_i(x_i)= x_i$ or $\alpha_i(x_i)= \neg x_i$.
+Let $E\subset \{1, \ldots, N\}$ be the indices $i$  where $\alpha_i(x_i)= x_i$.
+
+Then for any $i=1, \ldots, N$ 
+\begin{align*}
+    j \in E & \implies 
+    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is increasing (decreasing) in } \alpha_j(x_j)    \\
+    j \notin E & \implies 
+    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is decreasing (increasing ) in } \alpha_j(x_j)
+\end{align*} 
 
 Then 
 \begin{align*}
     i \in E & \implies 
-    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is increasing (decreasing) in } \alpha(x_j)    \\
-    i \notin E & \implies 
-    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is decreasing (increasing ) in } \alpha(x_j)
+    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is increasing (decreasing) in } \alpha_i(x_j)    \\
+    i \notin E_i & \implies 
+    f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  f_i \mbox{ is decreasing (increasing ) in } \alpha_i(x_j)
 \end{align*} 
 
-Observe that if $ x_i = f_i(x)$ then $\neg x_i =\neg f_i(x)$
-and 
-\[ f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow \alpha(f_i) \mbox{ is decreasing (increasing) in } x_j\]
+ On the other hand, applying the negation operation to the function $f_i$, we get 
+\[ f_i \mbox{ is increasing (decreasing) in } x_j \leftrightarrow  \neg f_i \mbox{ is decreasing (increasing) in } x_j\]
 
+We have the following Theorem.
 
 \begin{thm} \label{thm:changevar}
-Consider NL-free network $RN$ and a monotone Boolean model $f=(f_1, \ldots, f_N)$ compatible with $RN$.
+Consider a balanced network $RN$ and a monotone Boolean model $f=(f_1, \ldots, f_N)$ compatible with $RN$.
 Then there is a change of variables $\alpha: \bbB^N \to \bbB^N$ with $\alpha \circ \alpha = Id$, and a positive Boolean model $g=(g_1, \ldots, g_N)$ such that the following diagram commutes
  \[
     \begin{tikzcd}
@@ -462,7 +441,7 @@ exists if, and only if there is a corresponding trajectory under $g$
 In particular, $x$ is a fixed point under $f$, if, and only if $\alpha(x)$ is a fixed point under $g$
 \[ x=f(x) \quad \Longleftrightarrow \quad \alpha(x) = g(\alpha(x)).\]
 
-This shows that every NL-free network has the same dynamics as a positive network, where all edges are positive.
+This shows that every balanced network has the same dynamics as a positive network, where all edges are positive.
 Since an MBM $f=(f_1, \ldots, f_N)$ for a network with all positive edges has all functions $f_i$ that are increasing MBFs, it is sufficient to study steady states and multistability for positive networks.
 
 We illustrate the change of variables in Figure~\ref{fig:changevar}.
@@ -470,143 +449,19 @@ We illustrate the change of variables in Figure~\ref{fig:changevar}.
 \begin{figure}[h!]
     \centering
     \begin{subfigure}{0.49\textwidth}
-        \centering
-        \begin{tikzpicture}[every node/.style={circle,fill=white!20,thick,draw},scale=2.5,
-        blueedge/.style={thick,blue,-|,shorten <=2pt,shorten >=2pt},
-        rededge/.style={thick,red,->,shorten <=2pt,shorten >=2pt},
-        textbox/.style={draw=none, fill=none, midway}
-        ]
-            \node (A) at (0,1) {A};
-            \node (B) at (0,0) {B};
-            \node (ASA) at (0.5,1) {A};
-            \node (BSA) at (0.5,0) {B};
-            \node[fill=cyan] (AP) at (1.5,1) {A};
-            \node (BP) at (1.5,0) {B};
-            \node[fill=cyan] (APSA) at (2,1) {A};
-            \node (BPSA) at (2,0) {B};
-            \path[blueedge, bend left] 
-                (A) edge (B)
-                (B) edge (A)
-                (ASA) edge (BSA)
-                (BSA) edge (ASA);
-            \path[rededge, bend left] 
-                (AP) edge (BP)
-                (BP) edge (AP)
-                (APSA) edge (BPSA)
-                (BPSA) edge (APSA);
-            \path[rededge, loop above, min distance=6pt]
-                (ASA) edge (ASA)
-                (APSA) edge (APSA);
-            \path[rededge, loop below, min distance=6pt]
-                (BSA) edge (BSA)
-                (BPSA) edge (BPSA);
-            \draw[dashed, thick] (0.8,0.5) -- (1.2,0.5) 
-                node[textbox, above=1.2mm] {($\neg$A,B)}
-                node[textbox, below=1mm] {$\alpha$};
-        \end{tikzpicture}
-    \caption{}
+    \phantomcaption
     \label{fig:TS}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
-        \centering
-        \begin{tikzpicture}[scale=2.5,
-            every node/.style={circle,fill=white!20,thick,draw},
-            blueedge/.style={thick,blue,-|,shorten <=2pt,shorten >=2pt},
-            rededge/.style={thick,red,->,shorten <=2pt,shorten >=2pt},
-            textbox/.style={draw=none, fill=none, midway}
-        ]
-            \node (A) at (0.5,0.86) {A};
-            \node (B) at (0,0) {B};
-            \node (C) at (1,0) {C};
-            \node[fill=cyan] (AP) at (2,0.86) {A};
-            \node (BP) at (1.5,0) {B};
-            \node (CP) at (2.5,0) {C};
-            \path[blueedge] 
-                (A) edge (B)
-                (B) edge[bend left] (A)
-                (A) edge[bend left] (C)
-                (C) edge (A);
-            \path[rededge]
-                (B) edge (C)
-                (C) edge[bend left] (B)
-                (AP) edge (BP)
-                (BP) edge[bend left] (AP)
-                (AP) edge[bend left] (CP)
-                (CP) edge (AP)
-                (BP) edge (CP)
-                (CP) edge[bend left] (BP);
-            \draw[dashed, thick] 
-                (1.1,0.43) -- (1.4,0.43)
-                node[textbox, above=1.2mm] {($\neg$A,B,C)}
-                node[textbox, below=1mm] {$\alpha$};
-        \end{tikzpicture}
-    \caption{}
+    \phantomcaption
     \label{fig:3Team}
     \end{subfigure}
     \begin{subfigure}{0.6\textwidth}
-        \centering
-        \begin{tikzpicture}[scale=2.3,
-            every node/.style={rectangle,fill=white!20,thick,draw},
-            blueedge/.style={thick,blue,-|,shorten <=6pt,shorten >=6pt},
-            rededge/.style={thick,red,->,shorten <=6pt,shorten >=6pt},
-            textbox/.style={draw=none, fill=none, midway}
-        ]
-            \node (tgb) at (1,1.5) {TGF$\beta$};
-            \node (m200) at (0.5,0.75) {miR200};
-            \node (snl) at (1.5,0.75) {SNAI1};
-            \node (ovl) at (0,0) {OVOL2};
-            \node (zeb) at (1.5,0) {ZEB1};
-            \node (m34) at (2.5,0) {miR34a};
-            \path[blueedge, bend left=10] 
-                (zeb) edge (ovl)
-                (ovl) edge (zeb)
-                (m200) edge (zeb)
-                (zeb) edge (m200)
-                (snl) edge (m34)
-                (m34) edge (snl);
-            \path[blueedge] 
-                (ovl.west) edge[bend left] (tgb);
-            \path[blueedge]
-                (m200) edge (tgb)
-                (zeb) edge (m34)
-                (snl) edge (m200);
-            \path[rededge]
-                (tgb) edge (snl)
-                (snl) edge (zeb);
-            \begin{scope}[yshift=-2.5cm]
-            \node (tgb2) at (1,1.5) {TGF$\beta$};
-            \node [fill=cyan] (m200_2) at (0.5,0.75) {miR200};
-            \node (snl2) at (1.5,0.75) {SNAI1};
-            \node [fill=cyan] (ovl2) at (0,0) {OVOL2};
-            \node (zeb2) at (1.5,0) {ZEB1};
-            \node [fill=cyan] (m34_2) at (2.5,0) {miR34a};
-            \path[rededge, bend left=10] 
-                (zeb2) edge (ovl2)
-                (ovl2) edge (zeb2)
-                (m200_2) edge (zeb2)
-                (zeb2) edge (m200_2)
-                (snl2) edge (m34_2)
-                (m34_2) edge (snl2);
-            \path[rededge] 
-                (ovl2.west) edge[bend left] (tgb2);
-            \path[rededge]
-                (m200_2) edge (tgb2)
-                (zeb2) edge (m34_2)
-                (snl2) edge (m200_2)
-                (tgb2) edge (snl2)
-                (snl2) edge (zeb2);
-            \end{scope}
-            \draw[dashed, thick] (1.25,-0.25) -- (1.25,-0.75) 
-                node[textbox, right=1mm] {$\begin{array}{c}
-                    (\text{TGF}\beta, \neg\text{miR200}, \text{SNAI1},\\
-                    \neg\text{OVOL2}, \text{ZEB1}, \neg\text{miR34a})
-                    \end{array}$}
-                node[textbox, left=1mm] {$\alpha$};
-        \end{tikzpicture}
-    \caption{}
+    \phantomcaption
     \label{fig:EMT6N}
     \end{subfigure}
-    \caption{Schematic representation of the change of variables to obtain a positive network. The cyan nodes represent the nodes which have $\neg$ in $\alpha$. \subref{fig:TS}: Toggle switch (left: without self-regulation, right: with self-activation), \subref{fig:3Team}: 2-team network with 3 nodes, and \subref{fig:EMT6N}: EMT network}
+    \includegraphics[width=\textwidth]{figures/fig2.pdf}
+    \caption{Schematic representation of the change of variables to obtain a positive network. The cyan nodes represent the nodes that have $\neg$ in $\alpha$. \subref{fig:TS}: Toggle switch (left: without self-regulation, right: with self-activation), \subref{fig:3Team}: 2-team network with 3 nodes, and \subref{fig:EMT6N}: EMT network}
     \label{fig:changevar}
 \end{figure}
 
@@ -624,7 +479,7 @@ Then $\alpha$ = (TGF$\beta$, $\neg$miR200, SNAI1, $\neg$OVOL2, ZEB1, $\neg$miR34
 \subsection{Steady states for positive MBMs}\label{sec:mono}
 
 We are now ready to address the main question posed in this paper: 
-\textit{ How many MBMs are compatible with an NL-free network support a particular steady state? }
+\textit{ How many MBMs compatible with a balanced network support a particular steady state? }
 
 Because of Theorem~\ref{thm:changevar}, it is sufficient to address this question only for positive monotone Boolean models.
 To this end, we define the following sets 
@@ -713,204 +568,21 @@ which also has the size (\ref{eq:size}).
 \end{thm}
 Proof can be found in section~\ref{lattice_math}.
 
+\begin{rem}
+    The first conclusion of Theorem~\ref{thm:most_common} crucially depends on our choice to consider non-strict definition of monotonicity, since the class of monotone Boolean functions always includes constant functions and any fixed point is supported by at least a set of constant functions with the values matching components of the fixed point. 
+\end{rem}
+
 \begin{figure}[p]
 \centering
 \begin{subfigure}[c]{0.6\textwidth}
-\centering
-\begin{tikzpicture}[line cap=round,line join=round,every path/.style={-}]
-\def\N{3}
-\def\cell{1.7}
-\def\tile{1.4}
-\def\ofs{0.05cm}
-\def\labelfont{\normalsize}
-\def\gridlw{0.6pt}
-\def\thicklw{1.6pt}
-\def\boxfont{\small\bfseries}
-\definecolor{cellcolor4}{RGB}{133,89,163}
-\definecolor{cellcolor3}{RGB}{204,115,161}
-\definecolor{cellcolor2}{RGB}{253,172,145}
-\definecolor{cellcolor1}{RGB}{253,253,210}
-\draw[line width=\gridlw] (0,0) -- (\N*\cell,0);
-\draw[line width=\gridlw] (\N*\cell,0) -- (\N*\cell,\N*\cell);
-\draw[line width=\gridlw] (\N*\cell,\N*\cell) -- (0,\N*\cell);
-\draw[line width=\gridlw] (0,\N*\cell) -- (0,0);
-\draw[line width=1pt, dashed, red] (0,2*\cell) -- (2*\cell,2*\cell);
-\draw[line width=1pt, dashed, red] (2*\cell,0) -- (2*\cell,2*\cell);
-\draw[line width=1pt, dashdotted, blue]    (1*\cell,1*\cell) -- (3*\cell,1*\cell);
-\draw[line width=1pt, dashdotted, blue]    (1*\cell,1*\cell) -- (1*\cell,3*\cell);
-\foreach [count=\c from 0] \name in {$\mathbf{0}$,Id,$\mathbf{1}$} {
-  \node[font=\labelfont, anchor=north] at (\c*\cell+0.5*\cell,0) {\name};
-  \node[font=\labelfont, anchor=east] at (0,\c*\cell+0.5*\cell) {\name};
-}
-\newcommand{\drawBox}[3]{%
-  \setcounter{countitems}{0}
-  \foreach \i in {#3} {
-    \stepcounter{countitems}
-  }
-  \edef\boxcolor{cellcolor\arabic{countitems}}
-  \path let \p1 = (#1*\cell+0.5*\cell,#2*\cell+0.5*\cell) in
-    node[draw, fill=\boxcolor, inner sep=0pt,
-         minimum width=\tile cm, minimum height=\tile cm] (box-#1-#2) at (\x1,\y1) {};
-}
-\newcommand{\placeCorner}[3]{%
-  \edef\LBL{#1}%
-  \IfStrEq{\LBL}{00}{
-    \node[anchor=south west,font=\boxfont]
-      at ([xshift=-\ofs,yshift=-\ofs] box-#2-#3.south west) {00};
-  }{
-  \IfStrEq{\LBL}{11}{
-    \node[anchor=north east,font=\boxfont]
-      at ([xshift=\ofs,yshift=\ofs] box-#2-#3.north east) {11};
-  }{
-  \IfStrEq{\LBL}{01}{
-    \node[anchor=north west,font=\boxfont]
-      at ([xshift=-\ofs,yshift=\ofs] box-#2-#3.north west) {01};
-  }{
-  \IfStrEq{\LBL}{10}{
-    \node[anchor=south east,font=\boxfont]
-      at ([xshift=\ofs,yshift=-\ofs] box-#2-#3.south east) {10};
-  }{
-    \node at (box-#2-#3) {\LBL};
-  }}}}%
-}
-\newcommand{\boxWithLabels}[3]{%
-  \drawBox{#1}{#2}{#3}%
-  \foreach \lab in {#3} { \placeCorner{\lab}{#1}{#2} }%
-}
-\boxWithLabels{0}{0}{00}
-\boxWithLabels{1}{0}{00}
-\boxWithLabels{2}{0}{10}
-\boxWithLabels{0}{1}{00}
-\boxWithLabels{1}{0}{00}
-\boxWithLabels{1}{1}{00,11}
-\boxWithLabels{2}{1}{11}
-\boxWithLabels{0}{2}{01}
-\boxWithLabels{1}{2}{11}
-\boxWithLabels{2}{2}{11}
-\end{tikzpicture}
-\caption{}
+\phantomcaption
 \label{fig:PG1}
 \end{subfigure}
-\begin{subfigure}[c]{0.35\textwidth}
-\begin{tikzpicture}
-\definecolor{cellcolor4}{RGB}{133,89,163}
-\definecolor{cellcolor3}{RGB}{204,115,161}
-\definecolor{cellcolor2}{RGB}{253,172,145}
-\definecolor{cellcolor1}{RGB}{253,253,210}
-\matrix[column sep=0cm, row sep=0.1cm] {
-\node[draw, fill=cellcolor1, minimum width=0.1cm, minimum height=0.1cm] {}; & \node {Monostable}; \\
-\node[draw, fill=cellcolor2, minimum width=0.1cm, minimum height=0.1cm] {}; & \node {Bistable}; \\
-\node[draw, fill=cellcolor3, minimum width=0.1cm, minimum height=0.1cm] {}; & \node {Tristable}; \\
-\node[draw, fill=cellcolor4, minimum width=0.1cm, minimum height=0.1cm] {}; & \node {Quadrastable}; \\
-};
-\end{tikzpicture}
-\end{subfigure}
-\vskip0.2in
 \begin{subfigure}{0.9\textwidth}
-\centering
-\begin{tikzpicture}[line cap=round,line join=round,every path/.style={-}]
-
-\def\N{6}
-\def\cell{1.7}
-\def\tile{1.4}
-\def\ofs{0.05cm}
-\def\labelfont{\normalsize}
-\def\gridlw{0.6pt}
-\def\thicklw{1.6pt}
-\def\boxfont{\small\bfseries}
-\definecolor{cellcolor4}{RGB}{133,89,163}
-\definecolor{cellcolor3}{RGB}{204,115,161}
-\definecolor{cellcolor2}{RGB}{253,172,145}
-\definecolor{cellcolor1}{RGB}{253,253,210}
-\draw[line width=\gridlw] (0,0) -- (\N*\cell,0);
-\draw[line width=\gridlw] (\N*\cell,0) -- (\N*\cell,\N*\cell);
-\draw[line width=\gridlw] (\N*\cell,\N*\cell) -- (0,\N*\cell);
-\draw[line width=\gridlw] (0,\N*\cell) -- (0,0);
-\draw[line width=1pt, dashed, red] (0,5*\cell) -- (5*\cell,5*\cell);
-\draw[line width=1pt, dashed, red] (5*\cell,0) -- (5*\cell,5*\cell);
-\draw[line width=1pt, dashdotted, blue]    (1*\cell,1*\cell) -- (6*\cell,1*\cell);
-\draw[line width=1pt, dashdotted, blue]    (1*\cell,1*\cell) -- (1*\cell,6*\cell);
-\draw[line width=\thicklw, teal]    (3*\cell,6*\cell) -- (3*\cell,3*\cell);
-\draw[line width=\thicklw, teal]    (0*\cell,3*\cell) -- (3*\cell,3*\cell);
-\foreach [count=\c from 0] \name in {$\mathbf{0}$,$\wedge$,X,Y,$\vee$,$\mathbf{1}$} {
-  \node[font=\labelfont, anchor=north] at (\c*\cell+0.5*\cell,0) {\name};
-  \node[font=\labelfont, anchor=east] at (0,\c*\cell+0.5*\cell) {\name};
-}
-\newcommand{\drawBox}[3]{%
-  \setcounter{countitems}{0}
-  \foreach \i in {#3} {
-    \stepcounter{countitems}
-  }
-  \edef\boxcolor{cellcolor\arabic{countitems}}
-  \path let \p1 = (#1*\cell+0.5*\cell,#2*\cell+0.5*\cell) in
-    node[draw, fill=\boxcolor, inner sep=0pt,
-         minimum width=\tile cm, minimum height=\tile cm] (box-#1-#2) at (\x1,\y1) {};
-}
-\newcommand{\placeCorner}[3]{%
-  \edef\LBL{#1}%
-  \IfStrEq{\LBL}{00}{
-    \node[anchor=south west,font=\boxfont]
-      at ([xshift=-\ofs,yshift=-\ofs] box-#2-#3.south west) {00};
-  }{
-  \IfStrEq{\LBL}{11}{
-    \node[anchor=north east,font=\boxfont]
-      at ([xshift=\ofs,yshift=\ofs] box-#2-#3.north east) {11};
-  }{
-  \IfStrEq{\LBL}{01}{
-    \node[anchor=north west,font=\boxfont]
-      at ([xshift=-\ofs,yshift=\ofs] box-#2-#3.north west) {01};
-  }{
-  \IfStrEq{\LBL}{10}{
-    \node[anchor=south east,font=\boxfont]
-      at ([xshift=\ofs,yshift=-\ofs] box-#2-#3.south east) {10};
-  }{
-    \node at (box-#2-#3) {\LBL};
-  }}}}%
-}
-\newcommand{\boxWithLabels}[3]{%
-  \drawBox{#1}{#2}{#3}%
-  \foreach \lab in {#3} { \placeCorner{\lab}{#1}{#2} }%
-}
-\boxWithLabels{0}{0}{00}
-\boxWithLabels{1}{0}{00}
-\boxWithLabels{2}{0}{00,10}
-\boxWithLabels{3}{0}{00}
-\boxWithLabels{4}{0}{00,10}
-\boxWithLabels{5}{0}{10}
-\boxWithLabels{0}{1}{00}
-\boxWithLabels{1}{1}{11,00}
-\boxWithLabels{2}{1}{11,00,10}
-\boxWithLabels{3}{1}{11,00}
-\boxWithLabels{4}{1}{11,00,10}
-\boxWithLabels{5}{1}{11,10}
-\boxWithLabels{0}{2}{00}
-\boxWithLabels{1}{2}{11,00}
-\boxWithLabels{2}{2}{11,00}
-\boxWithLabels{3}{2}{11,00}
-\boxWithLabels{4}{2}{11,00}
-\boxWithLabels{5}{2}{11}
-\boxWithLabels{0}{3}{01,00}
-\boxWithLabels{1}{3}{01,11,00}
-\boxWithLabels{2}{3}{01,11,00,10}
-\boxWithLabels{3}{3}{11,00}
-\boxWithLabels{4}{3}{11,00,10}
-\boxWithLabels{5}{3}{11,10}
-\boxWithLabels{0}{4}{01,00}
-\boxWithLabels{1}{4}{01,11,00}
-\boxWithLabels{2}{4}{01,11,00}
-\boxWithLabels{3}{4}{11,00}
-\boxWithLabels{4}{4}{11,00}
-\boxWithLabels{5}{4}{11}
-\boxWithLabels{0}{5}{01}
-\boxWithLabels{1}{5}{01,11}
-\boxWithLabels{2}{5}{01,11}
-\boxWithLabels{3}{5}{11}
-\boxWithLabels{4}{5}{11}
-\boxWithLabels{5}{5}{11}
-\end{tikzpicture}
-\caption{}
+\phantomcaption
 \label{fig:PG2}
 \end{subfigure}
+\includegraphics[width=\textwidth]{figures/fig3.pdf}
 \caption{Parameter graphs $(f_1,f_2)$ and the steady states supported by \subref{fig:PG1}: $MBF(1) \times MBF(1)$ and \subref{fig:PG2}: $MBF(2) \times MBF(2)$. The states supported are denoted in each square. The red dashed line, blue dash-dotted line, and the teal bold line delineate the set of models that support the steady states $(00)$, $(11)$, and $(01)$, respectively. The filled colors represent the type of exact multistability supported by the corresponding Boolean model $f=(f_1, f_2)$.}
 \label{fig:PG}
 \end{figure}
@@ -946,6 +618,7 @@ After applying $\alpha$, the most prevalent steady states in the toggle switch w
 \item steady state $(01)$ supported by $25$ models.
 \end{itemize}
 
+
 For the 2-team network in Figure~\ref{fig:3Team}, any MBM $f=(f_1, f_2, f_3)$ can be changed to $g=(g_1, g_2, g_3)$ with $g_i \in MBF(2)$. Again, all states are supported by some models, but the most prevalent steady states are 
 \begin{itemize}
 \item steady state $(000)$ is supported by $f \in L(00)\times L(00)\times L(00)$ which has $5^3=125$ models;
@@ -972,7 +645,7 @@ Within this collection of MBMs, the most common steady states are
 Applying the change of variables $\alpha$, it follows that the most common steady states in the original EMT network are 
 states 
 \[ (101010) \qquad \mbox{ and } \qquad (010101),\]
-each of which is supported by $23750$ out of $77760$ MBMs compatible with the EMT network. These two states represent the mesenchymal and epithelial state, respectively, with the mesenchymal state characterized by TGF$\beta$, SNAI1, ZEB1 high, whereas the epithelial state is characterized by miR200, OVOL2, miR34a high.
+each of which is supported by $23750$ out of $77760$ MBMs compatible with the EMT network. These two states represent the mesenchymal and epithelial state, respectively, with the mesenchymal state characterized by TGF$\beta$, SNAI1, and ZEB1 high, whereas the epithelial state is characterized by miR200, OVOL2, and miR34a high.
 
 
 Similarly, Theorem~\ref{thm:monostability} can be used to calculate the number of MBMs supporting the other states for the positive network, as given in Table~\ref{tableEMT}. These states correspond to the intermediate states characterized by mixed expression of the canonical epithelial and mesenchymal markers.
@@ -1000,11 +673,11 @@ Similarly, Theorem~\ref{thm:monostability} can be used to calculate the number o
     (011111) & $L(11) \times U(11) \times U(01) \times U(1) \times U(111) \times U(11)$ & 2850 & (001010) \\
     \hline
     \end{tabular}
-    \caption{Number of models supporting the top 12 most common steady states. P-EMT-state represents the state in the positive EMT network and EMT state represents the state in the original network after transformation.}
+    \caption{Number of models supporting the top 12 most common steady states. P-EMT-state represents the state in the positive EMT network and EMT state represents the state in the original network after transformation. Calculations were done with code included in repository~\cite{adigwe_2026_18682834}.}
     \label{tableEMT}
 \end{table}
 
-Consider now a larger EMT network in Figure~\ref{fig:EMT22N}, described in \cite{huang_interrogating_2017}, with 15 nodes and 59 edges (excluding the input/output nodes and self-inhibitions). The description of sets $L(\cdot), U(\cdot)$  becomes computationally challenging due to nodes like ZEB1 and ZEB2 having many inputs (12 and 10, respectively). However, leveraging Theorem~\ref{thm:most_common} allows identification of the most common states by transforming the most common states $\boolf$ and $\boolt$ of the positive network using $\alpha$. It can be seen that this network is NL-free, and there exists $\alpha$ given by:
+Consider now a larger EMT network in Figure~\ref{fig:EMT22N}, described in \cite{huang_interrogating_2017}, with 15 nodes and 59 edges (excluding the input/output nodes and self-inhibitions). The description of sets $L(\cdot), U(\cdot)$  becomes computationally challenging due to nodes like ZEB1 and ZEB2 having many inputs (12 and 10, respectively). However, leveraging Theorem~\ref{thm:most_common} allows identification of the most common states by transforming the most common states $\boolf$ and $\boolt$ of the positive network using $\alpha$. It can be seen that this network is balanced, and there exists $\alpha$ given by:
 
 \begin{align*}
 \alpha = (&TGF\beta, ZEB1, ZEB2, SNAI1, SNAI2, FOXC2, TWIST1, TWIST2, GSC,\\
@@ -1015,173 +688,8 @@ Consider now a larger EMT network in Figure~\ref{fig:EMT22N}, described in \cite
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[scale=1.7,
-    every node/.style={rectangle,fill=white!20,thick,draw},
-    blueedge/.style={thick,blue,-|,shorten <=10pt,shorten >=6pt},
-    rededge/.style={thick,red,->,shorten <=10pt,shorten >=6pt},
-    textbox/.style={draw=none, fill=none, midway}
-]
-\node (tgf)    at (1.75,4)   {TGF$\beta$};
-\node (gsc)    at (0.5,3.25)   {GSC};
-\node (foxc2)  at (0,2)     {FOXC2};
-\node (tw1)    at (0.5,0.75)   {TWIST1};
-\node (tw2)    at (1.75,0) {TWIST2};
-\node (zeb2)   at (2.5,3.25) {ZEB2};
-\node (zeb1)   at (3.5,2.5)  {ZEB1};
-\node (snai1)  at (3.5,1.5)  {SNAI1};
-\node (snai2)  at (2.5,0.75)   {SNAI2};
-\node (mir141)  at (4.75,4) {miR141};
-\node (mir200a) at (5.5,3.25)   {miR200a};
-\node (mir200b) at (6,2.5){miR200b};
-\node (mir200c) at (6,1.5){miR200c};
-\node (mir101)  at (5.5,0.75)    {miR101};
-\node (mir34a)   at (4.75,0) {miR34a};
-
-\path[rededge]
-    (foxc2) edge (zeb1)
-    (snai1) edge (foxc2)
-    (snai1) edge (snai2)
-    (snai1) edge[bend left=5] (tw1)
-    (snai1) edge (zeb1)
-    (snai1) edge[bend left=15] (zeb2)
-    (snai2) edge[loop] (snai2)
-    (snai2) edge[bend left=20] (tw2)
-    (tw1) edge (foxc2)
-    (tw1) edge[bend left=5] (snai1)
-    (tw1) edge (snai2)
-    (tw1) edge (zeb1)
-    (tw1) edge (zeb2)
-    (tw2) edge[bend right] (snai1)
-    (tw2) edge (snai2)
-    (tw2) edge (tw1)
-    (tw2) edge[bend left=10] (zeb1)
-    (tw2) edge (zeb2)
-    (zeb1) edge[loop] (zeb1)
-    (zeb2) edge[loop] (zeb2)
-    (gsc) edge (snai1)
-    (gsc) edge[bend left=10] (tw1)
-    (gsc) edge (foxc2)
-    (gsc) edge (zeb1)
-    (gsc) edge (zeb2)
-    (tgf) edge (gsc)
-    (tgf) edge[bend right=45] (snai1)
-    (tgf) edge (snai2);
-
-\path[blueedge]
-    (mir101) edge (zeb1)
-    (mir101) edge[bend left=15] (zeb2)
-    (mir101) edge[bend left=5] (snai1)
-    (mir141) edge[bend left=5] (zeb1)
-    (mir141) edge (zeb2)
-    (mir141) edge (tgf)
-    (mir200a) edge[bend left=5] (zeb1)
-    (mir200a) edge[bend left=5] (zeb2)
-    (mir200a) edge (tgf)
-    (mir200b) edge[bend left=5] (zeb1)
-    (mir200b) edge[bend left=5] (zeb2)
-    (mir200b) edge (tgf)
-    (mir200c) edge[bend left=5] (zeb1)
-    (mir200c) edge (zeb2)
-    (mir200c) edge (tgf)
-    (mir34a) edge[bend left=5] (snai1)
-    (mir34a) edge (snai2)
-    (mir34a) edge (tw2)
-    (mir34a) edge[bend left=5] (zeb1)
-    (snai1) edge[bend left=5] (mir34a)
-    (snai1) edge[bend left=5] (mir101)
-    (snai2) edge (mir101)
-    (snai2) edge[bend right=10] (mir200b)
-    (zeb1) edge[bend left=5] (mir141)
-    (zeb1) edge[bend left=5] (mir200b)
-    (zeb1) edge[bend left=5] (mir200c)
-    (zeb1) edge[bend left=5] (mir200a)
-    (zeb1) edge[bend left=5] (mir34a)
-    (zeb2) edge[bend left=5] (mir200b)
-    (zeb2) edge[bend left=10] (mir200c)
-    (zeb2) edge[bend left=5] (mir200a);
-
-\begin{scope}[yshift=-5cm]
-\node (tgf_2)    at (1.75,4)   {TGF$\beta$};
-\node (gsc_2)    at (0.5,3.25)   {GSC};
-\node (foxc2_2)  at (0,2)     {FOXC2};
-\node (tw1_2)    at (0.5,0.75)   {TWIST1};
-\node (tw2_2)    at (1.75,0) {TWIST2};
-\node (zeb2_2)   at (2.5,3.25) {ZEB2};
-\node (zeb1_2)   at (3.5,2.5)  {ZEB1};
-\node (snai1_2)  at (3.5,1.5)  {SNAI1};
-\node (snai2_2)  at (2.5,0.75)   {SNAI2};
-\node [fill=cyan] (mir141_2)  at (4.75,4) {miR141};
-\node [fill=cyan] (mir200a_2) at (5.5,3.25)   {miR200a};
-\node [fill=cyan] (mir200b_2) at (6,2.5){miR200b};
-\node [fill=cyan] (mir200c_2) at (6,1.5){miR200c};
-\node [fill=cyan] (mir101_2)  at (5.5,0.75)    {miR101};
-\node [fill=cyan] (mir34a_2)   at (4.75,0) {miR34a};
-
-\path[rededge]
-    (foxc2_2) edge (zeb1_2)
-    (snai1_2) edge (foxc2_2)
-    (snai1_2) edge (snai2_2)
-    (snai1_2) edge[bend left=5] (tw1_2)
-    (snai1_2) edge (zeb1_2)
-    (snai1_2) edge[bend left=15] (zeb2_2)
-    (snai2_2) edge[loop] (snai2_2)
-    (snai2_2) edge[bend left=20] (tw2_2)
-    (tw1_2) edge (foxc2_2)
-    (tw1_2) edge[bend left=5] (snai1_2)
-    (tw1_2) edge (snai2_2)
-    (tw1_2) edge (zeb1_2)
-    (tw1_2) edge (zeb2_2)
-    (tw2_2) edge[bend right] (snai1_2)
-    (tw2_2) edge (snai2_2)
-    (tw2_2) edge (tw1_2)
-    (tw2_2) edge[bend left=10] (zeb1_2)
-    (tw2_2) edge (zeb2_2)
-    (zeb1_2) edge[loop] (zeb1_2)
-    (zeb2_2) edge[loop] (zeb2_2)
-    (gsc_2) edge (snai1_2)
-    (gsc_2) edge[bend left=10] (tw1_2)
-    (gsc_2) edge (foxc2_2)
-    (gsc_2) edge (zeb1_2)
-    (gsc_2) edge (zeb2_2)
-    (tgf_2) edge (gsc_2)
-    (tgf_2) edge[bend right=45] (snai1_2)
-    (tgf_2) edge (snai2_2)
-    (mir101_2) edge (zeb1_2)
-    (mir101_2) edge[bend left=15] (zeb2_2)
-    (mir101_2) edge[bend left=5] (snai1_2)
-    (mir141_2) edge[bend left=5] (zeb1_2)
-    (mir141_2) edge (zeb2_2)
-    (mir141_2) edge (tgf_2)
-    (mir200a_2) edge[bend left=5] (zeb1_2)
-    (mir200a_2) edge[bend left=5] (zeb2_2)
-    (mir200a_2) edge (tgf_2)
-    (mir200b_2) edge[bend left=5] (zeb1_2)
-    (mir200b_2) edge[bend left=5] (zeb2_2)
-    (mir200b_2) edge (tgf_2)
-    (mir200c_2) edge[bend left=5] (zeb1_2)
-    (mir200c_2) edge (zeb2_2)
-    (mir200c_2) edge (tgf_2)
-    (mir34a_2) edge[bend left=5] (snai1_2)
-    (mir34a_2) edge (snai2_2)
-    (mir34a_2) edge (tw2_2)
-    (mir34a_2) edge[bend left=5] (zeb1_2)
-    (snai1_2) edge[bend left=5] (mir34a_2)
-    (snai1_2) edge[bend left=5] (mir101_2)
-    (snai2_2) edge (mir101_2)
-    (snai2_2) edge[bend right=10] (mir200b_2)
-    (zeb1_2) edge[bend left=5] (mir141_2)
-    (zeb1_2) edge[bend left=5] (mir200b_2)
-    (zeb1_2) edge[bend left=5] (mir200c_2)
-    (zeb1_2) edge[bend left=5] (mir200a_2)
-    (zeb1_2) edge[bend left=5] (mir34a_2)
-    (zeb2_2) edge[bend left=5] (mir200b_2)
-    (zeb2_2) edge[bend left=10] (mir200c_2)
-    (zeb2_2) edge[bend left=5] (mir200a_2);
-\end{scope}
-\draw[dashed, thick] (3,-0.25) -- (3,-0.75) 
-    node[textbox, left=1mm] {$\alpha$};
-\end{tikzpicture}
-\caption{Schematic representation of the change of variables to obtain a positive network of EMT network from \cite{huang_interrogating_2017}. The cyan nodes represent the nodes which have $\neg$ in $\alpha$.}
+\includegraphics[width=\textwidth]{figures/fig4.pdf}
+\caption{Schematic representation of the change of variables to obtain a positive network of EMT network from \cite{huang_interrogating_2017}. The cyan nodes represent the nodes that have $\neg$ in $\alpha$.}
 \label{fig:EMT22N}
 \end{figure}
 
@@ -1190,7 +698,7 @@ Therefore the most common states in the network in Figure~\ref{fig:EMT22N} are (
 
 \subsection{Bistability}\label{sec:bi}
 
-As we have shown in Theorem~\ref{thm:most_common}, the most common equilibria in any NL-free network have the same abundance. A natural question arises whether the bistability between these two equilibria is also the most common form of bistability. Note that in our work, we will refer to the presence of two or more steady states by the term \textit{bistability}. We will use the term \textit{exact bistability} for the presence of exactly two steady states. Specifically, when we say that a model supports bistability between states $d$ and $e$, we mean that $d$ and $e$ are among the steady states, but other steady states beyond $d$ and $e$ may also exist.
+As we have shown in Theorem~\ref{thm:most_common}, the most common equilibria in any balanced network have the same abundance. A natural question arises whether the bistability between these two equilibria is also the most common form of bistability. Note that in our work, we will refer to the presence of two or more steady states by the term \textit{bistability}. We will use the term \textit{exact bistability} for the presence of exactly two steady states. Specifically, when we say that a model supports bistability between states $d$ and $e$, we mean that $d$ and $e$ are among the steady states, but other steady states beyond $d$ and $e$ may also exist.
 
 The following theorem extends Theorem~\ref{thm:monostability} by characterizing the MBMs that support a bistability between two steady states in the set of positive MBMs.
 
@@ -1222,7 +730,7 @@ If $i$-th components of $d$ and $e$ agree, $d_i=e_i$ then
 \[ Z_i(d) \cap Z'_i(e) \not = \emptyset.\]
 However, if $d_i\not =e_i$ then the intersection may be empty. Since $d$ and $e$ must differ in at least one component, not all pairs of states $d,e$ can be bistable states for an MBM.
 
-For instance, in the positive toggle switch the bistability between $d=(00)$ and $e=(11)$ is supported by the set of MBMs $f=(f_1,f_2)$
+For instance, in the positive toggle switch, the bistability between $d=(00)$ and $e=(11)$ is supported by the set of MBMs $f=(f_1,f_2)$
 with 
 \[ f_1\in L(0) \cap U(1) \quad \mbox{ and } \quad f_2\in L(0) \cap U(1).\]
 These intersections are non-empty and contain a single model 
@@ -1234,7 +742,7 @@ with
 \[ f_1\in L(0) \cap U(0) \quad \mbox{ and } \quad f_2\in L(0) \cap L(1),\]
 where $L(0) \cap U(0) =\emptyset$. Applying the map $\alpha$, we conclude there are no MBMs for the toggle switch supporting bistability between $(10)$ and $(00)$. In fact, no other pair of states except $(01)$ and $(10)$ can be bistable in a toggle switch, see Figure~\ref{fig:PG1}.
 
-In the case of a toggle switch with self-activation, a larger set of models offers bistability between the states $(00)$ and $(11)$ in the positive network, see Figure~\ref{fig:MBF2}. These are the set of MBMs 
+In the case of a toggle switch with self-activation, a larger set of models offers bistability between the states $(00)$ and $(11)$ in the positive network, see Figure~\ref{fig:PG2}. These are the set of MBMs 
 \[(L(00) \cap U(11)) \times (L(00) \cap U(11)) = 16 \mbox{ models}\] Hence, bistability between $(01)$ and $(10)$ is supported by 16 models for the toggle switch with self-activation. However, unlike the toggle switch, bistability between the other pairs of steady states is also supported. The number of models that support these bistabilities in the positive toggle switch  are
 \begin{itemize}
     \item $(00)$ and $(01)$: 6 models;
@@ -1243,6 +751,13 @@ In the case of a toggle switch with self-activation, a larger set of models offe
     \item $(10)$ and $(11)$: 6 models;
     \item $(01)$ and $(10)$: 1 model.
 \end{itemize}
+
+
+ We note that while there is only one monotone Boolean model $f=(f_1,f_2) \in MBF(1)\times MBF(1)$ where both functions are  strictly increasing with respect to all its inputs (Figure~\ref{fig:PG1}), there are $4$ such models  
+\[(\vee, \vee), (\vee, \wedge),(\wedge, \wedge),(\wedge, \vee) \in MBF(2)\times MBF(2) \qquad \mbox{ (Figure~\ref{fig:PG2})} .\]
+While $f$ supports bistability and one could reasonably argue that only this model represents the true dynamics of the toggle switch, this conclusion is harder to sustain in the larger model. Here, two of the models support bistability and two support tristability; the context provided by the non-strict monotone Boolean models is essential for understanding how these results fit together.  
+
+
 
 
 \begin{lem}\label{lem:bistable_most_common}
@@ -1291,9 +806,9 @@ L(d^j_{\Sources(i)}) &\mbox{ if } \quad  d^j_i=0
 where $d^j_{\Sources(i)}$ are the values of the input nodes of $v_i$ evaluated at the state $d^j$, respectively.
 \end{thm}
 
-The conditions under which these products are non-empty is subject to ongoing investigation. 
+The conditions under which these products are non-empty are subject to ongoing investigation. 
 
-As an example, note that in Figure~\ref{fig:PG2} there is one set of functions $(f_1, f_2)$ that supports multi-stability between all $4$ states $(00, 10, 01, 11)$, $4$ models that support tristability between $(00, 01, 11)$ and $4$ models that support tristability between $(00, 10, 11)$. 
+As an example, note that in Figure~\ref{fig:PG2} there is one set of functions $(f_1, f_2)$ that supports multistability between all $4$ states $(00, 10, 01, 11)$, $4$ models that support tristability between $(00, 01, 11)$ and $4$ models that support tristability between $(00, 10, 11)$. 
 
 The question of what is the highest multistability supported by the network is related to the number of positive loops in the network, and only partial solutions and estimates are known~\cite{aracena_number_2017}.
 
@@ -1403,7 +918,8 @@ By duality Theorem~\ref{duality}, the prime filters are precisely sets $U$ which
 
 Consider the poset $\bbB^k$ of Boolean vectors under the order induced by $0<1$ on each component.
 
-The set of increasing monotone Boolean functions $MBF(k)$, defined in Definition~\ref{defn:MBFpositive}, is a set of order preserving maps 
+The set of increasing monotone Boolean functions $MBF(k)$ %, defined in Definition~\ref{defn:MBFpositive}, 
+is a set of order preserving maps 
 \[ MBF(k):=\{ f:\bbB^k\to \bbB\}. \]
 
 
@@ -1500,128 +1016,36 @@ Importantly, $\bar{y} $ must be meet-irreducible, since it cannot be the meet $u
 \begin{figure}[ht]
     \centering
     \begin{subfigure}[c]{0.25\textwidth}
-        \centering
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1)[]{$11$};
-            \node[my node] (2) [below left=0.9 and 0.5 of 1] {$10$};
-            \node[my node] (3) [below right=0.9 and 0.5 of 1] {$01$};
-            \node[my node] (4) [below left=0.9 and 0.5 of 3] {$00$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (1) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (4);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:P}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.3\textwidth}
-        \centering
-        \begin{tikzpicture}[node distance = .5cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {rectangle, draw, very thick, inner sep=6pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1)[]{$P$};
-            \node[my node,red] (2) [below=of 1]{\tiny $\{11,10,01\}$};
-            \node[my node,red] (3) [below left=0.5 and 0.1 of 2]{\tiny $\{11,10\}$};
-            \node[my node,red] (4) [below right=0.5 and 0.1 of 2]{\tiny $\{11,01\}$};
-            \node[my node] (5) [below left=0.5 and 0.5 of 4]{\tiny $\{11\}$};
-            \node[my node,red] (6) [below=of 5]{$\emptyset$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (5);
-            \draw[my edge] (4) -- (5);
-            \draw[my edge] (5) -- (6);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:UP}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.25\textwidth}
-        \centering
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1) { $\bone$ };
-            \node[my node, red] (2) [below=of 1] {\tiny $X \vee Y$};
-            \node[my node, red] (3) [below left=0.4 and 0.2 of 2] {$X$};
-            \node[my node, red] (4) [below right=0.4 and 0.2 of 2] {$Y$};
-            \node[my node] (5) [below left=0.4 and 0.2 of 4] {\tiny $X \wedge Y$};
-            \node[my node, red] (6) [below=of 5] {$\bzero$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (5);
-            \draw[my edge] (4) -- (5);
-            \draw[my edge] (5) -- (6);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:L}
     \end{subfigure}
     \par\bigskip
     \begin{subfigure}[c]{0.25\textwidth}
-        \centering
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1)[]{$11$};
-            \node[my node] (2) [below left=0.9 and 0.5 of 1] {$10$};
-            \node[my node] (3) [below right=0.9 and 0.5 of 1] {$01$};
-            \node[my node] (4) [below left=0.9 and 0.5 of 3] {$00$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (1) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (4);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:P2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.3\textwidth}
-        \centering
-        \begin{tikzpicture}[node distance = .5cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {rectangle, draw, very thick, inner sep=6pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1)[]{$P$};
-            \node[my node,red] (2) [below=of 1]{\tiny $\{00,10,01\}$};
-            \node[my node,red] (3) [below left=0.5 and 0.1 of 2]{\tiny $\{00,10\}$};
-            \node[my node,red] (4) [below right=0.5 and 0.1 of 2]{\tiny $\{00,01\}$};
-            \node[my node] (5) [below left=0.5 and 0.5 of 4]{\tiny $\{00\}$};
-            \node[my node,red] (6) [below=of 5]{$\emptyset$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (5);
-            \draw[my edge] (4) -- (5);
-            \draw[my edge] (5) -- (6);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:JP}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.2\textwidth}
         \centering
-        \begin{tikzpicture}[node distance = .3cm,baseline=(current bounding box.center)]
-            \tikzset{my node/.style = {circle, draw, very thick, inner sep=4pt, minimum size=0pt}}
-            \tikzset{my edge/.style = {-, very thick}}
-            \node[my node] (1) { $\bzero$ };
-            \node[my node, red] (2) [below=of 1] {\tiny $X \wedge Y$};
-            \node[my node, red] (3) [below left=0.4 and 0.2 of 2] {$Y$};
-            \node[my node, red] (4) [below right=0.4 and 0.2 of 2] {$X$};
-            \node[my node] (5) [below left=0.4 and 0.2 of 4] {\tiny $X \vee Y$};
-            \node[my node, red] (6) [below=of 5] {$\bone$};
-            \draw[my edge] (1) -- (2);
-            \draw[my edge] (2) -- (3);
-            \draw[my edge] (2) -- (4);
-            \draw[my edge] (3) -- (5);
-            \draw[my edge] (4) -- (5);
-            \draw[my edge] (5) -- (6);
-        \end{tikzpicture}
-        \caption{}
+        \phantomcaption
         \label{fig:U}
     \end{subfigure}
+    \includegraphics[width=0.9\textwidth]{figures/fig5.pdf}
 \caption{\subref{fig:P} Poset $P$; \subref{fig:UP} Lattice of up-sets of $U(P)$; \subref{fig:L} The set of monotone Boolean functions with two inputs $MBF(2)$ is isomorphic to $U(P)$ via the map $f \to T(f$).
 \subref{fig:P2} Poset $P$; \subref{fig:JP} Lattice of down-sets of $J(P)$; \subref{fig:U} The set of monotone Boolean functions with two inputs $MBF^a(2)$ with anti-order is isomorphic to $J(P)$ via the map $f \to \ker f$. 
 }
@@ -1743,166 +1167,7 @@ Note, however, that if $U(b) = \uparrow g$ and $L(b) = \downarrow h$ then $g \no
 \end{table}
 
 \begin{figure}[t]
-    \centering
-   \begin{tikzpicture}[node distance = .3cm]
-\tikzset{my node/.style = {circle, draw, very thick, inner sep=0pt,minimum size=0pt}}
-\tikzset{special node/.style={regular polygon,regular polygon sides=7]}}
-	\node[rectangle, dashed,draw,very thick] (1) {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-\node (A) {$\bone$};
-\end{tikzpicture}
-};
-	\node[rectangle, red,draw,very thick] (2) [below=of 1] {
-	\begin{tikzpicture}[ node distance = .2cm]
-%	\tikzset{special node/.style={regular polygon,regular polygon sides=7]}}
-%\tikzset{my node/.style = {circle,draw, inner sep=1pt,minimum size=0pt}}
-\node (2){ \small $X\vee Y \vee Z$};
-	\end{tikzpicture}
-};
-	\node[rectangle, red,draw,very thick] (3) [below=of 2] {
-	\begin{tikzpicture}[ node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (3){\small  $X\vee Y$};
-	\end{tikzpicture}
-};
-	\node[rectangle,red,draw,very thick] (4) [left=of 3] {
-	\begin{tikzpicture}[ node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (4){ \small $X\vee Z$};
-	\end{tikzpicture}
-};
-	\node[rectangle,red, draw,very thick] (5) [right=of 3] {
-	\begin{tikzpicture}[ node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (5){ \small $Y\vee Z$};
-	\end{tikzpicture}
-};
-	\node[rectangle,draw,very thick] (6) [below=of 3] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (6){ \tiny $Z\vee (X \wedge Y)$};
-	\end{tikzpicture}
-	};
-	\node[rectangle,draw,very thick] (7) [left=of 6] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (7){\tiny $X\vee (Y\wedge Z)$};
-	\end{tikzpicture}
-};
-	\node[rectangle,draw,very thick] (8) [right=of 6] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-\node (8){\tiny  $Y\vee (X \wedge Z)$};
-\end{tikzpicture}
-};
-	\node[rectangle,red, dashed,draw,very thick] (9) [below=of 6] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (9){ $Z$};
-	\end{tikzpicture}
-};
-	\node[rectangle,draw, very thick] (10) [right=of 9] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-\node (10){ \tiny $\alpha$};
-	\end{tikzpicture}
-};
-	\node[rectangle,red, dashed,draw,very thick] (11)  [below right=0.3cm  and -.2cm of 8] % [below=of 8] 
-	{\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (11){ $Y$};
-\end{tikzpicture}
-};
-	\node[rectangle,red, dashed, draw,very thick] (12) [below=of 7] {\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (12){ $X$};
-\end{tikzpicture}
-};
-	\node[rectangle,draw,very thick] (13) [below=of 10]{ %[below right=0.9cm and .5cm of 9] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node(13){ \tiny $(X\wedge Z) \vee (Y \wedge Z)$};
-\end{tikzpicture}
-};
-	\node[rectangle,draw,very thick] (14) [right=of 13] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (14){ \tiny $(X\wedge Y) \vee (Y \wedge Z)$};
-	\end{tikzpicture}
-};
-	\node[rectangle,draw,very thick] (15) [below=of 12] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (15){ \tiny $(X\wedge Y) \vee (X \wedge Z)$};
-	\end{tikzpicture}
-};
-	\node[rectangle, dashed,draw,very thick] (16) [below=of 13] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (16){ \small $X\wedge Y$};
-	\end{tikzpicture}
-};
-	\node[rectangle, dashed,draw,very thick] (17) [right=of 16] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (17){ \small $Y\wedge Z$};
-	\end{tikzpicture}
-};
-	\node[rectangle, dashed,draw,very thick] (18) [left=of 16] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (18){ \small $X\wedge Z$};
-\end{tikzpicture}
-};
-	\node[rectangle, dashed,draw,very thick] (19) [below=of 16] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-	\node (19){ \tiny $X\wedge Y \wedge Z$};
-\end{tikzpicture}
-};
-	\node[rectangle,red,draw,very thick] (20) [below=of 19] {
-	\begin{tikzpicture}[node distance = .2cm]
-\tikzset{my node/.style = {circle, draw, inner sep=1pt,minimum size=0pt}}
-\node (20){$\bzero$};
-
-	\end{tikzpicture}
-};
-	
-\tikzset{my edge/.style = {-, very thick}}	
-  \draw[my edge] [] (1) to [] (2);
-  \draw[my edge] [] (2) to [] (4);
-  \draw[my edge] [] (2) to [] (3);
-  \draw[my edge] [] (2) to [] (5);
-  \draw[my edge] [] (4) to [] (7);
-  \draw[my edge] [] (4) to [] (6);
-  \draw[my edge] [] (3) to [] (7);
-  \draw[my edge] [] (3) to [] (8);
-  \draw[my edge] [] (5) to [] (6);
-  \draw[my edge] [] (5) to [] (8);
-  \draw[my edge] [] (7) to [] (12);
-  \draw[my edge] [] (7) to [] (10);
-  \draw[my edge] [] (6) to [] (9);
-  \draw[my edge] [] (6) to [] (10);
-  \draw[my edge] [] (8) to [] (10);
-  \draw[my edge] [] (8) to [] (11);
-  \draw[my edge] [] (12) to [] (15);
-  \draw[my edge] [] (9) to [] (13);
-  \draw[my edge] [] (11) to [] (14);
-  \draw[my edge] [] (10) to [] (15);
-  \draw[my edge] [] (10) to [] (13);
-  \draw[my edge] [] (10) to [] (14);
-  \draw[my edge] [] (15) to [] (18);
-  \draw[my edge] [] (15) to [] (16);
-  \draw[my edge] [] (13) to [] (18);
-  \draw[my edge] [] (13) to [] (17);
-  \draw[my edge] [] (14) to [] (16);
-  \draw[my edge] [] (14) to [] (17);
-  \draw[my edge] [] (18) to [] (19);
-  \draw[my edge] [] (16) to [] (19);
-  \draw[my edge] [] (17) to [] (19);
-  \draw[my edge] [] (19) to [] (20);
-\end{tikzpicture}
+    \includegraphics[width=0.9\textwidth]{figures/fig6.pdf}
     \caption{Lattice of monotone Boolean functions $MBF(3)$. Nodes aligned horizontally have the same size of truth set, ranging from $0$ at the bottom to $8=2^3$ on the top.
     Each node has DNF description of the function, where $\bzero$ and $\bone$ are constant functions and $\alpha = (X\wedge Z)\vee (X\wedge Y) \vee (Y \wedge Z)$.
     Down-sets of meet-irreducible nodes (red) are the sets $L(*)$; while up-sets of join-irreducible elements (dashed) are the sets $U(*)$. Both collections are isomorphic to the poset $P=\bbB^3.$ }
@@ -1968,25 +1233,24 @@ from Table~\ref{tableMBF3} the sizes are
 \begin{proof}
 We order nodes $x_1, \ldots, x_N$. If there is no $j$ such that $f_j$ is decreasing in $x_1$, then all edges with source $x_1$ in the influence network are positive. We set $\alpha_1(x_1) :=x_1$. Otherwise, if there is an $f_j$ which is decreasing in $x_1$ we set 
 \[ \alpha_1(x_1) = \neg x_1 , \]
-and 
+and for any $f_k$ that depends on $x_1$ we have 
 \begin{equation} \label{mono1}
-f_j \mbox{ is increasing (decreasing) in } x_1 \leftrightarrow f_j \mbox{ is decreasing (increasing) in } \alpha_1(x_1) . 
+f_k \mbox{ is increasing (decreasing) in } x_1 \leftrightarrow f_k \mbox{ is decreasing (increasing) in } \alpha_1(x_1) . 
 \end{equation}
-However, the update function for the node $x_1$: $x_1=f_1(x)$, we need to also change this function 
-\[ x_1 = f_1(x) \implies \alpha_1(x_1) = \alpha_1 f(x_i).\]
-Setting $g_1 := \alpha f_1$ it follows that 
+However, since the update function for the node $x_1$ is $f_1(x)$ if we change variable $x_1$ to $\neg x_1$ we also need to change the sign of function $f_1$. In other words,
+ \[ x_1 = f_1(x) \implies \alpha_1(x_1) = \alpha_1 f( \alpha_1(x_1),x_2, \ldots, x_N).\] 
+Setting $g_1 := \alpha_1 f_1$ it follows that 
 \begin{equation} \label{mono2}
 f_1 \mbox{ is increasing (decreasing) in } x_k \leftrightarrow g_1 \mbox{ is decreasing (increasing) in }x_k . \end{equation}
 Consider now the influence network of a new model
 $\bar f=(g_1, f_2, \ldots, f_N)$ with state $(\alpha_1(x_1), x_2, \ldots, x_N)$. 
 By (\ref{mono1}) all influence edges of the original network $f$ that start in $x_1$ have changed signs in the influence network of $\bar f$; and by (\ref{mono2}) all influence edges that terminate in $x_1$ also changed signs. 
 
-Importantly, in any loop that passes through node $x_1$, there were two changes, Hence, the sign of the loop did not change, and we eliminated the negative edge from $x_1$ to $x_j$ from the influence network. We conclude that the sign of every loop in the influence network of $f$ is the same as in the influence network of $\bar f$. 
+Importantly, in any loop that passes through node $x_1$, there were two changes. Hence, the sign of the loop did not change, and we eliminated the negative edge from $x_1$ to $x_j$ from the influence network. We conclude that the sign of every loop in the influence network of $f$ is the same as in the influence network of $\bar f$. 
 
-We now consider the sources of node $x_1$ and ask if $g_1$ is decreasing in any of its inputs. If so, we eliminate these negative edges as described above until no negative inputs of $g_1$ remain.
-We then move to the sources of $g_1$. 
+We now consider the sources of node $x_1$ and ask if $g_1$ is decreasing in any of its inputs. If so, we list these inputs $I_1:=\{ x_{j_1}, x_{j_k}, j_i< j_s\}$ when $i<s$ and apply transformation $\alpha_{j_i}(x_{j_i}$ in this order. This eliminates all negative edges until $g_1$ is increasing in all its inputs. Note that if $g_1$ is increasing in $x_j$ no change is applied to $x_j$. We then move to sources of node $x_{j_1}$ and eliminate all negative inputs to function $g_{j_1}$; then do the same $x_{j_2}$ until all elements of $I_1$ are exhausted. If at any time all inputs are positive, we take the next node from the initial ordered list $x_1, \ldots, x_N$ that has not been considered in the previous steps.
 
-Since there are no negative loops in the network $RN$ when a previously considered node appears in the list of sources, the corresponding loop will have all positive edges, and no change will be required for such a node. 
+Since there are no negative loops in the network $RN$ when a previously considered node appears in the list of sources, it only can appear as a positive input, since the corresponding loop that has just formed will have all positive edges. As a result, no change will be required for such a node and every node in the list will be only handled once.
 Since there is a finite number of nodes in the network and we will only need to consider each of them for the change $\alpha$ only once, this process will terminate.
 Since every loop in the network RN is positive, the change of variables $\alpha$ will yield $g$ with positive influence network.
 
@@ -2002,22 +1266,26 @@ This paper presents a first step towards a mathematical understanding of the rel
 
 We investigate this question within the class of monotone Boolean models where the set of models is finite (but large) and the state space is a finite set of Boolean vectors $\bbB^N$. In spite of this finiteness, Boolean models are very popular in systems biology as they combine the finiteness with sufficient expressiveness to capture qualitative dynamic behavior of regulatory networks.
 
-We make two additional simplifications. First, we seek to describe the relationship between network structure and steady states, rather than more general dynamic behavior. Second, because we focus on steady states, we only consider negative loop-free (NL-free) networks. It is known~\cite{snoussi_necessary_1998} that negative loops are associated with the existence of attractors that consist of more than one state (for instance, complex attractors), and, in fact, the existence of such attractors requires negative loops in a network. 
+We make two additional simplifications. First, we seek to describe the relationship between network structure and steady states, rather than more general dynamic behavior. Second, because we focus on steady states, we only consider balanced networks that do not contain negative loops. It is known~\cite{snoussi_necessary_1998} that negative loops are associated with the existence of attractors that consist of more than one state (for instance, complex attractors), and, in fact, the existence of such attractors requires negative loops in a network. 
 
 
- In networks with negative loops, some of the MBM will not support any equilibria, only complex attractors, automatically decreasing the number of MBMs supporting a given equilibrium. This is consistent with results from the toggle triad, where the prevalence/stability of single high states is lower than the corresponding prevalence in two-team networks (NL-free) networks~\cite{duddu_multi-stability_2020}.
-This assumption that excludes networks with negative loops has been done for convenience; the work on understanding the connection between negative loops and complex attractors is the subject of our current work, and we believe that the approach outlined in this paper can be extended to general networks that contain negative loops. 
+In networks with negative loops, some of the MBMs will not support any equilibria, only complex attractors, automatically decreasing the number of MBMs supporting a given equilibrium. This is consistent with results from the toggle triad, where the prevalence/stability of single high states is lower than the corresponding prevalence in two-team networks (balanced) networks~\cite{duddu_multi-stability_2020}.
+ This assumption, which excludes networks with negative loops, has been made for convenience, in order to describe the most common steady states and bistability. However, the description of models supporting steady states and multistability by up-sets and down-sets is applicable to any network structure. The work on understanding the connection between negative loops and complex attractors is the subject of our current work, and we believe that the approach outlined in this paper can be extended to general networks that contain negative loops. 
 
- Our results are consistent with work on the prevalence of steady states for the EMT network. Paper~\cite{nordick_identification_2021} found that positive loops are enhanced in the EMT network, which is consistent with the high prevalence of bistability in ODE simulations of EMT models. Two EMT models that are studied in this paper are NL-free, and therefore, the E and M states are the most prevalent steady states across all MBM models for these networks. 
-Further study of the robustness of this bistability was examined in ~\cite{rashid_network_2022}. This paper studied 13 different EMT networks and showed that while these wild-type networks show the highest prevalence of E and M states in sampled ODE simulations, small perturbations of the network structure (i.e. change of edge sign) produced networks where the prevalence of E and M states decreased and the prevalence of intermediate states increased. While our results do not directly address robustness under network perturbations, our results imply that among all networks with the same number of nodes and edges, the network that has all positive edges will have the highest prevalence of the constant $\boolf$ and $\boolt$ states. Since EMT networks studied in this paper are NL-free and thus E and M states are the most prevalent, any perturbation of this network that changes the signs of the edges will result in a network with decreased prevalence of E and M states and increased prevalence of the intermediate states. 
+Our results are consistent with work on the prevalence of steady states for the EMT network. Paper~\cite{nordick_identification_2021} found that positive loops are enhanced in the EMT network, which is consistent with the high prevalence of bistability in ODE simulations of EMT models. Two EMT models that are studied in this paper are balanced, and therefore, the E and M states are the most prevalent steady states across all MBM models for these networks. 
+Further study of the robustness of this bistability was examined in ~\cite{rashid_network_2022}. This paper studied 13 different EMT networks and showed that while these wild-type networks show the highest prevalence of E and M states in sampled ODE simulations, small perturbations of the network structure (i.e., change of edge sign) produced networks where the prevalence of E and M states decreased, and the prevalence of intermediate states increased. While our results do not directly address robustness under network perturbations, our results imply that among all networks with the same number of nodes and edges, the network that has all positive edges will have the highest prevalence of the constant $\boolf$ and $\boolt$ states. The removal of self-inhibition on SNAI1 simplifies our analysis of the EMT networks studied in this paper to a balanced network. Thus, E and M states are the most prevalent; any perturbation of this network that changes the signs of the edges will result in a network with decreased prevalence of E and M states and increased prevalence of the intermediate states. Unlike self-activation on ZEB, which has been experimentally demonstrated to maintain the M phenotype \cite{preca_self-enforcing_2015}, the role of self-inhibition on SNAI1 has not been explored experimentally and is considered a noise buffer in ODE models \cite{lu_microrna-based_2013}. While this exclusion may limit the biological accuracy of our model, it should have minimal impact on predictions of the Boolean models without noise considered here.
 
-The realization that the sets of monotone Boolean functions that evaluate to either $0$ or $1$ as prime ideals or filters in the lattice of monotone Boolean functions with $k$ inputs, allows us to prove general results that are valid for all $k$. This is significant since the size of $MBF(k)$ grows rapidly with $k$ and it is only known for $k \leq 9$, but a construction of meet- and join-irreducible elements in $MBF(k)$ may be possible by inductive procedure from those elements in $MBF(k-1)$ in a way similar to the construction of $MBF(k)$ from $MBF(k-1)$\cite{gedeon_lattice_2024}. This in turn would enable explicit construction of monotone Boolean models with certain multistability properties, or,alternatively, prove that a particular network does not support multistability greater than some upper bound $q$. 
+The realization that the sets of monotone Boolean functions that evaluate to either $0$ or $1$ as prime ideals or filters in the lattice of monotone Boolean functions with $k$ inputs, allows us to prove general results that are valid for all $k$. This is significant since the size of $MBF(k)$ grows rapidly with $k$ and it is only known for $k \leq 9$, but a construction of meet- and join-irreducible elements in $MBF(k)$ may be possible by inductive procedure from those elements in $MBF(k-1)$ in a way similar to the construction of $MBF(k)$ from $MBF(k-1)$\cite{gedeon_lattice_2024}. This in turn would enable explicit construction of monotone Boolean models with certain multistability properties, or, alternatively, prove that a particular network does not support multistability greater than some upper bound $q$. 
 
-Monotone Boolean function models are closely linked with ODE models with steep nonlinearities which in the limit become \textit{Glass models} with piecewise constant nonlinearities. Each such ODE model generates a finite state transition graph (STG)  that encodes its dynamics, and there is a only a finite collection of STGs that are compatible with the given network. This collection is organized in a DSGRN database which takes a form of a graph~\cite{cummins_combinatorial_2016,gedeon_multi-parameter_2020}.  Since MB network models are  a subset of DSGRN collection, the work presented here should describe multi-stability in ODE network models with steep nonlinearities. The precise nature of this connection is a subject of current investigation. 
+ We note that we allow monotone Boolean functions to have redundant inputs that do not affect the output of the function. Apart from the fact that inclusion of such functions allows monotone Boolean functions to form a lattice, such functions represent the parameter regimes where a gene can be constitutively activated or suppressed in certain tissue, or under some external condition.
 
-\textit{Reaction network theory} takes a different approach to modeling network dynamics using mass action kinetics. The delineation of conditions that guarantee (or preclude) multi-stability has been a subject of many papers, see for instance~\cite{dickenstein_multistationarity_2019,conradi_identifying_2017,sadeghimanesh_polynomial_2022}.
+Our approach can be compared to~\cite{chevalier_synthesis_2019}, which searches for all (locally) monotone Boolean models that satisfy a set of constraints imposed by partially observed data. These constraints include fixed point behavior, but also other attractors, as well as reachability and non-reachability between pairs of states. In both of our approaches, a model is considered valid if its influence graph is a subset of the given network graph. Chevalier et. al.~\cite{chevalier_synthesis_2019} encode the set of constraints into Answer Set Programming, a declarative programming used in difficult, often NP-hard, search problems, and then search for all models that satisfy them. Our approach considers only constraints given by the desired fixed points, but uses the explicit structure of the set of monotone Boolean models to compute the models with the desired behavior explicitly. In the future, we plan to extend our work from balanced to arbitrary networks, hoping to include more general attractors that arise in models of networks as a constraint.
 
-The underlying philosophy of our approach that aims to describe the full suite of network dynamics is that important dynamics will occur with higher frequency within this set. The importance of particular network dynamics is weighted by the prevalence of MBMs that support it. 
+Monotone Boolean function models are closely linked with ODE models with steep nonlinearities, which in the limit become \textit{Glass models} with piecewise constant nonlinearities. Each such ODE model generates a finite state transition graph (STG) that encodes its dynamics, and there is only a finite collection of STGs that are compatible with the given network. This collection is organized in a DSGRN database, which takes the form of a graph~\cite{cummins_combinatorial_2016,gedeon_multi-parameter_2020}. Since MB network models are a subset of the DSGRN collection, the work presented here should describe multistability in ODE network models with steep nonlinearities. The precise nature of this connection is a subject of current investigation. 
+
+\textit{Reaction network theory} takes a different approach to modeling network dynamics using mass action kinetics. The delineation of conditions that guarantee (or preclude) multistability has been a subject of many papers, see for instance~\cite{dickenstein_multistationarity_2019,conradi_identifying_2017,sadeghimanesh_polynomial_2022}.
+
+The underlying philosophy of our approach, which aims to describe the full suite of network dynamics, is that important dynamics will occur with higher frequency within this set. The importance of particular network dynamics is weighted by the prevalence of MBMs that support it. 
  That is, we view a steady state that is supported by $80\%$ of all MBMs as more important than a steady state that is only supported by $10\%$ of all MBMs. 
 It is certainly possible that biological control external to the network can keep the network in a (set of) MBMs which supports the dynamics with $10\%$ prevalence, but in the absence of such information, we will assume that the more prevalent dynamics is more important.
 

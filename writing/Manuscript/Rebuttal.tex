@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{xcolor,hyperref}
+\usepackage[top=0.85in,left=0.75in,footskip=0.75in]{geometry}
+\newcommand{\Reply}[1]{{\color{red}{\bf Response: }{#1} }}
+\begin{document}
+
+
+\section{Introduction}
+We would like to thank all three reviewers for careful reading of the manuscript and insightful comments. Addressing these comments significantly improved the paper.
+
+Detailed description of how we addressed each of the reviewer's comment is below.
+
+\vskip0.5in
+
+\section*{Reviewer \#1:} 
+% In this paper, fixed points and multistability for monotone Boolean network models are analyzed based on lattice theory.
+
+\subsection*{Major comments:}
+\begin{enumerate}
+\item Although interesting results are obtained in this paper, the reviewer considers that the structure of this paper should be improved.
+Please reconsider the contents of the ``Results'' and ``Methods'' sections.
+In this paper, it may not be appropriate to write the proposed method as theorems/lemma and their proofs.
+
+\Reply{Thank you for your suggestion. Our intention was to provide in the Results section a narrative of the results followed immediately  by the applications in order to make our results  accessible to readers not versed in a jargon of lattice theory and algebra. The proofs of these results are delegated to the Methods section where the interested reader can find the details of the mathematical argument. We feel that such structure is more appropriate to an interdisciplinary journal PLoS Complex Systems.
+}
+\end{enumerate}
+
+\subsection*{Minor comments:}
+\begin{enumerate}
+\item Definition 2.6: In this definition, the notation is stated. 
+The notation should not be given as Definition.
+
+\Reply{We removed the Definition formatting. }
+
+\item Proof of Lemma 2.11: It is confusing that Theorem 3.11 appeared later is used for the proof of Lemma 2.11. The structure of this paper should be improved.
+
+\Reply{Please see our response above about our intention behind the structure of the paper.}
+
+\end{enumerate}
+
+\section*{Reviewer \#2:}
+% The authors provide a method to enumerate all monotone Boolean models that are consistent with a given regulatory network and allow certain steady states. The authors show this method on a positive network, and claim that it can be extended to any regulatory network without negative loops. The enumeration is done by finding all the positive functions for each node that can stay consistent with the steady state, and finding the combinations of such functions. Models allowing multistability can be found by taking the intersections of sets of Boolean functions that allow those steady states, and then finding the combinations of them again. The authors apply this method to various regulatory networks and identify the most common steady states or bistability consistent with them.
+
+% The identification of possible dynamics that a network allows is an important problem in the study of complex systems. The overall approach is appealing and the manuscript is well organized. I believe that the paper could be strengthened further with some revisions.
+
+% Before outlining my comments, I want to mention that I have no strong preferences about how the authors ultimately choose to present the material. I am mainly requesting clarification on a few points that were unclear to me while reviewing the manuscript.
+\subsection*{Major comments:}
+\begin{enumerate}
+\item It is unclear to me how a monotone Boolean model compatible with a negative-loop-free network can be converted into a positive Boolean model with a change of variables. For example, a network with incoherent feed-forward loops may not have any negative loops, but no change of variables would be able to resolve the incoherence. If the authors are focusing only on strongly connected networks, as in all the examples, it should be clarified.
+
+\Reply{Thank you very much for catching this omission. We have added assumption that the paper deals only with strongly connected networks into Definition 2.1.}
+
+\item 
+If the authors are indeed only interested in strongly connected networks without negative loops, then the network will be sign-consistent. It may be beneficial to state that the manuscript considers sign-consistent networks instead, as converting them into networks with only positive edges is well-known.
+
+\Reply{Thank you for the suggestion. We replaced the ``NL-free network" in the whole paper by ``balanced network" and cite early Harary result on characterization of balanced networks.
+We kept the proof of Theorem 2.7 for completeness.
+However it should also be noted that Theorem 2.9, 2.12 and 2.14 are general description that depend only on the inputs to each node and are independent of the global network structure. Thus the approaches can be extended beyond the balanced networks.
+}
+
+\item The paper can be strengthened if the authors can describe the novelty of their method in comparison to the existing methods for enumerating Boolean models with certain steady states. For example, the paper below describes the enumeration of all Boolean models that are consistent with a set of given constraints, such as having certain steady states.
+Stéphanie Chevalier, Christine Froidevaux, Loïc Paulevé, Andrei Zinovyev. Synthesis of Boolean Networks from Biological Dynamical Constraints using Answer-Set Programming. 31st International Conference on Tools with Artificial Intelligence, 2019, Portland, Oregon, United States. ffhal-02276921v1
+
+\Reply{Thank you very much for the suggestion. We included a paragraph in the discussion comparing our approach to one presented in the reference.}
+
+\item I believe that removing the self-inhibition on SNAI1 for both EMT models requires some justification, especially as it leads to the key dynamics of the system that is biologically interpretable. It may be worth mentioning that both networks are constructed for the study of ODE systems, whereas the authors are working on Boolean models. One key aspect of Boolean modeling is that the self-inhibitions are innate; deactivation of positive inputs immediately leads to deactivation of the node.
+
+\Reply{The SNAI1 self-inhibition has been ommitted to simplify our analysis for a balanced network. We thank the reviewers for suggesting that innate self-inhibition of Boolean models can justify this; however, this is not the case in our framework, which allows redundant inputs. Instead, we have noted  in the discussion that this assumption should have minimal effect on our Boolean model without noise, since self-inhibitions are treated as noise buffers in ODE models.
+
+}
+
+\item The authors are allowing the inputs to be redundant (input does not affect the output) when considering all the Boolean functions consistent with the regulatory network. However, allowing redundancies means that the regulations are not actually present in the model. This may be worth some discussion, as this is closely related to the number of Boolean models allowing a certain steady state. For example, the steady state of all 0s is not allowed if and only if one of the functions of the positive Boolean model is a constant 1. The all 1s or the all 0s will always be allowed for models with no redundant inputs, and the bistability will always happen.
+
+\Reply{Thank you for this insightful comment. Indeed, considering non-strict monotone Boolean functions generates natural lattice structure of monotone Boolean functions which we explore here. The strict monotone Boolean functions are isolated within the set of non-strict functions and their fixed points, studied in insolation, is more difficult to discern. We added comments on line 131 commenting on strict vs. non-strict monotone Boolean function; a paragraph on line 223 discussing one conclusion  of Theorem 2.12; and on line 347 where we discuss the fixed points and bistability of strictly monotone Boolean models within the context of non-strict models.}
+
+\item I am guessing that listing the top 12 most common steady states for Table 2 required calculation of the number of models for every steady state. If this was done using code, providing it could make the results be more reproducible, and help the readers apply the method to other regulatory networks.
+
+\Reply{The code is available at: \url{https://doi.org/10.5281/zenodo.18682834}, and mentioned in the Data and Code Availability statement. The steps for reproducibility has been noted in the documentation.}
+
+\end{enumerate}
+
+\subsection*{Minor comments:}
+\begin{enumerate}
+\item Line 119: Please check the indices. It may have to be changed to: fj is increasing (decreasing) in xi, etc.
+\Reply{Thank you for noticing the lack of clarity. There was indeed a mistake in indexing and this was fixed}
+\item Line 120: It is unclear what “if xi=fi(x)” means.
+\Reply{This line was eliminated and replaced by a clearer statement.}
+\item Line 574: I wonder if the equation should be written a1(x1)=a1f1(x), or for more clarity a1(x1)=a1f1(a1(x1), x2, ..., xN)
+\Reply{Thank you for the suggestion. We adopted it and clarified the entire paragraph.}
+\item Line 575: Please check the indices. It may have to be changed to: g1:=a1f1
+\Reply{Thank you. Indeed, it should have been $\alpha_1$ and this was fixed.}
+\item Line 586: It is unclear how sources of g1 differ from sources of node x1
+\Reply{This was a misprint. In addition, we rewrote the entire paragraph to make the description of inductive argument more precise and clearer.}
+\item Line 590: It is not clear to me how each node can be considered only once, as the change of variables may turn originally positive edges to negative.
+\Reply{We enhanced the last paragraph of the argument to make the reason for the conclusion that each node will be handled only once, clearer. Thank you very much for carefully reading this argument.}
+\end{enumerate}
+
+\section*{Reviewer \#3:} 
+% This manuscript studies the set of Boolean network models supporting a given steady state. The authors focus on the class of models made up of monotone Boolean functions and with no negative feedback loops. Specifically, they study the problem of which steady states are supported by most models. They provide theoretical results (e.g., formulas) for the number of models supporting two relevant steady states after a mapping into a positive network. They also provide examples of their results in small networks such as toggle switches, and they applied their methods to a model relevant to cancer where they discuss potential biological implications of their findings.
+% I found this manuscript mostly well written and their results will be useful and important contributions for the analysis of Boolean network models. However, I found few potential issues (detailed below) with the current version and suggest addressing these before recommending it for publication.
+\subsection*{Major Revisions:}
+\begin{enumerate}
+\item Define positive Boolean model before Theorem 2.8. The concept was loosely described in the introduction, but it was not formally defined before using it in the theorem.
+
+\Reply{Thank you for the suggestion. We added this definition to Definition 2.6.}
+\item The title of the manuscript does not seem to be very informative. It generically indicates that it has to do with fixed points and multistationarity, but it does not indicate that it is about the set of models that support a specific steady state and/or the percentage of models supporting certain fixed points. Besides, it sounds very general that it might be a bit misleading that results of the manuscript apply to all monotone Boolean network models. Since current results are only for NL-free networks, I would suggest adding “with no negative loops” to the end of the current title or modifying it in some other way.
+
+\Reply{Thank you very much for the suggestion. We changed the title by using the concept of balanced networks which has a long history in network science.}
+\end{enumerate}
+
+\subsection*{Minor Revisions:}
+\begin{enumerate}
+\item Proofread the author summary, especially the last part where it says, “We show that the most common steady states are those correspond to ”. Consider changing “correspond” to “corresponding”.
+\Reply{Thank you very much for the suggestion. This has been fixed.}
+\item On line 117, replace the period after the function f with a comma.
+\Reply{This has been fixed.}
+\end{enumerate}
+\end{document}

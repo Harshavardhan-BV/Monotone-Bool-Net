@@ -1,0 +1,5 @@
+\RequirePackage{shellesc}
+\ShellEscape{latexdiff --exclude-textcmd="figure,subfigure,tikzpicture" --exclude-safecmd="node" --math-markup=fine plos_latex_submission_initial.tex plos_latex_submission.tex > main-d.tex}
+\input{main-d}
+\documentclass{dummy}
+% \title{Demonstrating latexdiff}
