@@ -16,7 +16,7 @@
         <link rel="prev" href="../pg/">
       
       
-        <link rel="next" href="../../api/pl/">
+        <link rel="next" href="../ms_count/">
       
       
         
@@ -527,6 +527,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ms_count/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multistable functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -743,7 +771,7 @@
 
 
 <h1 id="lattice">Lattice</h1>
-<p>This tutorial demonstrates the construction of lattices of k-dimensional Boolean vectors and Multivariate Boolean Functions (MBFs) with k inputs. These lattics are constructed as networkx digraph. The methods available to interact with these structures are currently limited, but we plan to expland it in the future.</p>
+<p>This tutorial demonstrates the construction of lattices of k-dimensional Boolean vectors and Monotone Boolean Functions (MBFs) with k inputs. These lattics are constructed as networkx digraph. The methods available to interact with these structures are currently limited, but we plan to expland it in the future.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">mbnet</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mn</span>
 </span></code></pre></div>
 <h2 id="mathbbb2">$\mathbb{B}^2$</h2>
@@ -751,21 +779,21 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">BL</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">lattice_B</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/9610e6ae994142148dd4f3042ec43c63.png" /></p>
+<p><img alt="img" src="../_data/447efdfbcc9a4af3917a19be0d7247f9.png" /></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">MBFL</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">lattice_MBF</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">MBFL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/1d97574799334c16887de301f8dd79ac.png" /></p>
+<p><img alt="img" src="../_data/be09739f4ce240bab8018f9009c65a74.png" /></p>
 <h2 id="mathbbb3">$\mathbb{B}^3$</h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">BL</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">lattice_B</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/2cb7ebb0bea44dca844a3cbeaec602c2.png" /></p>
+<p><img alt="img" src="../_data/c2eaca827ed44cad992bfc31e4da7a14.png" /></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">MBFL</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">lattice_MBF</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">MBFL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/4153cf79390f4d97938c23e427c27561.png" /></p>
+<p><img alt="img" src="../_data/fa87076e668e46a1835e9eb8d4170923.png" /></p>
 
 
 
