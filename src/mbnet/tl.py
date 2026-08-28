@@ -3,6 +3,7 @@ import pandas as pd
 import mbnet as mn
 import networkx as nx
 from scipy.spatial.distance import pdist, squareform
+from itertools import product
 
 def n_mbm(adjmat):
     """
@@ -220,3 +221,72 @@ def multistable(adjmat, states, explode=True):
     return MBF_set
 
     
+def constraint_IO(G,inp,oup):
+    """
+    Constrains the Boolean vectors based on U (upsets) and L (downsets). Propogates monotonicity by constraining values above U states to 1 and below L states to 0. 
+    
+    Parameters
+    ----------
+    G : networkx.DiGraph
+        Lattice of Boolean vectors (as a graph)
+    inp : list or iterable
+        List of input node names to constrain.
+    oup : list or iterable
+        List of Boolean output values (0 or 1) corresponding to each input node in inp.
+        Must have the same length as inp.
+    
+    Returns
+    -------
+    None
+        Modifies the graph G in-place by setting 'value' attributes on nodes.
+    
+    Notes
+    -----
+    - For each (node, value) pair, sets the node's value and propagates it through the graph.
+    - Uses depth-first search to traverse upstream/downstream nodes depending on the value.
+    - Assumes that the constraints provided are valid. If conflicting constraints are provided (i.e. U > L) the later one overwrites the value.
+    """
+    for node, value in zip(inp, oup):
+        G.nodes[node]['value']=value
+        upnodes = list(nx.dfs_edges(G if value else G.reverse(),node))
+        for i in upnodes:
+            G.nodes[i[1]]['value']= value
+
+def unconstrained_count(G):
+    """
+    Counts the number of possible monotone Boolean functions from unconstrained nodes of Boolean lattice.
+    
+    Parameters
+    ----------
+    G : networkx.DiGraph
+        Lattice of Boolean vectors with 'values' assigned to some nodes. These 'values' correspond to output of MBF for the particular Boolean vector. 'value' can be 0, 1, or None (unconstrained).
+    
+    Returns
+    -------
+    int
+        Total count of valid monotone Boolean functions.
+    
+    Notes
+    -----
+    - Recursively explores all possible value assignments for top-level unconstrained nodes.
+    - Uses constraint_IO to propagate monotonicity constraints through the lattice.
+    - Base case returns 1 when no unconstrained nodes remain.
+    """
+    # Choose only the unconstrained nodes
+    unconst = [n for n, attrs in G.nodes(data=True) if attrs.get("value") is None]
+    UG = G.subgraph(unconst)
+    if len(UG.nodes)==0:
+        return 1
+    # Select the top most level nodes
+    levels = nx.get_node_attributes(UG, "level")
+    max_lvl = max(levels.values())
+    max_nodes = [node for node,lvl in levels.items()  if lvl==max_lvl]
+    # Generate combinations for each top level node
+    vals = list(product([0,1], repeat=len(max_nodes)))
+    total_count = 0
+    for val in vals:
+        G2 = UG.copy()
+        mn.tl.constraint_IO(G2,max_nodes,val)
+        # mn.pl.lattice(G2)
+        total_count += unconstrained_count(G2)
+    return total_count

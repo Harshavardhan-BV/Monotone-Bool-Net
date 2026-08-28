@@ -12,3 +12,7 @@
 ## Parameter Sets
 ::: mbnet.tl.param_set
 ::: mbnet.tl.multistable
+
+## Lattice 
+::: mbnet.tl.constraint_IO
+::: mbnet.tl.unconstrained_count
