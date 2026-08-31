@@ -213,7 +213,7 @@ def multistable(adjmat, states, explode=True):
             lambda row: mn.utils.L_set(row) if oupt.loc[row.name] == 0 else mn.utils.U_set(row),
             axis=1
         )
-        MBF_set.loc[:, tgt] = set.intersection(*temp)
+        MBF_set.loc[:, tgt] = set.intersection(*temp) if not temp.empty else set()
     if explode:
         for tgt in MBF_set.columns:
             MBF_set = MBF_set.explode(tgt)

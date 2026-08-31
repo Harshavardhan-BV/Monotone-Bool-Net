@@ -3,6 +3,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import networkx as nx
 import mbnet as mn
+from itertools import product
+from matplotlib.patches import FancyArrowPatch
 plt.rcParams['svg.hashsalt'] = ''
 
 def lattice(G, save=False):
@@ -62,4 +64,44 @@ def PG(MBFs, x ,y, k=None ,save=False):
     if save:
         plt.savefig(f'{save}')
     plt.show()
-# %%
+
+def network(A):
+    edegprop = {
+        1: ('red','->', 15),
+        -1: ('blue','-[', 2)
+    }
+    ang = 60
+    connprop = {
+        True: 'arc,angleA=15, armA=30,rad=10, angleB=90, armB=30,rad=-10',
+        False: 'arc3,rad=0.1'
+    }
+    # Plot the graph
+    G = nx.from_pandas_adjacency(A)
+    # Get the positions
+    pos = nx.circular_layout(G)
+    # print(pos)
+    # Draw nodes
+    fig, ax = plt.subplots(figsize=(5,5))
+    nx.draw_networkx_nodes(G, pos, node_color='none', alpha=1, node_size=1500, edgecolors='black', linewidths=1, margins=0.1)
+    # plt.scatter(0,0, color='black', s=10)
+    nx.draw_networkx_labels(G, pos, font_size=12)
+    wt = list(list(G.edges(data=True))[0][-1].keys())[0]
+    # Draw edges
+    for sign in [1,-1]:
+        for sign, selfe in product([1,-1],[False, True]):
+            edges = [e for e in G.edges if (G.edges[e][wt] == sign) & ((e[0] == e[1]) == selfe)]
+            if not selfe:
+                nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color=edegprop[sign][0], arrowstyle=edegprop[sign][1], node_size=1500, width=2, alpha=0.5, arrowsize=edegprop[sign][2], connectionstyle=connprop[False], arrows=True, min_target_margin=25)
+            else:
+                # Draw the loops using matplotlib
+                for edge in edges:
+                    # Get the position of the node
+                    posn = pos[edge[0]]
+                    # Get the angles of node pos to the origin
+                    angle = np.array([-ang,ang]) + np.arctan2(posn[1],posn[0]) * 180/np.pi
+                    # Offset posn from the original point by 1500
+                    posn1 = posn + 0.20* np.array([np.cos(angle[0]*np.pi/180), np.sin(angle[0]*np.pi/180)])
+                    posn2 = posn + 0.20* np.array([np.cos(angle[1]*np.pi/180), np.sin(angle[1]*np.pi/180)])
+                    # Make the loop as arcs with arrows coming out at thetas
+                    ax.add_patch(FancyArrowPatch(posn1, posn2, connectionstyle='arc3, rad=2', edgecolor=edegprop[sign][0], arrowstyle=edegprop[sign][1], linewidth=2, alpha=0.5, mutation_scale=edegprop[sign][2]))
+    return fig, ax
