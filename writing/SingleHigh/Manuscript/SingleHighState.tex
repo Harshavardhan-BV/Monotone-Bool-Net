@@ -1,0 +1,2167 @@
+\documentclass[12pt]{amsart}
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\usepackage{amsmath,amsfonts,amsthm,amssymb,mathabx,bbm,nicefrac,mathtools,booktabs,siunitx,graphicx,mathrsfs,blkarray, bigstrut,soul,xcolor,color,colortbl,multirow,multicol,enumitem,tcolorbox,makecell,dsfont,pb-diagram,pb-xy,phoenician,ulem}
+\usepackage[subrefformat=parens, labelfont=up]{subcaption}
+\usepackage[cmtip,arrow]{xy}
+\usepackage[hidelinks]{hyperref}
+\usepackage[noabbrev,nameinlink,capitalize]{cleveref}
+\usepackage[foot]{amsaddr}
+\usepackage[linguistics]{forest} 
+\usepackage{lmodern}
+
+\crefname{thm}{Theorem}{Theorems}
+\geometry{a4paper} 
+
+
+\newcommand{\setof}[1]{\left\{ {#1}\right\}}
+\newcommand{\setdef}[2]{\left\{{#1}\,\left|\,{#2}\right.\right\}}
+
+% BOLD LETTERS
+\newcommand{\ba}{{\bf a}}
+\newcommand{\bb}{{\bf b}}
+\newcommand{\bc}{{\bf c}}
+\newcommand{\bd}{{\bf d}}
+\newcommand{\bg}{{\bf g}}
+\newcommand{\bh}{{\bf h}}
+\newcommand{\bi}{{\bf i}}
+\newcommand{\bj}{{\bf j}}
+\newcommand{\bk}{{\bf k}}
+\newcommand{\bl}{{\bf l}}
+%\newcommand{\bm}{{\bf m}}
+\newcommand{\bn}{{\bf n}}
+\newcommand{\bq}{{\bf q}}
+\newcommand{\bu}{{\bf u}}
+\newcommand{\bv}{{\bf v}}
+\newcommand{\bw}{{\bf w}}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\by}{{\bf y}}
+\newcommand{\bz}{{\bf z}}
+
+\newcommand{\bA}{{\bf A}}
+\newcommand{\bB}{{\bf B}}
+\newcommand{\bC}{{\bf C}}
+\newcommand{\bD}{{\bf D}}
+\newcommand{\bE}{{\bf E}}
+\newcommand{\bF}{{\bf F}}
+\newcommand{\bG}{{\bf G}}
+\newcommand{\bI}{{\bf I}}
+\newcommand{\bJ}{{\bf J}}
+\newcommand{\bK}{{\bf K}}
+%\newcommand{\bL}{{\bf L}}
+\newcommand{\bM}{{\bf M}}
+\newcommand{\bR}{{\bf R}}
+\newcommand{\bS}{{\bf S}}
+\newcommand{\bT}{{\bf T}}
+\newcommand{\bU}{{\bf U}}
+\newcommand{\bZ}{{\bf Z}}
+
+\newcommand{\bRN}{{\bf RN}}
+\newcommand{\bIn}{{\bf In}}
+\newcommand{\bOut}{{\bf Out}}
+
+\newcommand{\boolf}{{\mathfrak 0}}
+\newcommand{\boolt}{{\mathfrak 1}}
+
+\newcommand{\bzero}{{\bf 0}}
+\newcommand{\bone}{{\bf 1}}
+
+\newcommand{\cT}{{\mathcal T}}
+
+% See the ``Article customise'' template for come common customisations
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,arrows,positioning,calc,shapes,arrows.meta}
+\usepackage{xstring}
+
+\tikzset{
+    main node/.style={circle,fill=white!20,thick,draw},
+    blueedge/.style={thick,blue,-|,shorten <=2pt,shorten >=2pt},
+    rededge/.style={thick,red,->,shorten <=2pt,shorten >=2pt},
+    blankedge/.style={dashed,gray,-{o},shorten <=2pt,shorten >=2pt},
+    textbox/.style={draw=none, fill=none, midway}
+}
+
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbT}{\mathbb{T}}
+\newcommand{\bbU}{\mathbb{U}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cB}{\mathcal{B}}
+
+\newcommand{\Targets}{\mathbf{T}}
+\newcommand{\Sources}{\mathbf{S}}
+\newcommand{\PG}{\mathsf{PG}}
+\newcommand{\MG}{\mathsf{MG}}
+\newcommand{\STG}{\mathsf{STG}}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{algorithm}[thm]{Algorithm}
+
+%\setlength{\parindent}{0pt}
+\tikzset{  
+	-Latex,auto,node distance =1.5 cm and 1.3 cm, thick,% node distance is the distance between one node to other, where 1.5cm is the length of the edge between the nodes  
+	state/.style ={ellipse, draw, minimum width = 0.9 cm}, % the minimum width is the width of the ellipse, which is the size of the shape of vertex in the node graph  
+	point/.style = {circle, draw, inner sep=0.18cm, fill, node contents={}},  
+	bidirected/.style={Latex-Latex,dashed}, % it is the edge having two directions  
+	el/.style = {inner sep=2.5pt, align=right, sloped}  
+} 
+
+\newcounter{countitems}
+
+\definecolor{myblue}{rgb}{0,0.2,.7}
+\definecolor{mygreen}{rgb}{0.1, .9, 0.4 }
+
+\newcommand{\Tomas}[1]{{\color{red}{{\bf Tomas: }#1}}} 
+\newcommand{\Sarah}[1]{{\color{blue}{{\bf Sarah: }#1}}}
+\newcommand{\Harsha}[1]{{\color{mygreen!75!black}{{\bf Harsha: }#1}}}
+
+\title[Single high state networks]{Gene Regulatory Networks that support Multi-Fate Cellular Decisions}
+
+\author[H. BV]{Harshavardhan BV$^{a}$}
+\address[a]{IISc Mathematics Initiative, Indian Institute of Science, Bengaluru, 560012, India}
+\author[S. Adigwe]{Sarah Adigwe$^{b}$}
+\address[b]{Department of Mathematical Sciences, Montana State University, Bozeman, MT 50717}
+\author[MK. Jolly]{Mohit Kumar Jolly$^{c}$}
+\address[c]{Department of Bioengineering, Indian Institute of Science, Bengaluru, 560012, India}
+\author[T. Gedeon]{Tom\'{a}\v{s} Gedeon$^{b,*}$}
+\email[*]{tgedeon@montana.edu}
+
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+\begin{abstract}
+    Cell fate decisions are driven by gene regulatory networks (GRNs). While the mutually inhibitory toggle switch effectively models binary fate decisions, fully connected inhibitory networks with more than two nodes fail to capture multi-fate decisions due to the low prevalence of ``single high states", where only a single master regulator is highly expressed. The goal of this study is to find network structures that support all single high states. We find that the only network that attains the highest possible prevalence of all single high states within the set of monotone Boolean (MB) models is completely disconnected. Since biological networks typically require connectivity, we investigate network structures that support equipotency, where all single high states have equal prevalence within MB models. Finally, we characterize the networks that support multistability between all single high states, finding that it is possible only in networks in which each node either has self-activations or is inhibited by every other network node. Our findings provide a theoretical framework for understanding the network design principles that can support simultaneous differentiation into multiple distinct cell types.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Gene regulatory networks (GRNs) regulate the expression patterns during development to determine cell fates, transitioning from stem-like states to differentiated states \cite{zhou_understanding_2011}. Transcription factors (TFs) form the core of these networks by interacting with other transcription factors and regulating downstream genes. A specific set of these transcription factors, known as master regulators \cite{chan_what_2013}, regulates the differentiation towards a particular cell state, and these differentiated cells are characterized by exclusive expression of the master regulator corresponding to that particular state. The lack of experimental evidence for the regulatory links between the master regulators poses a challenge for a bottom-up experimental approach to identify network structures. Since the precise network interactions and processes that lead to these differentiated states are not known, we ask a question about what network structures support multiple steady states, where in each state, only one master regulator is expressed at a high level, and others are at a low level. We call such states \textit{ single high states} of a network. We are interested in discovering what network, or networks, of interactions between master regulators will maximize the prevalence of single high states, and what networks admit multistability between all single high states. 
+
+Previous studies considered pairs of master regulators forming the network motif of a toggle switch, where the mutual inhibition between two TFs allows for mutually exclusive expression of both single high states \cite{gardner_construction_2000,tian_stochastic_2006}. In our previous study \cite{bv_emergent_2025}, we extended this architecture and considered fully connected mutually inhibitory networks with more than two nodes. We hoped that such a network would support a multi-fate decision by supporting a high prevalence of all single high states. However, we observed by several complementary methods that such networks do not give rise to a predominance of single high states. This leaves an open question whether any other network structure would allow for the predominance of single high states. 
+
+To address this question, we first define a \textit{ prevalence} of a particular single high state as the number of monotone Boolean models that support such a state, normalized by all monotone Boolean models that are compatible with the network structure. Regulatory network can be represented as a directed graph $N=(V, E)$ with vertices $V$ and directed edges $E$, and, in addition, with a sign $\delta(e)\in \{\pm 1\}$ associated to each edge in $E$. The sign determines whether the directed interaction is activating ($\delta(e) = 1$) or repressing ($\delta(e) = -1$). Since the monotone Boolean models that are compatible with the network structure depend on the number of nodes and the number of edges of the network, but not the signs of the edges, the proper comparison can be made between networks with the same directed edge structure, but that differ in the sign structure. 
+
+We therefore ask the question about the prevalence of single high states in the context of fixing the directed graph structure of the network, i.e., the nodes $n$, edges $E$, and then ask what sign structure $\delta$ on the set of edges supports multiple single high states with the highest possible prevalence. We further investigate two properties: equipotency and multistability. The first asks which sign structure supports all single high states with \textit{ the same number} of monotone Boolean models, where the models that support different states may not be the same. We say that the regulatory network is \textit{equipotent} if it has this property. If we have no knowledge of what monotone Boolean model is the model for the network, an equipotent network would produce any single high state with equal probability under repeated sampling of compatible monotone Boolean models. The second question asks which sign structure of the network has at least one monotone Boolean model that supports \textit{ multistability} between all single high states. Once we find such structures, we can then attempt to rank them based on the number of such models. 
+
+The paper is organized as follows. After preliminaries in \cref{sec:prelim}, \cref{sec:fixedptsgen} presents the main tool that allows us to study network structures that support particular sets of equilibria. We extend the characterization of monotone Boolean models for networks with positive edges supporting a particular equilibrium, presented in~\cite{adigwe_characterization_2026}, to include all networks with both positive and negative edges. In \cref{sec:singlehigh} we describe for any network structure and any Boolean state $b$ of the network the set of monotone Boolean models (MBM) that are compatible with that network structure and for which $b$ is a fixed point. We show that the only network structure with $n$ nodes that is able to support all $n$ single high states with the highest possible prevalence is a completely disconnected network with positive self-regulation on each node.
+
+Since networks without mutual communication cannot serve as decision-making circuits, in \cref{sec:prevalence} we look at equipotent networks. We provide a characterization of such networks within a class of networks with all-to-all edges with no self-loops in \cref{thm:final_equipotency} and then apply our results for classes of networks with $n=3,4,5$ nodes. We find that the highest prevalence among the equipotent networks occurs for $n=3$ when each node receives negative inputs from both other nodes, for $n=4$ each node either receives one negative inputs or negative inputs from all three other nodes, and for $n=5$ when each node receives one negative input. When we expand the study to look at networks with all-to-all coupling with self-regulation, the types of networks that maximize prevalence remain largely the same. However, the relationship between $n$ and the number of negative inputs that support maximal equipotency for $n>5$ remains an open problem. 
+
+Finally, in \cref{sec:multistability} we focus on network structures that support multistability between all $n$ single high states. Remarkably, in \cref{thm:multistable} we find that the only networks that support such multistability must, for each node, either have positive self-regulation or the node receives negative input from all other nodes. We then ask which structures among these have the highest number of models that support multistability. For $n=3,4$, these are networks that have both of these features, positive self-regulation and negative input from all other nodes. However, for $n=5$, this pattern changes, and the highest number of models is supported by a network with positive self-regulation on each node, but only one negative input from four other nodes. Full understanding of this pattern likely hinges on the detailed structure of the lattice of monotone Boolean functions and remains an open problem. We conclude with the discussion section.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}\label{sec:prelim}
+
+
+\begin{defn} \label{def:RN}
+A \textit{regulatory network} $N = (G,\delta)$ consists of 
+\begin{itemize}
+    \item a directed graph $G=(V,E)$ with nodes $V$ with $|V|=n$ and directed edges $E$;
+    \item \textit{ edge sign function} $\delta: E \to \{-1,1\}$.
+\end{itemize}
+We denote an edge from node $i$ to node $j$ without indicating its sign by $(i, j)$ or $i\multimap j$. The edge $i \multimap j$ is \textit{activating} if $\delta(i, j) = 1$ and \textit{repressing} if $\delta(i, j) = -1$. Graphically, an activating edge of a regulatory network edge is denoted by $i\to j$ and a repressing edge by $i \dashv j$. The \textit{sources} and \textit{targets} of a node $i$ are given by 
+\[
+    \Sources(i):= \setdef{k\in V}{k\multimap i \in E} \ \text{ and } \ \Targets(i):= \setdef{j\in V}{i\multimap j \in E},
+\]
+respectively.
+\end{defn}
+
+
+Given a network $N$, we define a feasible set of models that represent the dynamics of the network. Because we are interested in the prevalence of certain dynamics within a class of models, we chose a class of models that is finite and thus enumerable. To do this, we start by assigning a Boolean state $b_i\in \bbB$ where $\bbB:=\{0< 1\}$ has a state $0$, representing the OFF state and a state $1$, representing the ON state. Then the state of the network is a Boolean vector $b\in \bbB^n$ with $b=(b_1, \ldots, b_n)$. 
+The set $(\bbB^n, \preceq)$ is a partially ordered set under the natural order on vectors induced by the order $0\prec 1$ on $\bbB$. We will use the notation $\uparrow(b) :=\{ d\in \bbB^n \;|\; b \preceq d\}$ and $\downarrow(b) :=\{ d\in \bbB^n \;|\; d \preceq b\}$ to denote \textit{up} and \textit{ down} set of $b$.
+
+The class of models that we consider is a class of \textit{ monotone Boolean models (MBM)} that we describe next. 
+
+A Boolean function $f_i \colon \bbB^s \to \bbB$ is \emph{increasing with respect to input $j$} if for any input $b=(b_1, \ldots, b_s) \in \bbB^s$
+\[
+f_i(b_1, \ldots, b_{j-1}, 0, b_{j+1}, \ldots, b_s) \leq f_i(b_1 \ldots, b_{j-1}, 1, b_{j+1}, \ldots, b_s).
+\]
+It is \emph{strictly increasing with respect to $j$} if there is at least one input $b \in \bbB^s$ where the inequality is strict.
+
+A Boolean function $f_i \colon \bbB^s \to \bbB$ is \emph{decreasing with respect to input $j$} if for any input $b=(b_1, \ldots, b_s) \in \bbB^s$
+\[
+f_i(b_1, \ldots, b_{j-1}, 0, b_{j+1}, \ldots, b_s) \geq f_i(b_1, \ldots, b_{j-1}, 1, b_{j+1}, \ldots, b_s).
+\]
+It is \emph{strictly decreasing with respect to $j$} if there is at least one input $b \in \bbB^s$ where the inequality is strict.
+
+
+\begin{defn}
+\label{defn:MBF}
+A Boolean function $f_i \colon \bbB^s \to \bbB$ is \emph{monotone} if it is increasing or decreasing with respect to each input $j=1, \ldots, s$. In this case, $f_i$ is called a \emph{monotone Boolean function}.
+\end{defn}
+
+\begin{defn}\label{defn:MBM}
+A Boolean model $f \colon \bbB^n \to \bbB^n, f=(f_1, \ldots, f_n)$, is \emph{monotone} if for every node, $i$ the function $f_i$ is monotone.
+
+A monotone Boolean model $f \colon \bbB^n \to \bbB^n, f=(f_1, \ldots, f_n)$, is \emph{positive} (increasing) if for every $i$, the monotone Boolean function $f_i$ is increasing with respect to all of its inputs.
+\end{defn}
+
+\begin{defn}
+    A Boolean function $f_i \colon \bbB^s \to \bbB$ is redundant on input $j$ if $f_i(b_1,b_2,\cdots, b_{j-1}, 0, b_{j+1},\cdots, b_s) = f_i(b_1,b_2,\cdots, b_{j-1}, 1, b_{j+1},\cdots, b_s)$ for all $b_k \in \bbB, k\not = j$.
+    A Boolean function with no redundant inputs is called an \textit{ essential} Boolean function.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{ Network compatibility of Monotone Boolean models}
+
+Regulatory network $N=(G,
+\delta)$ consists of directed graph $G=(V,E)$ and a sign function $\delta:E\to \{-1,1\}$.
+For MBM $f=(f_1, \ldots, f_n)$, the directed graph structure determines the number of inputs of each monotone Boolean function $f_i:\bbB^{|\Sources(i)|} \to \bbB$. The sign structure $\delta$ determines the monotonicity type of $f_i$, which we describe more formally here.
+
+
+\begin{defn}
+A monotone Boolean model (MBM) $f \colon \bbB^n \to \bbB^n, f=(f_1, \ldots, f_n)$ is \textit{compatible} with network $N=(G,\delta),\; G=(V,E)$ if $|V|=n$ and for each $(i,j)$, $f_j$ is increasing (decreasing) with respect to $b_i$ if, and only, if $\delta(i,j) = 1,(\delta(i,j) = -1)$.
+\end{defn}
+
+\begin{defn} \label{defn:signchange}
+There are two \textit{ elementary bijections} from $\bbB$ to $\bbB$, identity $Id$ and $\neg Id$ which maps $0\to 1$ and $1\to 0$. For each vertex $i\in V$, let 
+\[ \beta_i: \bbB^{|\Sources(i)|} \to \bbB^{|\Sources(i)|}\]
+be a collection $\beta_i=(\beta_i^1, \ldots, \beta_i^{|\Sources(i)|})$
+where each $\beta_i^j$ is an elementary bijection corresponding to the edge $j\multimap i$.
+
+
+The function $\beta_i$ is determined by the sign function $\delta$ 
+\[ \beta^j_i = \left \{
+\begin{array}{cc}
+Id & \mbox{ if } \delta(j,i)=1\\
+\neg Id & \mbox{ if } \delta(j,i)=-1
+\end{array}
+\right.
+,\]
+where $Id$ is the identity function on $\bbB$.
+The map $\beta^j_i$ inverts Boolean input if the edge $j \dashv i$ is negative and preserves the Boolean input if the edge $j \to i$ is positive.
+We call $\beta=(\beta_1, \ldots, \beta_n), \beta: \bbB^{|E|} \to \bbB^{|E|}$ a \textit{change of sign} function.
+\end{defn}
+Any sign function $\delta$ defines a unique Boolean sign function $\beta$ and any Boolean sign functions $\beta$ uniquely defines a sign function $\delta.$
+
+
+Clearly, the function $\beta_i$ is determined by the set of negative input edges to node $i$.
+Let $\bZ_i \subset \Sources(i)$ be the set of nodes connecting by a negative edge to node $i$
+\begin{equation}\label{eq:Z} j \dashv i \quad \Leftrightarrow \quad j\in \bZ_i . 
+\end{equation}
+We use the shorthand $\beta^\bZ_i$ for the corresponding change of sign function. 
+
+
+
+%%%%%%%%%%%%%%%%%
+\subsection{Positive networks}
+
+Among the regulatory networks with the same $G$
+a \textit{positive network} where all edges are positive ($\delta(i,j) =1$ for all $(i,j)$) has special properties.
+We start with an important definition.
+
+\begin{defn}\label{def:UL}
+Consider the set $MBF(s)$, a set of positive monotone Boolean functions $f:\bbB^s\to \bbB$.
+For any input $b\in \bbB^s$ let
+\begin{align*}
+    U(b) &:=\{ f_i \in MBF(s) \;|\; f_i(b) = 1\} \\
+    L(b) &:=\{ f_i \in MBF(s) \;|\; f_i(b) = 0\}.
+\end{align*}
+\end{defn}
+
+We denote a vector of zeroes in $\bbB^n$ by $\bzero$, a vector of ones in $\bbB^n$ by $\bone$, and a $j-$th unit vector in $\bbB^n$ by $e^j$, respectively. 
+For any subset $\bZ\subset \{1,\ldots, n\}$ we denote by $e^{\bZ}\in \bbB^n$ the vector with $e^{\bZ}_i=1$ if, and only if, $i \in \bZ$.
+When it will be necessary to emphasize the size of these vectors, we will add a superscript, i.e., $\bone^s\in \bbB^s$. 
+
+We summarize some results from (\cite{adigwe_characterization_2026}) about positive networks.
+
+\begin{thm}[Theorem 2.10, \cite{adigwe_characterization_2026}] \label{thm:monostability}
+Consider a positive network $N$ and an arbitrary Boolean state $b=(b_1, \ldots, b_n)\in \bbB^n$ of the network $N$.
+
+Then $b$ is a steady state of any monotone Boolean model $f=(f_1,f_2, \ldots, f_n)$ where
+\[ f_i \in I_i(b)\]
+
+where 
+\[ I_i(b)= \left\{ \begin{array}{cc}
+U(b_{\Sources(i)}) & \mbox{ if } \quad b_i=1\\
+L(b_{\Sources(i)}) &\mbox{ if } \quad b_i=0
+\end{array}
+\right .
+\]
+where $b_{\Sources(i)}$ are the values of the input nodes of $i$ evaluated at the state $b$.
+\end{thm}
+
+\begin{thm}[Theorem 2.16, \cite{adigwe_characterization_2026}]\label{thm:multistability} \label{thm:multi_positive}
+Consider a positive network $N$ and $q$ Boolean states $b^1,\ldots, b^q \in \bbB^n$.
+Then the multistability between these steady states is supported by any positive monotone Boolean model $f=(f_1,f_2, \ldots, f_n)$ where
+\[ f_i \in \bigcap_{j=1}^q I_i(b^j)\]
+
+where 
+\[ I_i(b^j)= \left\{ \begin{array}{cc}
+U(b^j_{\Sources(i)}) & \mbox{ if } \quad b^j_i=1\\
+L(b^j_{\Sources(i)}) &\mbox{ if } \quad b^j_i=0
+\end{array}
+\right . ,
+\]
+where $b^j_{\Sources(i)}$ are the values of the input nodes of $i$ evaluated at the state $b^j$, respectively.
+\end{thm}
+
+
+\begin{thm}[Theorem 2.12, \cite{adigwe_characterization_2026}] \label{thm:most_common}
+Consider a positive network $N$ with $n$ nodes. Then 
+
+\begin{itemize}
+\item The set of all MB models compatible with $N$ is 
+    \[ MBM:= MBF(s_1)\times MBF(s_2) \times \ldots MBF(s_n),\]
+where $s_j=|\Sources(j)|$.
+\item Every state in $\bbB^n$ is an equilibrium for some monotone Boolean model.
+\item Among all the states, the states $\bzero \in \bbB^n$ and $\bone \in \bbB^n$ are most prevalent i.e. supported by most MBMs.
+\item The sets of MBMs that supports $\bzero \in \bbB^n$ has the form 
+    \[ L(\bzero^{s_1})\times L(\bzero^{s_2}) \times \ldots L(\bzero^{s_n}),\]
+which has the size 
+\begin{equation} 
+\label{eq:size}
+H:=(|MBF(s_1)|-1)\times (|MBF(s_2)|-1) \times \ldots (|MBF(s_n)|-1).
+\end{equation}
+\item The sets of MBMs that supports $\bone\in \bbB^n$ has the form 
+    \[ U(\bone^{s_1})\times U(\bone^{s_2}) \times \ldots U(\bone^{s_n}),\]
+which also has the size $H$.
+\end{itemize}
+\end{thm} 
+
+We have the following refinement of (\ref{eq:size}) that describes the sizes of all sets $U(\cdot)$ and $L(\cdot)$.
+For $b\in \bbB^n$ let $|b|$ denote the number of $1$s in Boolean vector $b.$
+
+\begin{lem} \label{lem:sizes}
+\begin{enumerate}
+\item $|U(b)|=|L(\neg b)|$ for any $b\in \bbB^s$
+\item
+The size $|U(b)|$ and $|L(b)|$ depends only on $|b|$. 
+In particular, there exists a set of integers 
+\[ K_s:=\{\kappa_0,\kappa_1,\ldots, \kappa_{s-1}, \kappa_{s}\} =\{1,\kappa_1,\ldots, \kappa_{s-1}, |MBF(s)|-1\} \]
+with $\kappa_0<\kappa_1<\ldots,< \kappa_s$
+such that for any $b\in \bbB^s$
+\begin{equation} \label{Ssizes}
+|U(b)| = \kappa_{|b|}, \qquad |L(b)| = \kappa_{s-|b|}
+\end{equation}
+\end{enumerate}
+\end{lem}
+\begin{proof}
+Statement (1) is Lemma 3.17 in \cite{adigwe_characterization_2026} and (2) is Theorem 3.18~\cite{adigwe_characterization_2026}.
+\end{proof}
+
+The set of numbers $K_s$ is challenging to compute for arbitrary $s$. In particular, the size of the set of monotone Boolean functions $|MBF(s)|$ is only known for $s\leq 9$ (\cite{jakel_computation_2023}). Since $\kappa_{s} \in K_s$ satisfies $\kappa_{s} = |MBF(s)|-1$ computing the entire set $K_s$ is at least as hard as computing $|MBF(s)|$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fixed points for general networks} \label{sec:fixedptsgen}
+
+We now describe our main theoretical result, where for any network $N=(G,\delta)$ and any $b \in \bbB^n$, we characterize the set of models that support $b$ as a fixed point. 
+
+
+We first observe that any monotone Boolean function $h_i: \bbB^{|\Sources(j)|} \to \bbB$ which is monotonically decreasing with respect to its negative inputs and monotonically increasing with respect to its positive inputs can be written as a composition of a \underline{positive} monotone Boolean function $f_i: \bbB^{|\Sources(j)|} \to \bbB$ and the sign change function $\beta_i$
+\begin{equation}\label{monotone_flip}
+    h_i = f_i\circ \beta_i,
+\end{equation}
+introduced in Definition~\ref{defn:signchange}.
+We have the following adaptation of \cref{thm:monostability} to general networks.
+
+\begin{thm}\label{thm:monostability_gen}
+Consider an arbitrary network $N=(G,\delta)$ and an arbitrary Boolean state $b=(b_1, \ldots, b_n)\in \bbB^n$ of the network $N$. Let $\beta=(\beta_1,\ldots, \beta_n)$ be the sign change induced by $\delta$.
+
+Then $b$ is a steady state of any monotone Boolean model $h=(h_1,h_2, \ldots, h_n)$ with $h=f\circ \beta$, where
+\[ f_i \in I_i(\beta_i(b))\]
+
+where 
+\[ I_i(\beta_i(b))= \left\{ \begin{array}{cc}
+U(\beta_i(b_{\Sources(i)})) & \mbox{ if } \quad b_i=1\\
+L(\beta_i(b_{\Sources(i)})) &\mbox{ if } \quad b_i=0
+\end{array}
+\right .
+\]
+where $b_{\Sources(i)}$ are the values of the input nodes of $i$ evaluated at the state $b$.
+\end{thm}
+
+\begin{defn}\label{Equipotency}
+Fix network $N=(G,\delta)$ and associated function $\beta$.
+
+The set of monotone Boolean models 
+\textit{ supporting state $e^i \in \mathbb{B}^n$} is the set 
+\[
+C(e^i)
+:=
+\left\{ f \in \prod_{j=1}^N {MBF(s_j)}
+\;\middle|\;
+h(e^i) = e^i; \mbox{ where } f=h \circ \beta
+\right\}.
+\]
+
+The regulatory network $N$ is \textit{equipotent} if
+\[
+|C(e^i)| = |C(e^j)|
+\quad
+\text{for all } i,j \in \{1,\dots,n\}.
+\]
+\end{defn}
+
+We have the following Corollary of \cref{thm:monostability_gen} that characterizes the sets $C(e^i)$.
+
+\begin{cor}\label{decomp}
+Let $e^j \in \mathbb{B}^n$ be a single high state. Then the set of MBM supporting $e^j$ is
+\[
+C(e^j)
+=
+\prod_{i=1}^N
+I_i(\beta_i(e^j)),
+\]
+where 
+\[
+I_i(\beta_i(e^j))
+=
+\begin{cases}
+U \big(\beta_i(e^j_{\Sources(i)})\big) & \text{if } e^j_i = 1, \\[6pt]
+L \big(\beta_i(e^j_{\Sources(i)})\big) & \text{if } e^j_i = 0.
+\end{cases}
+\]
+\end{cor}
+
+\begin{defn}
+We say that a network $N=(G, \delta)$ supports \textit{ full multistability},
+if there exists a MBM consistent with the network $N$ for which all the single high states $e^1, \ldots, e^n$ are steady-states of the network. 
+\end{defn}
+
+We have the following characterization of full multistability, which is a direct consequence of \cref{thm:multi_positive} for positive networks. This version incorporates the change of signs function $\beta$.
+
+\begin{thm}
+\label{thm:multi_general} 
+    \label{intersections}
+    Consider network $N=(G, \delta)$. 
+    Then MBM $h=(h_1, \ldots, h_n)$ supports full multistability, if $h=f\circ \beta$, where $\beta$ is the sign change function associated to network sign structure $\delta$ and
+    \begin{equation} 
+    f_i \in \bigcap_{j \not = i} L(\beta_i(e^j_{\Sources(i)})) \cap U(\beta_i(e^i_{\Sources(i)})),
+    \end{equation}
+    where $e^k_{\Sources(i)} \in \bbB^{|\Sources(i)|}$ is the binary vector of the values of the source nodes $j \in \Sources(i)$, evaluated at the steady state at $e^k$.
+\end{thm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Maximum prevalence of single high states} \label{sec:singlehigh}
+
+We start with the following Corollary of \cref{thm:most_common} and (\ref{monotone_flip}). 
+\begin{cor} \label{lem:bound}
+Consider an arbitrary network $N$ with $n$ nodes and state space $\bbB^n$. Assume that the number of inputs to vertex $i \in V$ is $s_i=|\Sources(i)|$.
+    The highest possible number of monotone Boolean models that support an equilibrium $e \in \bbB^n$ is (see (\ref{eq:size}))
+    \[ H=\Pi_{i=1}^n (|MBF(s_i)|-1). \]
+    \end{cor}
+
+In view of this Corollary, we want to address the following question. We fix a particular state $e^i \in \bbB^n$ and ask which network among all networks with $n$ nodes has the property that the size of the set of MB model that supports $e^i$ as an equilibrium achieves the upper bound $H$ in \cref{lem:bound}.
+
+\begin{defn}
+We say that network $N=(G,\delta)$ is a \textit{k-team network} if there is a partition of the vertices $V=V_1 \cup \ldots \cup V_k$ into $k$ disjoint sets and 
+\[ \delta(i,j)=\left \{ 
+\begin{array}{cc}
+1 & \mbox{ if } i, j \in k \mbox{ for some } k\\
+-1 & \mbox{ otherwise.} 
+\end{array}
+\right.
+\]
+\end{defn}
+
+
+\begin{thm}\label{two_team}
+    Consider state $e^i \in \bbB^n$. Then the only network with $n$ nodes that supports $e^i$ with $H$ monotone Boolean models is a 2-team network where teams $A,B$ are 
+    \[ A=\{i\}, \qquad B=\{1,\ldots,{i-1},i+1,\ldots, n\}.\]
+    \end{thm}
+    See \cref{fig:TS} for 2 node, \cref{fig:3TeamA} for $3$ node and \cref{fig:4TeamA} the $4$ node networks supporting $e^1$.
+
+\begin{proof}
+By ~\cref{thm:monostability_gen} the state $e^i$ is supported by all models $f=(f_1, \ldots, f_n)$ such that 
+\[ f_i \in U(\beta_i(e^i_{\Sources(i)})) \quad \mbox{ and }\quad f_j \in L(\beta_j(e^i_{\Sources(j)})) \quad \mbox{ for } j\not= i.\]
+
+By \cref{thm:most_common} the only sets $U(\cdot)$ and $L(\cdot)$ with 
+$|U(\cdot)|=|L(\cdot)| = |MBF(\cdot)| - 1$ are sets 
+$U(\bone) $ and $L(\bzero)$.
+Therefore, if $e^i$ is supported by $H$ MBMs then 
+        \[f_i \in U(\bone), \qquad \mbox{ and } \qquad f_j\in L(\bzero) \quad j\not=i. \]
+        It follows that 
+        \[ \beta_i(e^i_{\Sources(i)})= \bone,\qquad \beta_j(e^i_{\Sources(j)}) = \bzero, j \not = i.\]
+
+It follows from the condition $\beta_i(e^i_{\Sources(i)})= \bone$ that 
+\begin{enumerate}
+\item 
+$i \to i$ (if it exists) is positive;
+\item $j \dashv i, j \not = i$ (if they exist) must be all negative.
+\end{enumerate}
+
+On the other hand, condition $\beta_j(e^i_{\Sources(j)})= \bzero$ implies that 
+\begin{enumerate}
+\item 
+$i \dashv j$ (if it exists) must be negative;
+\item $k \to j, k \not = i$ (if they exist) must be all positive.
+\end{enumerate}
+Since this holds for any $j \not = i$, it must be that all existing edges from $A=\{v_1\}$ to any vertex $j \in B:= V\setminus A$ must be negative, edges from $B$ to $A$ must be negative, and edges between pairs of nodes in $B$ are positive. 
+
+This proves the Theorem.
+\end{proof}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.27\textwidth}
+        \centering
+        (10) (01)\\
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0,0) {A};
+            \node[main node] (B) at (0,-1) {B};
+            \path[blueedge]
+                (A) edge[bend left] (B)
+                (B) edge[bend left] (A)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:TS}
+    \end{subfigure}
+    \begin{subfigure}{0.27\textwidth}
+        \centering
+        (100)\\
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[blueedge]
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge[bend left] (A)
+                (C) edge (A)
+                ;
+            \path[rededge]
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3TeamA}
+    \end{subfigure}
+    \begin{subfigure}{0.27\textwidth}
+        \centering
+        (1000)\\
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.85) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.85,0) {C};
+            \node[main node] (D) at (0.85,0.85) {D};
+            \path[blueedge]
+                (A) edge (B)
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (A) edge[bend left] (D)
+                (B) edge[bend left] (A)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (D) edge (A)
+                ;
+            \path[rededge]
+                (B) edge (C)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left] (B)
+                (C) edge (D)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                (D) edge[bend left] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4TeamA}
+    \end{subfigure}
+    
+    \vspace{15pt}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        (100) (010) (001)\\
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0.25,0.4) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.5,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                (B) edge[in=195, out=225,loop] (B)
+                (C) edge[in=315, out=345,loop] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3Disc}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        (1000) (0100) (0010) (0001)\\
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.4) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.4,0) {C};
+            \node[main node] (D) at (0.4,0.4) {D};
+            \path[rededge]
+                (A) edge[in=120, out=150,loop] (A)
+                (B) edge[in=210, out=240,loop] (B)
+                (C) edge[in=300, out=330,loop] (C)
+                (D) edge[in=30, out=60,loop] (D)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Disc}
+    \end{subfigure}
+    \caption{\textbf{Network structure that support the highest prevalence ($H$) of single high states.} \subref{fig:TS}-\subref{fig:4TeamA} networks that support the state $e^1$ with $H$ MBMs: a two node network \subref{fig:TS}, a three node network \subref{fig:3TeamA}, and a four node network \subref{fig:4TeamA}. \subref{fig:3Disc}-\subref{fig:4Disc} networks that simultaneously support the state $e^1,\ldots, e^n$ with $H$ MBMs: a three node network \subref{fig:3Disc}, and a four node network \subref{fig:4Disc}. The states supported by $H$ MBMs are indicated for each network.}
+    \label{fig:MaxNet}
+\end{figure}
+
+\begin{cor} \label{cor:disconnected}
+    The only $n$-node network $N$ with $n >2$ that supports every $e^1, e^2, \ldots, e^n$ with $H$ monotone Boolean models is a completely disconnected network of $n$ nodes, each of which has a positive self-edge, see \cref{fig:3Disc} for $n=3$ and \cref{fig:4Disc} for $n=4$.
+\end{cor}
+\begin{proof}
+For $n=2$ the toggle switch (see \cref{fig:TS}) is a network with teams $A=\{1\}$ and $B=\{2\}$ which supports $e^1$ and $e^2$
+with the highest possible number $H=2*2=4$ of MBMs.
+
+For $n>2$, by \cref{two_team}, the network that supports $e^i$ is the two team network $A_i=\{i\}$ and $B_i=V\setminus A$.
+
+We now apply this observation to the collection of states $e^1, \ldots, e^n$. Take any pair of nodes $i \not = j$. Then $i \in A_i, j \in B_i$ which implies that if there is any edge between them, it must be negative. On the other hand, since $n \geq 3$, there is an index $k \not = i, k\not = j$ and both $i,j \in B_k$. This implies that if there is any edge between them, it must be positive. Since these conclusions are contradictory, we conclude that 
+there is no edge in the network between any pair of nodes $i \not = j$.
+Therefore, the only network that supports all single high equilibria $e^1, e^2, \ldots, e^n$ is a completely disconnected network of $n$ nodes, each of which has a positive self-edge. 
+\end{proof}
+
+\begin{rem}
+    Note that the domain of attraction of $e^i$ in a fully disconnected network consists only of the state $e^i$ itself.
+\end{rem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Equal prevalence of single high states} \label{sec:prevalence}
+Completely disconnected networks which support all the single high states with the highest possible number of models by \cref{cor:disconnected} are not biologically meaningful. Therefore, we now relax this condition and ask which networks can support all $e^1, \ldots, e^n$ by the same number of monotone Boolean models. This property has been defined in \cref{Equipotency} as equipotency. We do not require that this number be the highest possible number $H$.
+
+We start by noting that for each component $f_j$ of an equipotent MBM $f=(f_1, \ldots, f_n)$
+has to satisfy constraints of \cref{decomp} for all $e^1, \ldots, e^n$.
+We assemble these constraints into a table 
+
+\[
+\begin{array}{c|ccccc}
+ & f_1 & f_2 & \cdots & f_{n-1} & f_n \\
+\hline
+e^1 &
+U(\beta_1(e^1_{\Sources(1)})) &
+L(\beta_2(e^1_{\Sources(2)})) &
+\cdots &
+ L(\beta_{n-1}(e^1_{\Sources(n-1)})) &
+ L(\beta_n(e^1_{\Sources(n)}))
+\\
+e^2 &
+L(\beta_1(e^2_{\Sources(1)}))&
+U(\beta_2(e^2_{\Sources(2)})) &
+\cdots &
+L(\beta_{n-1}(e^2_{\Sources(n-1)})) &
+L(\beta_n(e^2_{\Sources(n)}))
+\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots
+\\
+e^n &
+L(\beta_1(e^n_{\Sources(1)})) &
+L(\beta_2(e^n_{\Sources(2)}))&
+\cdots &
+L(\beta_{n-1}(e^n_{\Sources(n-1)}))&
+U(\beta_n(e^n_{\Sources(n)}))
+\end{array}.
+\]
+
+In this table, the entry in the $i-$th row and $j-$th column shows the set of functions $f_j$ that support the equilibrium $e^i$.
+Equipotency requires that the product of the sizes of the sets of models in each row be the same. In particular, consider a matrix of integer sizes 
+\[
+M:= \left (
+\begin{array}{ccccc}
+|U(\beta_1(e^1_{\Sources(1)}))| &
+|L(\beta_2(e^1_{\Sources(2)}))| &
+\cdots &
+ |L(\beta_{n-1}(e^1_{\Sources(n-1)}))| &
+ L(\beta_n(e^1_{\Sources(n)}))
+\\
+|L(\beta_1(e^2_{\Sources(1)}))|&
+|U(\beta_2(e^2_{\Sources(2)}))| &
+\cdots &
+|L(\beta_{n-1}(e^2_{\Sources(n-1)}))| &
+|L(\beta_n(e^2_{\Sources(n)}))|
+\\
+\vdots & \vdots & \ddots & \vdots & \vdots
+\\
+|L(\beta_1(e^n_{\Sources(1)}))| &
+|L(\beta_2(e^n_{\Sources(2)}))|&
+\cdots &
+|L(\beta_{n-1}(e^n_{\Sources(n-1)}))|&
+|U(\beta_n(e^n_{\Sources(n)}))|
+\end{array}.
+\right )
+\]
+We have the following characterization of equipotency.
+
+\begin{thm}\label{thm:equipotent_general}
+Consider network $N=N(G,\delta)$ and the function $\beta$ corresponding to $\delta$.
+Then the model $f$ is equipotent for the network $N=(G,\delta)$ if the product of numbers in each row of $M= [m_{ij}]$ is the same i.e. 
+\[ \prod_{j=1}^n m_{ij} = \prod_{j=1}^n m_{kj}\quad \mbox{ for all } i,k \in \{1,\ldots, n\} .\]
+\end{thm}
+%%%%%%%%%%%%%%%%%%
+
+\subsection{Networks with all-to-all coupling without self-edges}
+We now examine equipotency for general networks with all-to-all connections and no self-edges. We apply these results to networks with $n=3,4,5$ nodes. We then extend these results to networks with self-edges. We show that the equipotency problem for such networks can be reduced to equipotency for networks with no self-edges.
+
+Consider an $n$ node network with all-to-all connections without self-loops. We ask which choice of edge signs $\delta$, or equivalently, which choice of function $\beta=(\beta_1, \ldots, \beta_n)$ produces equipotent networks. We then select the maximum possible equipotent number achievable across all sign distributions $\delta$.
+
+While we cannot address this question in full generality, we can make substantial progress in simplifying the matrix $M$ and find complete answers for $n=3$, $n=4$, and $n=5$.
+
+\subsubsection{General considerations}
+Consider networks $N$ with directed graph $G$ with $n$ nodes and all directed edges except the self-edges. 
+
+We fix an order of vertices $V=\{1,\ldots,n\}$. In the sequel, it will be useful to reorder the input set for each vertex $j$, $\Sources(j)=\{1, \ldots, j-1, j+1, \ldots, n\}$ to be $\{1, \ldots, n-1\}$ in the order induced by the order on $V$.
+
+Recall from preliminaries that $\mathbf{0}^{\,n-1}$ denotes the zero vector and $e^{k,n-1}$ denotes the $k-$th standard basis vector in $\mathbb{B}^{n-1}$. 
+Then we have the following specification of the entries in the matrix $M$
+\begin{equation} \label{gen:input}
+e^i_{\Sources(j)}=\left \{
+\begin{array}{ccc}
+\boldsymbol{0}^{\,n-1} & \mbox{ if } i=j\\
+e^{\,i-1,n-1} & \mbox{ if } j<i \\
+e^{\,i,n-1} & \mbox{ if } j>i \\
+\end{array}
+\right. .
+\end{equation}
+
+
+It follows immediately that for the positive network where $\beta_i$ is the identity for all $i$, the matrix $M$ for the network $N$ takes the form 
+
+\[
+M:= \left (
+\begin{array}{ccccc}
+|U(\boldsymbol{0}^{\,n-1})| &
+|L(e^{1,n-1})| &
+\cdots &
+ |L(e^{1,n-1})| &
+ |L(e^{1,n-1})|
+\\
+|L(e^{1,n-1})|&
+|U(\boldsymbol{0}^{\,n-1})| &
+\cdots &
+|L(e^{2,n-1})| &
+|L(e^{2,n-1})|
+\\
+\vdots & \vdots & \ddots & \vdots & \vdots
+\\
+|L(e^{n-1,n-1})| &
+|L(e^{n-1,n-1})|&
+\cdots &
+|L(e^{n-1,n-1}))|&
+|U(\boldsymbol{0}^{\,n-1})|
+\end{array}.
+\right ).
+\]
+
+Let $B=[b_{ij}]$ be the matrix of inputs in the matrix $M$ for the positive network:
+\[
+B:= \left (
+\begin{array}{ccccc}
+\boldsymbol{0}^{\,n-1} &
+e^{1,n-1}&
+\cdots &
+ e^{1,n-1} &
+ e^{1,n-1}
+\\
+e^{1,n-1}&
+\boldsymbol{0}^{\,n-1} &
+\cdots &
+e^{2,n-1} &
+e^{2,n-1}
+\\
+\vdots & \vdots & \ddots & \vdots & \vdots
+\\
+e^{n-1,n-1} &
+e^{n-1,n-1}&
+\cdots &
+e^{n-1,n-1}& \boldsymbol{0}^{\,n-1}
+\end{array}.
+\right ).
+\]
+
+We discuss the effect of a general function $\beta$ on the set of inputs by comparing the transformed set of inputs with the set of inputs for the positive network summarized in matrix $B$. 
+
+\begin{thm}\label{thm:signed-flip-form}
+Consider an $n$-node signed network with no self-edges.
+For each column $j\in\{1,\dots,n\}$, choose a subset
+\(\bZ_j \subseteq \Sources(j) = \{1,\dots,n-1\},\) of inputs into node $j$ that correspond to negative edges.
+
+Define the indicator vector of the set $\bZ_j$ 
+\[
+\chi_{\bZ_j}
+:=
+\sum_{k \in \bZ_j} e^{k,n-1}
+\in \mathbb B^{n-1},
+.\]
+
+Then, for every $i,j\in\{1,\dots,n\}$
+\[
+\beta_j(e^i_{\Sources(j)})
+=
+b_{ij}
++
+\chi_{\bZ_j}
+\quad (\mathrm{mod}\ 2),
+\]
+where $b_{ij}$ are elements of matrix $B$ and the sum is modulo $2$.
+\end{thm}
+\begin{proof}
+Since each repressing edge replaces the corresponding input coordinate $x_l$ by $1-x_l$, the signed input configuration is obtained from the positive input vector by toggling selected coordinates. This is equivalent to the addition of the indicator vector (mod $2$).
+\end{proof}
+
+The corresponding constraint matrix $M$ has the form
+\begin{equation}
+\label{eq:signed-constraint-matrix}
+M=\begin{pmatrix}
+|U(\boldsymbol{0}^{\,n-1}+\chi_{\bZ_1})| & |L(e^{1,n-1}+\chi_{\bZ_2})| & \cdots & |L(e^{1,n-1}+\chi_{\bZ_n})| \\
+|L(e^{1,n-1}+\chi_{\bZ_1})| & |U(\boldsymbol{0}^{\,n-1}+\chi_{\bZ_2})| & \cdots & |L(e^{2,n-1}+\chi_{\bZ_n})| \\
+\vdots & \vdots & \ddots & \vdots \\
+|L(e^{n-1,n-1}+\chi_{\bZ_1})| & |L(e^{n-1,n-1}+\chi_{\bZ_2})| & \cdots & |U(\boldsymbol{0}^{\,n-1}+\chi_{\bZ_n})|
+\end{pmatrix}.
+\end{equation}
+
+We now discuss how the arguments of the entries in matrix $M$ depend on the choice of $\bZ_i,i=1, \ldots,n$.
+
+\begin{lem}\label{lem:LUrepeat}
+    Consider $|\bZ_i|=m$. Then 
+    \begin{align*}
+        | \boldsymbol{0}^{\,n-1}+\chi_{\bZ_i}| &=m \\
+         |e^{k,n-1}+\chi_{\bZ_i}| &=m-1 \quad \mbox{ when } k \in \bZ_i\\
+         |e^{k,n-1}+\chi_{\bZ_i}| &=m+1 \quad \mbox{ when } k \notin \bZ_i\\
+    \end{align*}
+\end{lem}
+\begin{proof}
+   The first statement is immediate.
+    On the other hand, for $i\not = j$ the entry $b_{ij} = e^{k,n-1}$ for some $k$. If $k\in \bZ_i$, then $k-$th coordinate of the sum $b_{ij} +\chi_{\bZ_i}$  will be zero, thus reducing the number of $1$ entries by $1$. If $k \notin \bZ_i$, then the number of $1$s in $b_{ij} +\chi_{\bZ_i}$ will increase by $1$.
+\end{proof}
+
+Now we evaluate the sizes of sets in the matrix $M$ using the sizes $\kappa_j$ defined in \cref{lem:sizes}.
+
+\begin{lem}\label{lem:qm}
+    Consider $|\bZ_i|=m$. Then, for any $i=1, \ldots, n$, the numbers in the $i-$th column of the matrix $M$ are 
+    \[
+    q(m):= \{\,\kappa_m,\ \underbrace{\kappa_{n-m},\dots,\kappa_{n-m}}_{m\text{ times}},\ 
+    \underbrace{\kappa_{n-m-2},\dots,\kappa_{n-m-2}}_{n-m-1\text{ times}}\,\}.
+    \]
+\end{lem}
+\begin{proof}
+    For vectors in $\bbB^{n-1}$ the possible sizes of sets $U(b), L(b)$ are in the set $\{ \kappa_0, \ldots, \kappa_{n-1}\}$. 
+    The size of the set $|U(\boldsymbol{0}^{\,n-1}+\chi_{\bZ_i})|= \kappa_m$.
+    By \cref{lem:sizes}, when $|e^{k,n-1}+\chi_{\bZ_i}|=m-1$ then the size of the set $|L(e^{k,n-1}+\chi_{\bZ_i})|$ is $\kappa_{(n-1)-(m-1)}$. By \cref{lem:LUrepeat} this happens $|\bZ_i|=m$ times. 
+
+    Similarly, By \cref{lem:sizes}.2, when $|e^{k,n-1}+\chi_{\bZ_i}|=m+1$ then the size of the set $|L(e^{k,n-1}+\chi_{\bZ_i})|$ is $\kappa_{(n-1)-(m+1)}$. By \cref{lem:LUrepeat} this happens $|\bZ_i|=n-m-1$ times. 
+\end{proof}
+
+\begin{thm}\label{thm:final_equipotency}
+Consider network $N=(G,\delta)$ with $n$ nodes, all-to-all coupling without self-edges and the sign-change function $\beta=(\beta_1, \ldots, \beta_n)$ induced by $\delta$.
+Then the sign structure $\delta $ will produce an equipotent network if and only if the matrix $M$ with numbers in column $j$ induced by the choice of $\beta_j$ is such that the product in each row is the same.
+\end{thm}
+
+In view of \cref{thm:final_equipotency} to understand the network structures that support equipotency, we need to construct matrix $M$ in (\ref{eq:signed-constraint-matrix}) with equal products in all rows. This can be achieved by following these four steps:
+
+\begin{algorithm}\label{outline} 
+\begin{enumerate} 
+\item Determine the collections of numbers $K_{n-1}$; these depend on the number $n-1$ of inputs to node $i$.
+\item For every $i$, consider each potential size of the negative inputs 
+\begin{equation} \label{sizes} 
+|\bZ_i| \in \{0, \ldots, |\Sources(i)|\},
+\end{equation}
+and compute the set of potential columns $q(|\bZ_i|)$ in matrix $M$.
+\item Construct all matrices $M$ from the columns $q(|\bZ_i|)$ in such a way that all rows have the same product. In the examples we compute below, this is achieved when $|\bZ_i| = |\bZ_j|$ for all nodes $i,j$ and when the product of elements in column $q(|\bZ_i|)$ is maximal across all potential sizes in (\ref{sizes}). This set of matrices corresponds to the collection of all maximal equipotent networks.
+\item Among this set, find the set of non-isomorphic maximal equipotent networks.
+\end{enumerate}
+\end{algorithm}
+This algorithm works for arbitrary networks. The main bottleneck for an arbitrary number of inputs $s$ is computing the sets $K_s$ that contain the sizes of the sets $U(\cdot)$ and $L(\cdot)$ in $MBF(s)$, as described in the remark after \cref{lem:sizes}. In addition, if the network is not fully connected, then the set $K_s$ for each node will depend on the network. When each column of matrix $M$ has entries selected from a different set $K_s$, equipotency would not be expected. Therefore, we restrict ourselves to networks $n=3,4,5$ nodes with no self-edges where the number of inputs into each node is the same and, respectively, $2,3,$ and $4$. In these cases, we can compute the numbers in $K_s$ explicitly, 
+\begin{align}
+    K_2&=\{1,3,5\} \label{k2}\\
+    K_3&=\{1,6,14,19\} \label{k3}\\
+    K_4&=\{1,20,84, 148, 167\}.\label{k4}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Example: $n=3$ }
+We follow the steps outlined in \cref{outline}. Using (\ref{k2}) and the fact that \begin{align*}
+    1 &= \kappa_0 = |L(11)|=|U(00)| \\
+    3 &= \kappa_1 = |L(01)|=|L(10)|=|U(10)|=|U(01)| \\
+    5 &= \kappa_2 = |L(00)|=|U(11)| ,
+\end{align*}
+we evaluate columns in matrix (\ref{eq:signed-constraint-matrix}). As result, we get three possible columns $q(0),q(1), q(2)$ of matrix $M$ listed in \cref{tablecolumnsM1}. 
+
+The highest product of the elements along the vector is 
+$5*3*3 = 45$ for column $q(2);$ for $q(0)$ the product is $9$ and for $q(1)$ the product is $15$.
+
+When all columns of matrix $M$ are of type $q(2)$ i.e. when $|\bZ_i| = 2$ for $i=1,2,3$, then
+\[
+M
+=
+\begin{pmatrix}
+|U(11)|&|L(01)| &|L(01)|\\
+|L(01)|&|U(11)|&|L(10)|\\
+|L(10)|&|L(10)|&|U(11)|
+\end{pmatrix}
+= 
+\begin{pmatrix}
+5&3 &3 \\
+3&5 &3 \\
+3&3 &5 \\
+\end{pmatrix}
+\]
+is an equipotent matrix. 
+The corresponding equipotent network is in \cref{fig:3Eq_0_0}. The same observation applies to situation when $|\bZ_i|=0$ for all i; the resulting matrix is 
+\[
+M
+=
+\begin{pmatrix}
+|U(00)|&|L(10)| &|L(10)|\\
+|L(01)|&|U(00)|&|L(01)|\\
+|L(01)|&|L(01)|&|U(00)|
+\end{pmatrix}
+= 
+\begin{pmatrix}
+1&3 &3 \\
+3&1 &3 \\
+3&3 &1 \\
+\end{pmatrix}.
+\]
+However, to anticipate the difficulties that are present for $n\geq 4$, not all choices of inputs when $|\bZ_i|=1$ produce an equipotent network. 
+A non-symmetric network $2\dashv 1, 2\dashv 3, 3\dashv 2$ produces matrix 
+\[
+M
+=
+\begin{pmatrix}
+|U(10)|&|L(11)| &|L(11)|\\
+|L(00)|&|U(01)|&|L(00)|\\
+|L(11)|&|L(00)|&|U(01)|
+\end{pmatrix}
+= 
+\begin{pmatrix}
+3& 1 &1 \\
+5& 3 &5 \\
+1& 5 &3 \\
+\end{pmatrix}.
+\]
+which is not equipotent.
+On the other hand, the symmetric network in \cref{fig:3Eq_3_3} is equipotent with matrix 
+\[
+M
+=
+\begin{pmatrix}
+|U(10)|&|L(11)| &|L(00)|\\
+|L(00)|&|U(01)|&|L(11)|\\
+|L(11)|&|L(00)|&|U(10)|
+\end{pmatrix}
+= 
+\begin{pmatrix}
+3& 1 &5 \\
+5& 3 &1 \\
+1& 5 &3 \\
+\end{pmatrix}.
+\]
+
+Finally, we show that if $|\bZ_i| \not =|\bZ_j| $ for some $i\not = j$, then the network cannot be equipotent.
+
+\begin{table}[t]
+     \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    $n$ & $|\bZ_i|$ & $q(|\bZ_i|)$ &   \\
+    \hline 
+    \multirow{3}{*}{3} & 0 & $\{\kappa_0,\kappa_1,\kappa_1\}$ & $\{1,3,3\}$ \\
+     & 1 & $\{\kappa_1,\kappa_2,\kappa_0\}$ & $\{3,5,1\}$ \\
+     & 2 & $\{\kappa_2,\kappa_1,\kappa_1\}$ & $\{5,3,3\}$ \\
+    \hline
+    \multirow{4}{*}{4} & 0 & $\{\kappa_0,\kappa_2,\kappa_2,\kappa_2\}$ & $\{1,14,14,14\}$ \\
+    & 1 & $\{\kappa_1,\kappa_3,\kappa_1,\kappa_1\}$ & $\{6,19,6,6\} $ \\
+    & 2 & $\{\kappa_2,\kappa_2,\kappa_2,\kappa_0\}$ & $\{14,14,14,1\}$ \\
+    & 3 & $\{\kappa_3,\kappa_1,\kappa_1,\kappa_1\}$ & $\{19,6,6,6\} $ \\
+    \hline
+    \multirow{5}{*}{5} & 0 & $\{\kappa_0,\kappa_3,\kappa_3,\kappa_3,\kappa_3\}$ & $\{1,148,148,148,148\}$  \\
+     & 1 &  $\{\kappa_1,\kappa_4,\kappa_2,\kappa_2,\kappa_2\}$ & $\{20,167,84,84,84\} $ \\
+     & 2 &   $\{\kappa_2,\kappa_3,\kappa_3,\kappa_1,\kappa_1\}$ & $\{84,148,148,20,20\}$  \\
+     & 3  &  $\{\kappa_3,\kappa_2,\kappa_2,\kappa_2,\kappa_0\}$ & $\{148,84,84,84,1\} $ \\
+     & 4  &  $\{\kappa_4,\kappa_1,\kappa_1,\kappa_1,\kappa_1\}$ & $\{167,20,20,20,20\} $ \\
+    \hline
+    \end{tabular}
+    \caption{The size of the set $|\bZ_i|$ on the entries in column of matrix $M$ for different sizes of network $n$. The numbers in the third column are listed in order in \cref{lem:qm}. }
+    \label{tablecolumnsM1} 
+\end{table}
+
+Consider the set $Z:= \{ \bZ_1, \bZ_2, \bZ_3\}$ and let $\eta_i:= |\{j\;|\;|\bZ_j|=i \}| $ be the number of times that set of size $i$ have been chosen.  Then clearly $\eta_0+\eta_1+\eta_2=3$. 
+Counting how many times the column $q(i), i=0,1,2$ contains elements $1$ and $5$ we note that 
+number of $1$s in matrix $M$ is $\eta_0 + \eta_1$ and total number of $5$s is $\eta_1 + \eta_2$. If the matrix is equipotent, then the number of $1$s in each row must be the same, and the number of $5$s in each row must be the same.
+
+Since there are $3$ rows in matrix $M$, both numbers $\eta_0+\eta_1$ and $\eta_1+\eta_2$ must be divisible by $3$. Since $0\le \eta_0+\eta_1\le 3$ and $0\le \eta_1+\eta_2\le 3$,
+each sum must be either 0 or 3. Finally, because $\eta_0+\eta_1+\eta_2=3,$ there are only three possibilities
+\[(\eta_0,\eta_1,\eta_2)=(3,0,0),\qquad (\eta_0,\eta_1,\eta_2)=(0,3,0), \qquad (\eta_0,\eta_1,\eta_2)=(0,0,3)\]
+
+Thus, in an equipotent network, we must have 
+$|\bZ_1|=|\bZ_2|=|\bZ_3|$. 
+
+We summarize results in this section in a Theorem.
+
+\begin{thm}\label{cor:3node}
+Consider a $3$-node network $N$ with all-to-all coupling and no self-edges. Then $N$ is equipotent if, and only if, 
+for all $i=1,2,3$, one of the following holds:
+\[ |\bZ_i|=0 \quad \mbox{ or } \quad |\bZ_i|=1 \quad \mbox{ or } \quad |\bZ_i| =2. \] 
+Moreover,in the first case there are $9$, second case $ 15$, and third case $ 45$ models supporting each equilibrium $e^1,e^2, e^3.$
+\end{thm}
+
+Three equipotent networks are represented in \cref{fig:3Eq_0_0,fig:3Eq_3_3,fig:3Eq_6_0}, respectively.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \node at (0.5,0.287) {45};
+            \path[blueedge]
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge[bend left] (A)
+                (B) edge (C)
+                (C) edge (A)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3Eq_0_0}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \node at (0.5,0.287) {15};
+            \path[blueedge]
+                (A) edge[bend left] (C)
+                (B) edge[bend left] (A)
+                (C) edge[bend left] (B)
+                ;
+            \path[rededge]
+                (A) edge (B)
+                (B) edge (C)
+                (C) edge (A)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3Eq_3_3}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (1) at (0.5,0.86) {A};
+            \node[main node] (2) at (0,0) {B};
+            \node[main node] (3) at (1,0) {C};
+            \node at (0.5,0.287) {9};
+            \path[rededge]
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge[bend left] (A)
+                (B) edge (C)
+                (C) edge (A)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3Eq_6_0}
+    \end{subfigure}
+    \vspace{15pt}
+    
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.75) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.75,0) {C};
+            \node[main node] (D) at (0.75,0.75) {D};
+            \path[blueedge]
+                (A) edge (B)
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (A) edge[bend left] (D)
+                (B) edge[bend left] (A)
+                (B) edge (C)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (C) edge[bend left] (B)
+                (C) edge (D)
+                (D) edge (A)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                (D) edge[bend left] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Eq_0_0}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.75) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.75,0) {C};
+            \node[main node] (D) at (0.75,0.75) {D};
+            \path[blueedge]
+                (A) edge (B)
+                (B) edge (C)
+                (C) edge (D)
+                (D) edge (A)
+                ;
+            \path[rededge]
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (A) edge[bend left] (D)
+                (B) edge[bend left] (A)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (C) edge[bend left] (B)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                (D) edge[bend left] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Eq_8_26}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.75) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.75,0) {C};
+            \node[main node] (D) at (0.75,0.75) {D};
+            \path[blueedge]
+                (A) edge (B)
+                (B) edge[bend left] (A)
+                (C) edge (D)
+                (D) edge[bend left] (C)
+                ;
+            \path[rededge]
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (A) edge[bend left] (D)
+                (B) edge (C)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (C) edge[bend left] (B)
+                (D) edge (A)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Eq_8_24}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.75) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.75,0) {C};
+            \node[main node] (D) at (0.75,0.75) {D};
+            \path[rededge]
+                (A) edge (B)
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                (D) edge[bend left] (C)
+                ;
+            \path[blueedge]
+                (A) edge[bend left] (D)
+                (B) edge[bend left] (A)
+                (B) edge (C)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (C) edge[bend left] (B)
+                (C) edge (D)
+                (D) edge (A)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Eq_4_20}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[main node/.style={circle,fill=white!20,thick,draw},scale=2.5]
+            \node[main node] (A) at (0,0.75) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (0.75,0) {C};
+            \node[main node] (D) at (0.75,0.75) {D};
+            \path[rededge]
+                (A) edge (B)
+                (A) edge[bend left=15, shorten <=6pt] (C)
+                (A) edge[bend left] (D)
+                (B) edge (C)
+                (C) edge (D)
+                (D) edge[bend left=15, shorten <=6pt] (B)
+                ;
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                (B) edge[bend left=15, shorten <=6pt] (D)
+                (C) edge[bend left=15, shorten <=6pt] (A)
+                (C) edge[bend left] (B)
+                (D) edge (A)
+                (D) edge[bend left] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:4Eq_6_16}
+    \end{subfigure}
+
+    \vspace{15pt}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (90:0.6) {A};   % Top vertex
+            \node[main node] (B) at (162:0.6) {B};  % Upper left
+            \node[main node] (C) at (234:0.6) {C};  % Lower left
+            \node[main node] (D) at (306:0.6) {D};  % Lower right
+            \node[main node] (E) at (18:0.6) {E};   % Upper right
+            \path[rededge]
+                (B) edge[bend left] (A)
+                (C) edge[bend left] (B)
+                (D) edge[bend left] (C)
+                (E) edge[bend left] (D)
+                (A) edge[bend left] (E)
+                (A) edge[bend left=10] (C)
+                (B) edge[bend left=10] (D)
+                (C) edge[bend left=10] (E)
+                (D) edge[bend left=10] (A)
+                (E) edge[bend left=10] (B)
+                (A) edge[bend left=10] (D)
+                (B) edge[bend left=10] (E)
+                (C) edge[bend left=10] (A)
+                (D) edge[bend left=10] (B)
+                (E) edge[bend left=10] (C)
+                ;
+            \path[blueedge]
+                (A) edge (B)
+                (B) edge (C)
+                (C) edge (D)
+                (D) edge (E)
+                (E) edge (A)
+            ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:5Eq_1_0}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (90:0.6) {A};   % Top vertex
+            \node[main node] (B) at (162:0.6) {B};  % Upper left
+            \node[main node] (C) at (234:0.6) {C};  % Lower left
+            \node[main node] (D) at (306:0.6) {D};  % Lower right
+            \node[main node] (E) at (18:0.6) {E};   % Upper right
+            \path[rededge]
+                (B) edge (C)
+                (E) edge (A)
+                (C) edge[bend left] (B)
+                (D) edge[bend left] (C)
+                (E) edge[bend left] (D)
+                (A) edge[bend left] (E)
+                (A) edge[bend left=10] (C)
+                (B) edge[bend left=10] (D)
+                (C) edge[bend left=10] (E)
+                (D) edge[bend left=10] (A)
+                (E) edge[bend left=10] (B)
+                (A) edge[bend left=10] (D)
+                (B) edge[bend left=10] (E)
+                (C) edge[bend left=10] (A)
+                (D) edge[bend left=10] (B)
+                
+                ;
+            \path[blueedge]
+                (A) edge (B)
+                (B) edge[bend left] (A)
+                (C) edge (D)
+                (D) edge (E)
+                (E) edge[bend left=10] (C)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:5Eq_1_1}
+        \end{subfigure}
+    \caption{
+    \textbf{Network structures that support equal prevalence of single high states (equipotent networks).} \subref{fig:3Eq_0_0}-\subref{fig:3Eq_6_0} equipotent three node networks. The number of MBMs supporting each single high state is indicated. \subref{fig:4Eq_0_0}-\subref{fig:4Eq_6_16} equipotent four node networks with maximum prevalence (4104 MBMs) among equipotent networks, \subref{fig:5Eq_1_0}-\subref{fig:5Eq_1_1} equipotent five node networks with maximum prevalence (1,979,631,360 MBMs) among equipotent networks.}
+    \label{fig:EqNet}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{Example: $n=4$ }
+We consider a network with $4$ nodes and all-to-all coupling with no self-edges. We order the nodes $1,2,3,4$. Since each node receives input from the other three nodes, the set of inputs for each node $i$ is $\Sources(i)=\{1,2,3\}.$
+
+We again follow the outline in \cref{outline}. Using (\ref{k3}) and the fact that 
+\begin{align*}
+    1 &= \kappa_0 = |L(111)|=|U(000)| \\
+    6 &= \kappa_1 = |L(110)|=|L(101)| =|L(011)|=|U(100)|=|U(010)|=|U(001)| \\
+    14 &= \kappa_2 = |L(100)|=|L(010)| =|L(001)|=|U(110)|=|U(101)|=|U(011)| \\
+    19 &= \kappa_3 = |L(000)|=|U(111)| ,
+\end{align*}
+we evaluate columns in matrix (\ref{eq:signed-constraint-matrix}). The four possible columns $q(0),q(1), q(2), q(3)$ listed in \cref{tablecolumnsM1}. 
+
+We now encounter a degeneracy for $n=4$, since there are only two (rather than four) distinct vectors $q(\cdot)$: 
+\[ q(0) =q(2) = \{14,14,14,1\}
+\qquad\text{and}\qquad
+q(1) =q(3)= \{19,6,6,6\}.
+\]
+Let $C_1=\{0,2\}$ and $C_2=\{1,3\}$
+be two classes of sizes of the input set $|\bZ_i|$ that produce two different vectors $q$.
+
+As for the case $n=3$, one can show that the only way to construct the equipotent matrix $M$ is to select all four columns from the same class.
+
+\begin{cor}\label{cor:two}
+Consider a $4$-node network $N$ with all-to-all coupling and no self-edges. Then $N$ is equipotent if, and only if, either 
+\[ |\bZ_i| \in C_1, \quad \mbox{ or } \quad |\bZ_i| \in C_2 \qquad \mbox{ for all } i=1,2,3,4.\] 
+In this first case (Type 1), there are $2744 = 1*14^3$ and in the second case (Type 2), $4104= 19*6^3$ models supporting each equilibrium $e^1, \ldots, e^4.$
+\end{cor}
+
+We now construct all equipotent matrices $M$ that yield the equipotent network with value $4104$. Note that here, unlike the case $n=3$, there are several different equipotent matrices $M$ and hence different equipotent networks. By \cref{cor:two} the sets $\bZ_i$  must satisfy \(|\bZ_i| \in \{1,3\}\) which means
+\begin{equation}\label{eq:choices4}
+\bZ_i \in \{ \{1\}, \{2\},\{3\},\{1,2,3\},\}.
+\end{equation}
+These choices are not independent.
+Observe that the choice of $\bZ_i$ implies that in column $i$ of matrix $M$ there is a unique row index $r(i)$ such that the entry $m_{r(i)i}=19$, while the other entries are all $6$. It is easy to check that each of the four choices above produces a different value of $r(i)\in \{ 1,2,3,4\}.$ In order to achieve equipotency, we must have that 
+\[ r(i)\not= r(j) \quad \mbox{ for } \quad i\not= j.\]
+To construct such matrix $M$ we proceed as follows
+\begin{itemize}
+\item For $i=1$ we can select $\bZ_1$ to be any of the $4$ choices in (\ref{eq:choices4});
+\item $\bZ_2$ is then selected in such a way that $r(2)\not= r(1)$, which yields $3$ choices. 
+item $\bZ_3$ is then selected in such a way that $r(3)\not= r(1),r(3) \not=r(2)$ which yields $2$ choices. 
+\item $\bZ_4$ is then uniquely determined by requirement that $r(4)\not= r(1),r(2),r(3)$.
+\end{itemize}
+
+Therefore, the number of equipotent matrices (networks) with value $4104$ is at most \(4\cdot 3\cdot 2\cdot 1 = 4! = 24\).
+
+The same permutation argument applies to \(\{14,14,14,1\}\), which corresponds to $|\bZ_j|\in\{0,2\}.$ This case also yields at most $4! = 24$ possible equipotent networks.
+
+In the final step, we determine non-isomorphic equipotent networks within the collection of $24$ networks, since some of the $24$ equipotent networks may be equivalent under relabeling of the nodes. This is implemented in Python by generating all permutations of the node labels and selecting the lexicographically smallest relabeled tuple as the canonical form. Networks that have the same canonical form are placed in the same isomorphism class. In each equipotent class that contains $24$ network we find $5$ non-isomorphic networks, which are shown in \cref{fig:4Eq_0_0,fig:4Eq_4_20,fig:4Eq_8_24,fig:4Eq_8_26,fig:4Eq_6_16}.
+
+%%%%%%%%%%%%%%%%
+\subsubsection*{Example: $n=5$ }
+Extending the previous construction for $n=4$, we consider five nodes $1,2,3,4,5$ with all-to-all coupling and no self-edges. Each node receives input from the other four nodes and thus for each node $i$ the set of inputs is $\Sources(i)=\{1,2,3,4\}.$
+
+We again follow the outline in \cref{outline}. Using (\ref{k4}) and 
+\begin{align} \label{k5}
+    1 &= \kappa_0 = |L(1111)|=|U(0000)| \nonumber \\
+    20  &= \kappa_1 = |L(b_l)| (\mbox{ with }|b_l|=3) = |U(b_u)| ( \mbox{ with }|b_u|=1) \\
+    84 &= \kappa_2 = |L(b_l)| (\mbox{ with }|b_l|=2) = |U(b_u)| ( \mbox{ with }|b_u|=2) \nonumber\\
+    148 &= \kappa_3 =|L(b_l)| (\mbox{ with }|b_l|=1) = |U(b_u)| ( \mbox{ with }|b_u|=3) \nonumber\\
+    167 &= \kappa_4 = |L(0000)|=|U(1111)| \nonumber,
+\end{align}
+the five possible sizes of the set of negative inputs $|\bZ_i|\in\{0,1,2,3,4\}$ produce the five distinct columns $q(|\bZ_i|)$ of matrix $M$ listed in \cref{tablecolumnsM1}.
+Thus, unlike the $n=4$ case, where two distinct types of $q(|\bZ_i|)$ occur, here every $5$ value of $|\bZ_i|$ produces a distinct vector $q(|\bZ_i|)$. 
+As before, one can verify that any equipotent matrix $M$ must have all columns from the same class. i.e., it is necessary that 
+$|\bZ_i|=|\bZ_j|=m$ for all $ i,j \in \{1,\dots,5,\}$ and $m \in \{0,1,2,3,4\}$. 
+
+From \cref{tablecolumnsM1} among these five possible values of $m$, the maximal product occurs when $|\bZ_i|=1$ and the product is 
+\[ 167*20*84^3 = 1,979,631,360.\] 
+To construct the collection of equipotent matrices $M$ where every column is $q(1)$, we first observe that the diagonal entry in matrix (\ref{eq:signed-constraint-matrix}) is $U(0000 + \chi_{\bZ_i}) = e^k$ for some $k$. It follows from (\ref{k5}) that $|U(e^k)| = 20$ and all the diagonal entries of matrix $M$ are all equal to $20$.
+ Straightforward combinatorial calculation shows that there are $44$ equipotent matrices $M$ where each column is of type $q(1)$.
+
+As in the case $n=4$, some of these networks are the same after relabeling of the nodes. Grouping these $44$ networks according to their canonical forms under relabeling of the nodes, produces $2$ non-isomorphic equipotent networks, pictured in \cref{fig:5Eq_1_0,fig:5Eq_1_1}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Networks with all-to-all coupling and fixed-sign of self-edges}
+In this section, we link the analysis of equipotency in networks with all-to-all coupling without self-edges to equipotency in networks with all-to-all coupling and fixed-sign of self-edges (either all self-activations or all self-inhibitions). 
+
+The main observation is that in the network with $n$ nodes and all-to-all coupling with self-activation on each node, the set of negative inputs to node $i$ is $\bZ_i \subset \Sources(i)\setminus\{i\}$. 
+Because the self-edge is activating, the diagonal entries $U(b_u)$ in the matrix $M$ in (\ref{eq:signed-constraint-matrix}) will have $b_u \not = \bzero$ but will have at least one entry (corresponding to the self-input) equal to $1$ i.e. $|b_u|\geq 1$ and $|U(b_u)| \in \{\kappa_1, \kappa_2, \ldots,\kappa_n\} \subset K_n.$
+By the same argument, the off-diagonal entries $L(b_l)$ will have $b_l \not = \bone$ and therefore the size
+$|L(b_l)| = \kappa_{n - |b_l|}$ will also belong to the set $\{\kappa_1, \kappa_2, \ldots,\kappa_n\} \subset K_n.$
+
+It follows that for set of sizes $K_n^{SA}=\{\sigma_0, \ldots \sigma_{n-1}\}$ for network with all-to-all coupling with self-activations is related to set of sizes $K_{n}=\{\kappa_0, \ldots, \kappa_{n}\}$ by
+\[ \sigma_i = \kappa_{i+1} \quad \mbox{ for all }\quad i =0, \ldots, n-1.\]
+This implies that
+\begin{align*}
+    K_{3}^{SA}&=\{6,14,19\} \subset K_3=\{1,6,14,19\}\\ %\label{k3sa}\\
+    K_{4}^{SA}&=\{20,84, 148, 167\} \subset K_4=\{1,20,84, 148, 167\}\\ %\label{k4sa}.
+    K_{5}^{SA}&=\{168,2008,5573,7413,7580\} \subset K_5=\{1,168,2008,5573,7413,7580\}
+\end{align*}
+
+By a similar argument for a network with $n$ nodes and all-to-all coupling with self-inhibition on each node, we will have $i \in \bZ_i$. In this case, the diagonal entries $U(b_u)$ will have $|b_u| \leq n-1$ while the off-diagonal entries $L(b_l)$ will have $|b_l| \geq 1$. Therefore the size of $|U(b_u)|$ and $|L(b_l)| \in \{\kappa_0, \kappa_1, \ldots, \kappa_{n-1}\} \subset K_n$. 
+Therefore the set of sizes $K_n^{SI}$ for networks with all-to-all coupling and self-inhibitions is
+\begin{align*}
+    K_{3}^{SI}&=\{1,6,14\} \subset K_3\\ 
+    K_{4}^{SI}&=\{1, 20,84, 148\} \subset K_4\\ 
+    K_{5}^{SI}&=\{1,168,2008,5573,7413\} \subset K_5
+\end{align*}
+
+With these modifications, the \cref{outline} can now be followed. The equipotent networks with self-edges would have the same sign-structure for the cross-couplings as networks without self-edges. Surprisingly, we find that the highest equipotency also occurs for the same number of negative inputs to each node, two for $n=3$, one or three for $n=4$, and one for $n=5$. Therefore, the networks in \cref{fig:EqNet} (with added self-edges) still have the highest equipotency in their category. However, since $K_{n}^{SA} \not = K_{n-1}$ and $K_{n}^{SI} \not = K_{n-1}$ we do not know if this is true for arbitrary $n$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Multistability of single high states} \label{sec:multistability}
+
+In this section, we ask a different question than in the previous section. 
+Consider a collection of states $e^1, \ldots, e^n \subset \bbB^n$. While in the previous section we asked which networks have the property that the number of functions supporting $e^i$ is the same as the number of functions supporting $e^j$, for all $i,j$, here we focus on the existence of a single MBM that is capable of supporting \textit{all} $e^1, \ldots, e^n \subset \bbB^n$.
+
+Our main result in this section is the following Theorem.
+
+\begin{thm}\label{thm:multistable}
+Consider a network $N=(V,E)$ with $|V|=n$ nodes. 
+Then $N$ supports full multistability if and only if each vertex $i$ either has a positive self-edge, or all other vertices have repressive edges terminating at $i$. 
+\end{thm}
+
+Note that the networks that support full multistability include the $n$-team network, where each vertex forms its own team. Such a network has positive self-edges on each node and all other edges are repressive and thus satisfy both conditions of the Theorem at the same time. However, the Theorem shows that one of these conditions is sufficient for full multistability: if positive a self-loop exists, the character of incoming edges is irrelevant. A natural conjecture is whether, in this case, \underline{the number} of MBFs supporting full multistability is affected by the character of incoming edges and whether the n-team network has the maximal number of MBFs supporting full multistability among all such networks. As we show later, this is indeed true for $n=3,4$, but surprisingly not true for $n=5$. The general problem of network structure that supports full multistability for the maximal number of compatible functions remains open.
+
+In order to prove~\ref{thm:multistable}, we first prove several Lemmas.
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Networks without self-edges}
+
+\begin{lem}\label{lem:all_edges}
+    Consider network $N=(V,E)$. Assume that for all $i=1, \ldots, n$, $i \not \in \Sources(i)$, i.e., that the network $N$ does not have a self-edge.
+     
+    If $N$ supports full multistability then for all $i=1, \ldots, n$, 
+    \begin{equation} \label{eq:all_sources} \Sources(i) = \{1, \ldots, n\}\setminus \{i\}.
+    \end{equation}
+    In other words, the network has to have all-to-all coupling. 
+\end{lem}
+\begin{proof}
+Let $\delta$ be the sign function and $\beta=(\beta_1,\ldots, \beta_n)$ the corresponding change of sign function. 
+Without loss of generality, assume $i=1$, and that node $1$ has inputs from the next $s$ nodes with $s+1<n$. 
+The evaluation of sources $\{2, \ldots, {s+1}\}$ on steady states 
+$(e^1, e^2, \ldots, e^{s+1}, \ldots, e^n)$ produces the following set of input vectors in $\bbB^{s}$
+\[ (\beta_1(\bzero^s),\beta_1(e^{1,s}), \beta_1(e^{2,s}), \ldots, \beta_1(e^{s,s}),\beta_{1}(\bzero^s),\ldots, \beta_1(\bzero^s)),\]
+where $\bzero^s$ is the zero vector and $e^{j,s}$ is the unit vector in $j-$th direction in $\bbB^{s}$. The terms $\bzero^s$ at the end correspond to evaluation of sources on steady states $e_j$ with $j=s+1, \ldots, n$;
+
+By \cref{intersections} if $f=(f_1,\ldots, f_n)$ supports multistability, then 
+\[
+f_1 \in U(\beta_1(\bzero^s)) \cap L(\beta_1(e^{1,s})) \cap \ldots L(\beta_1(e^{s,s})) \cap L(\beta_1(\bzero^s))\cap \ldots \cap L(\beta_1(\bzero^s)).
+\]
+Note that this intersection contains the terms
+\[ U(\beta_1(\bzero^s)) \cap L(\beta_1(\bzero^s)). \]
+Since $U(b) \cap L(b) = \emptyset$ for any $b$, the intersection is empty. Since $\beta$ was arbitrary, if $v_1$ has $k+1<n$ inputs, no sign structure $\delta$ can support full multistability between $e^1,\ldots, e^n$. Since $v_1$ was arbitrary, if $N$ supports full multistability then (\ref{eq:all_sources}) holds.
+\end{proof}
+
+Therefore, networks that can possibly support full multistability without self-edges must have all-to-all coupling. 
+
+In order to understand what types of sign structure on $N$ with all-to-all coupling support full multistability, we will investigate in more detail the effect of the sign function $\beta_i$ associated with a vertex $i$ with sources $j \in \Sources(i)$ and 
+ $|\Sources(i)|=n-1$.
+
+\begin{lem} \label{lem:ULform}
+    Consider network $N=(V,E)$ where each vertex $i$ receives input from all other nodes, except itself.
+    Consider vertex $i$ and consider an arbitrary change of sign function $\beta_i^{\bZ}$ at vertex $i$ for some set of negative inputs $\bZ \subset \Sources(i)$.
+    
+    Then all MB functions $f_i$ at node $i$ that support full multistability satisfy
+    
+    \[ f_i \in U(e^{\bZ,n-1})\cap \left( \bigcap_{k \not \in \bZ} L(e^{(\bZ\cup \{k\}),n-1}) \right)\cap \left(\bigcap_{k\in \bZ} L(e^{(\bZ\setminus \{k\}),n-1})\right).\]
+\end{lem}
+\begin{proof}
+Consider all steady states $e^k, k=1, \ldots, n$ which must be supported by the function $f_i$ at node $i$. We now describe conditions that arise from each steady state $e^k$.
+We discuss three cases:
+\begin{enumerate}
+\item $k=i$;
+\item $k\not =i, k\not \in \bZ$.
+\item $k\not =i, k\in \bZ$;
+\end{enumerate}
+In the first case, the $i-$th coordinate of $e^k$ is one, and so $f_i\in U(\cdot)$ and $e^k_{\Sources(i)} = \bzero^{n-1}$.
+
+As defined, $\beta_{i}^\bZ(\bzero^{n-1})=: u$ where
+\[
+  u_j=\left \{ \begin{array}{cl}
+1 & \mbox{ for }\quad j \in \bZ \\
+0 & \mbox{ for } \quad j \notin \bZ.
+\end{array}
+\right.
+\]
+It follows that the first case leads to the condition $f_i\in U(e^{\bZ})$.
+
+In the second and third cases, the $i-$th coordinate of $e^k$ is zero, and so $f_i\in L(\cdot)$ and $e^k_{\Sources(i)} = e^{k,n-1}$. However, the input into the function $L$ is different between the second and third cases.
+
+For the second case, since $k\notin \bZ$, the value remains the same: $\beta_{i}^\bZ(e^{k,n-1}) =: u$ with 
+\[
+u_j=\left \{ \begin{array}{cl}
+1 & \mbox{ for }\quad j = k \\
+1 & \mbox{ for }\quad j \in Z \\
+0 & \mbox{ otherwise.}
+\end{array}
+\right.
+\]
+We set $\beta_{i}(e^{k,n-1}) = e^{\bZ^\prime,n-1}$, $\bZ^\prime = \bZ \cup \{k\} $.
+If $|\bZ|=m$, then there are $n-m-1$ steady states $e^k$ in this category.
+
+
+In the third case, since $k\in \bZ$, the value flips: $\beta_{i}^{\bZ}(e^{k,n-1}) =: u$
+\[
+u_j=\left \{ \begin{array}{cl}
+0 & \mbox{ for }\quad j = s \\
+1 & \mbox{ for } j \not = s \text{ and } j \in \bZ \\
+0 & \mbox{ otherwise.}
+\end{array}
+\right.
+\]
+Set  $\beta_{i}(e^{k,n-1}) = e^{{\bZ^\prime,n-1}}$, $\bZ^\prime = \bZ \setminus \{k\} $.
+There are $m$ steady states $e^k$ in this category.
+
+Cases 1,2 and 3 correspond to three terms in the statement of the Lemma. This concludes the proof.
+\end{proof}
+ 
+
+\begin{thm} \label{thm:all_inputs}
+     Consider network $N=(V,E)$ where each vertex $i$ receives input from all other nodes, except itself.
+     
+     If $N$ supports full multistability, then for all $i=1, \ldots, n$, every component $\beta^j_{i}$ of the the function $\beta_i$ is $\beta^j_{i} =\neg Id$. 
+\end{thm}
+
+\begin{proof}
+By \cref{lem:ULform}
+\[ f_i \in U(e^{\bZ,n-1})\cap \left( \bigcap_{k \not \in \bZ} L(e^{(\bZ\cup \{k\}),n-1}) \right)\cap \left(\bigcap_{k\in \bZ} L(e^{(\bZ\setminus \{k\}),n-1})\right).\]
+Assume $\bZ\subsetneq \Sources(i)$ and recall that $|\Sources(i)|=n-1$. Then there is $j \notin \bZ$, and therefore there is at least one term in the intersection of the form $L(e^{(\bZ\cup \{j\}),n-1})$.
+Consider now the sets $U(e^{\bZ,n})$ and $L(e^{(\bZ\cup \{k\}),n-1})$. 
+Since $e^{\bZ,n-1} \prec e^{(\bZ\cup \{j\}),n-1}$ and $f_i$ are increasing monotone Boolean function we must have 
+\[ f_i(e^{\bZ,n-1}) \preceq f_i(e^{(\bZ\cup \{j\}),n-1}).\]
+However, the requirement that $f_i\in U(e^{\bZ,n-1}) \cap L(e^{(\bZ\cup \{j\}),n-1})$ implies that 
+\[ f_i(e^{\bZ,n-1})=1 \quad \mbox{ and} \quad f_i(e^{(\bZ\cup \{j\}),n-1})=0.\]
+i.e, $f_i(e^{\bZ,n-1}) \succ f_i(e^{(\bZ\cup \{j\}),n-1})$. This contradiction implies $\bZ =\Sources(i)$.
+\end{proof}
+
+We observe that if $\Sources(i) = V \setminus \{i\}$ then the set of MBF $f_i$ that supports full multistability satisfies 
+\begin{equation}\label{eq:multistability}
+f_i \in U(e^{\Sources(i)}) \cap \left(\bigcap_{k\in \Sources(i)} L(e^{\Sources(i)\setminus \{k\}}) \right ).
+\end{equation}
+
+\cref{fig:3MS_NS} shows the only input structure to node $A$ supporting full multistability in a 3-node network without self-loop on $A$.
+
+\begin{lem}
+    Consider network $N=(V,E)$ where each vertex $i$ receives input from all other nodes, except itself.
+    
+     Then, for any node $i$, all MB functions $f_i$ that support full multistability must be an essential monotone Boolean function.
+\end{lem}
+
+\begin{proof}
+    If  $f_i$ is non-essential MBF, there is an input $j$ such that $f_i$ is redundant in the input $j$
+    \[ f_i(b_1,\ldots,b_{j-1},0,b_{j+1},\ldots,b_n) = f_i(b_1,\ldots,b_{j-1},1,b_{j+1},\ldots,b_n).\]
+On the other hand, it follows from (\ref{eq:multistability}) that 
+\[ f_i(1,\ldots1,1,1\ldots,1) = 1 \quad \mbox{ and } \quad f_i(1,\ldots1,0,1\ldots,1) = 0 \]
+for any position $j$ of the input $0$. This contradiction shows that $f_i$ is an essential monotone Boolean function.
+\end{proof}
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                (C) edge (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_NS}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                (B) edge[bend left] (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA_1A}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                ;
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA_1I}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                (B) edge[bend left] (A)
+                (C) edge (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA_2A}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                (C) edge (A)
+                ;
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA_1A1I}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \path[rededge]
+                (A) edge[loop above] (A)
+                ;
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                (C) edge (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SA_2I}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=2.5]
+            \node[main node] (A) at (0.5,0.86) {A};
+            \node[main node] (B) at (0,0) {B};
+            \node[main node] (C) at (1,0) {C};
+            \draw[thick, blue, -|, shorten <=2pt, shorten >=2pt]
+      (A) .. controls +(105:0.7cm) and +(75:0.7cm) .. (A);
+            \path[blueedge]
+                (B) edge[bend left] (A)
+                (C) edge (A)
+                ;
+            \path[blankedge]
+                (B) edge[in=240, out=270,looseness=3,min distance=3mm] (B)
+                (C) edge[in=270, out=300,looseness=3,min distance=3mm] (C)
+                (A) edge (B)
+                (A) edge[bend left] (C)
+                (B) edge (C)
+                (C) edge[bend left] (B)
+                ;
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:3MS_SI_2I}
+    \end{subfigure}
+    \caption{\textbf{Network structures that support multistability of single high states. }
+    Input structures to node $A$ in a 3-node network compatible with multistability between $(100),(010),(001)$. Dashed lines indicate that the input structures for nodes $B$ and $C$ could take any choice from the corresponding structures. (Isomorphic structures are not included)}
+    \label{fig:MS}
+\end{figure}
+
+\subsection{Networks with self-edges}
+We now consider networks with self-edges. Recall from \cref{thm:multi_general} that 
+$f=(f_1, \ldots, f_n)$ supports full multistability if and only if 
+\begin{equation} \label{eq:W}
+f_i \in U(\beta_i(e^{i,s}))\cap \left( \bigcap_{j \in \Sources(i)\setminus \{i\}} L(\beta_i(e^{j,s})) \right)\cap \left(\bigcap_{j\not \in \Sources(i)} L(\beta_i(\bzero^s))\right) =: W_i(\beta_i).
+\end{equation}
+
+We fix vertex $i$ and investigate the effect that the change of sign function $\beta_i$ has on the set $W_i(\beta_i)$.
+
+\begin{lem} \label{lem:self}
+ If $\beta_i$ satisfies 
+ \begin{equation}\label{eq:incomparable}
+ \beta_i(e^{i,s})\not \preceq \beta_i(e^{j,s}) \quad \mbox{ and} \quad \beta_i(e^{i,s}) \not \preceq \beta_i(\bzero^s), 
+ \end{equation}
+ then 
+ \[ W_i(\beta_i) \not = \emptyset.\]
+
+If at least one of the conditions in (\ref{eq:incomparable}) is not valid, i.e. either there exists $j$ such that $\beta(e^{i,s})\prec \beta(e^{j,s}) $ or $\beta(e^{i,s})\prec \beta(\bzero^s) $,
+then 
+\[ W_i(\beta_i) = \emptyset.\]
+ 
+\end{lem}
+\begin{proof}
+Since $f_i$ is an increasing MBF, the fact that $f_i\in U(\beta_i(e^{i,s}))$ implies that 
+\[ f_i(b) = 1 \quad \mbox{ for all }\quad  b\succeq \beta_i(e^{i,s}).\]
+On the other hand the requirement that $f_i\in L(\beta_i(e^{j,s}))$ implies that 
+\[ f_i(b) = 0 \quad \mbox{ for all }\quad  b\preceq \beta_i(e^{j,s}) \quad\forall j\not = i\] and 
+$f_i\in L(\beta_i(\bzero^s))$ implies that
+\[ f_i(b) = 0 \quad \mbox{ for all }\quad  b\preceq \beta_i(\bzero^s) \quad\forall j\not = i.\] 
+
+Define the set 
+\[ \bD:= \bigcup_{j\not = i} \downarrow (\beta_i(e^{j,s})) \cup \downarrow (\beta_i(\bzero^s))\]
+and $\bU:=\uparrow \beta_i(e^{i,s})$. 
+Then the conditions (\ref{eq:incomparable})
+\[ \bD \cap \bU = \emptyset.\]
+Therefore, any function $f_i$ whose truth set $\bbT \supset \bU$ includes $\bU$ and whose kernel $ker \; f \supset \bD $ includes $\bD$, supports full multistability.
+
+To prove the second statement, we note that if there exists $j$ such that $\beta_i(e^{i,s})\prec \beta_i(e^{j,s}) $ then 
+\[ A:=\uparrow  (\beta_i(e^{i,s})) \cap \downarrow (\beta_i(e^{j,s})) \not = \emptyset.\]
+Then for $b\in A$ any $f_i \in W_i(\beta_i)$ must satisfy $f_i(b) = 1$ and also $f_i(b) = 0$. Therefore $W_i(\beta_i) = \emptyset$.
+Similar argument applies to the statement $\beta_i(e^{i,s})\prec \beta_i(\bzero^s)$.
+\end{proof}
+
+If $a, b \in \bbB^s$ are not comparable, we say 
+\[ a || b.\]
+
+{\bf Example.} If $\beta_i=(Id, \ldots ,Id)$ and thus all edges are positive then the conditions of \cref{lem:self} read
+\[ e^{i,s}\not \preceq  e^{j,s} \quad \mbox{ and} \quad e^{i,s} \not \preceq \bzero^s.\]
+Since $e^{i,s} || e^{j,s}$ for all $j \not=i$ and $e^{i,s} \succ \bzero^s$ these conditions are satisfied.
+
+
+ \begin{lem}
+ Consider any change of sign function $\beta_i^{\bZ}$ on $\bbB^s$.
+ If $i,j \notin \bZ$, then 
+     $\beta_i^{\bZ}(e^{i,s}) || \beta_i^{\bZ}(e^{j,s})$ for all $j\not =i$ and 
+     $\beta_i^{\bZ}(e^{i,s}) \succ \beta_i^{\bZ}(\bzero^s)$.
+ \end{lem}
+ \begin{proof}
+    Since $e^{i,s} || e^{j,s}$ and $i,j \notin \bZ$ then $i$ and $j$ components still remain non-comparable after applying $\beta_i^\bZ$. Since $e^{i,s} \succ \bzero^s$, it is easy to see that adding a series of 1s to both vectors does not change their order. 
+ \end{proof}
+
+\begin{lem}\label{lem:pos_self}
+Consider node $i$ with $s$ inputs, including from $i$. If the self-loop $i\to i$ is positive, then for any change of sign function $\beta_i^{\bZ}$ on $\bbB^s$ the set $W_i(\beta_i^{\bZ}) \not = \emptyset$.
+\end{lem}
+\begin{proof}
+Our assumption implies that $i \notin \bZ.$ If $j \notin \bZ$ then by previous Lemma $\beta_i^{\bZ}(e^{i,s}) || \beta_i^{\bZ}(e^{j,s})$ for all $j\not =i$.
+
+Consider $j \in \bZ$. Note that $\beta_i(e^{i,s}) \succ \beta_i(e^{j,s})$ since the $j-$th component of $\beta_i(e^{j,s})$ is zero and $j-$th component of $\beta_i(e^{i,s})$ is one, and on all other components the vectors agree.
+  
+Therefore, using the previous Lemma, all assumptions of \cref{lem:self} are satisfied and 
+$W_i(\beta_i^{\bZ}) \not = \emptyset$.
+\end{proof}
+
+\cref{fig:3MS_SA,fig:3MS_SA_1A,fig:3MS_SA_1I,fig:3MS_SA_2A,fig:3MS_SA_1A1I,fig:3MS_SA_2I} shows the possible input structures to node $A$ supporting full multistability in a 3-node network with self-activation on $A$. Every structure, up to isomorphism, is listed. After appropriate relabeling of nodes, input structures to $B$ and $C$ can be chosen arbitrarily from this set.
+In the next Lemma, we denote by $[m]=\{1, \ldots,m\}$ the set of positive integers that are smaller than or equal to an integer $m$.
+
+\begin{lem} \label{lem:neg_self}
+    Consider node $i$ with $s$ inputs, including from $i$. If the self-loop $i\to i$ is negative, then the set $W_i(\beta_i^{\bZ}) \not= \emptyset$ if and only if $s=n$ and $\bZ=[n]$.
+\end{lem}
+\begin{proof}
+     If the self-loop $i\to i$ is negative, then $i\in \bZ$. If $\bZ\subsetneq [s]$ there is $j\not = i$ and $j \notin \bZ$. Then  $\beta_i^{\bZ}(e^{i,s}) \prec  \beta_i^{\bZ}(e^{j,s})$ since $\beta_i^{\bZ}(e^{i,s})$ has component $i$ equal to zero, while all components in $\bZ\setminus \{i\}$ are equal to $1$. On the other hand, $\beta_i^{\bZ}(e^{j,s})$ has all components in $\bZ$ equal to $1$, including the component $i$. 
+     By \cref{lem:self} the set $W_i(\beta_i^{\bZ}) = \emptyset$. 
+     
+    If $\bZ=[s]$ but $s \not = n$ then vector 
+    $ \beta_i^{\bZ}(e^{i,s})$ has all entries $1$ except entry $i$ which is $0$. On the other hand, $\beta_i^{\bZ}(\bzero^s) = \bone^s$.
+    Therefore $\beta_i^{\bZ}(e^{i,s}) \prec \beta_i^{\bZ}(\bzero^s)$ and 
+    by \cref{lem:self} the set $W_i(\beta_i^{\bZ}) = \emptyset$. 
+    
+    Finally, if $s = n$ and $\bZ=[n]$, then 
+    $\beta_i^{\bZ}(e^{i,s}) || \beta_i^{\bZ}(e^{j,s})$ are not comparable. The term $\beta_i^{\bZ}(\bzero^s)$ is not present in equation (\ref{eq:W}). Then by \cref{lem:self} the set $W_i(\beta_i^{\bZ}) \not = \emptyset$.
+\end{proof}
+As a consequence of this Lemma, there is only one input structure that supports full multistability at a node with self-inhibition. An example in a 3-node network is depicted in
+\cref{fig:3MS_SI_2I}.
+
+\begin{rem}
+    If a vertex $i$ has a positive self-loop, the set of functions supporting full-multistability includes the function $f_i \equiv b_i$, which does not depend on any other input, and therefore the inputs from all other vertices are redundant. So this class of functions contains the class of completely disconnected networks discussed in \cref{cor:disconnected}
+    
+    On the other hand, if a vertex $i$ has a negative self-loop, then MBF that supports multistability, the input from $i$ must be redundant.
+\end{rem}
+
+\begin{thm}
+Consider a fully-connected network with self-edges $N = (V,E)$. If $i$ had a negative self-loop, then the only monotone Boolean function that supports full multistability is 
+\[ h_i(b) = \neg b_1 \wedge \ldots \neg b_{i-1} \wedge \neg b_{i+1} \wedge \ldots \neg b_n.\]
+\end{thm}
+\begin{proof}
+Fix $i$ and assume $i$ had a negative self-loop. In view of \cref{lem:neg_self}, if $h_i$ supports full multistability, then $h_i$ has negative inputs from all nodes $\bZ=[n]$. Recall that 
+$h_i=f_i\circ \beta_i^\bZ$ and $f_i$ is positive monotone Boolean function $f_i \in MBF(n)$.
+We denote by $\bar{e}^j = \bone^j-e^1$ a vector of ones with a single zero at position $j$.
+
+Then the set functions $f_i$ that support $e^1, \ldots, e^n$ lie in the intersection
+\begin{equation} \label{intersection}
+    f_i \in \left ( U(\bar{e}^1)\cap \bigcap_{i=2}^n L(\bar{e}^i) \right )
+\end{equation}
+
+We show that the intersection in this case only contains a single MB function $f$ with truth set
+\[ \bbT(f) :=\{ (011\ldots 1), (111\ldots 1)\}. \]
+
+Let $Q:=\{ (011\ldots 1), (111\ldots 1)\}$. The fact that $Q\subset \bbT(f)$ follows from the requirement that 
+$f_i \in U(011\ldots 1)$ and monotonicity of $f_i$.
+
+To show the other inclusion, consider the value of $f_i$ on $b\in \bbB^n$ stratified by the number of ones $|b|$ in $b \in \bbB^n$.
+
+\begin{itemize}
+    \item $|b|=n$. Then $b=\bone$ and $f_i(b) = 1$ by monotonicity of $f_i$.
+    \item $|b|=n-1$. Then by (\ref{intersection}), $f(\bar{e}^1) = 1$ and $f(\bar{e}^j)=0, \;j=2, \ldots, n$ 
+    \item $|b|<n-1$. For any such $b$ there is a vector $b'$ with $|b'|=n-1$ and 
+    \[ b\prec b' .\]
+    Since $f_i \in L(b')$ it follows that $f_i(b')=0$ by monotonicity of $f_i$.
+    \end{itemize}
+    It follows that $f_i(b) = 0$ for all $b \not \in Q$ and therefore from $ \bbT(f) \subset Q.$
+    
+    The only function $f_i$ with truth set $Q$ is the function 
+    \[ b_1 \wedge \ldots b_{i-1} \wedge b_{i+1} \wedge \ldots b_n. \]
+    Theorem follows from $\bZ=[n]$. 
+\end{proof}
+
+\subsection{Networks maximizing prevalence of full multistability}
+
+An interesting question remains. When a node $i$ has a positive self-edge and inputs from all other edges, what size of the set of negative inputs $|\bZ_i|$ to node $i$ maximizes the number of MBFs that support multistability? On the first glance, one would conjecture that this happens either with $|\bZ_i|=0$ (i.e., all inputs are positive) or $|\bZ_i|=n-1$ i.e., all inputs from other nodes except the self are negative. However, the answer seems to be more subtle and depends on the internal structure of the lattices $MBF(s)$. We provide a few numerical examples that illustrate a somewhat surprising answer. 
+
+In particular, we use \cref{alg:MScount} described below to count the number of functions that support multistability for fully connected networks with self-activations for a fixed value of $n$ across varying numbers of inhibitory inputs $|\bZ_i|$. \cref{tab:MSnfuncs} gives the calculations for $n=3,4,5$ nodes using this algorithm with $|W_i|$ being the number of monotone Boolean functions at node $i$ supporting multistability.
+We can see that for $n=3,4$ the network with inhibition ($|\bZ_i|=n-1$ for every node) from every other node besides itself has the most monotone Boolean models supporting multistability. However, for $n=5$, the network with $|\bZ_i|=1$ negative input for each node has the most models supporting multistability. At this moment, we lack any combinatorial theory that would explain this pattern and extend it to $n>5.$
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $n$ & \multicolumn{3}{c|}{3} & \multicolumn{4}{c|}{4} &\multicolumn{5}{c|}{5} \\
+        \hline
+        $|\bZ_i|$ & 0 & 1 & 2 & 0 & 1 & 2 & 3 & 0 & 1 & 2 & 3 & 4 \\
+        $|W_i|$ & 2 & 3 & 10 & 9 & 17 & 14 & 38 & 114 & 575 & 445 & 148 & 334 \\
+        \hline
+    \end{tabular}
+    \caption{Number of multistable functions for each node in a $n$-node fully-connected networks with fixed self-activations and $|\bZ_i|$-inhibitions from other nodes.}
+    \label{tab:MSnfuncs}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red] (1) at (1.5,3.5) {$111$};
+            \node[my node, red] (2) at (0,2.5) {$110$};
+            \node[my node,red] (3) at (1.5,2.5) {$101$};
+            \node[my node] (4) at (3,2.5) {$011$};;
+            \node[my node, red, fill=red!20] (5) at (0,1) {$100$};
+            \node[my node, blue, fill=blue!20] (6) at (1.5,1) {$010$};
+            \node[my node, blue, fill=blue!20] (7) at (3,1) {$001$};
+            \node[my node, blue] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk0}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red] (1) at (1.5,3.5) {$111$};
+            \node[my node, red, fill=red!20] (2) at (0,2.5) {$110$};
+            \node[my node] (3) at (1.5,2.5) {$101$};
+            \node[my node, blue, fill=blue!20] (4) at (3,2.5) {$011$};;
+            \node[my node] (5) at (0,1) {$100$};
+            \node[my node, blue] (6) at (1.5,1) {$010$};
+            \node[my node, blue] (7) at (3,1) {$001$};
+            \node[my node, blue, fill=blue!20] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk1}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red, fill=red!20] (1) at (1.5,3.5) {$111$};
+            \node[my node] (2) at (0,2.5) {$110$};
+            \node[my node] (3) at (1.5,2.5) {$101$};
+            \node[my node] (4) at (3,2.5) {$011$};;
+            \node[my node] (5) at (0,1) {$100$};
+            \node[my node, blue, fill=blue!20] (6) at (1.5,1) {$010$};
+            \node[my node, blue, fill=blue!20] (7) at (3,1) {$001$};
+            \node[my node, blue] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk2}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red] (1) at (1.5,3.5) {$111$};
+            \node[my node, red, fill=red!20] (2) at (0,2.5) {$110$};
+            \node[my node, red] (3) at (1.5,2.5) {$101$};
+            \node[my node, blue, fill=blue!20] (4) at (3,2.5) {$011$};;
+            \node[my node, red] (5) at (0,1) {$100$};
+            \node[my node, blue] (6) at (1.5,1) {$010$};
+            \node[my node, blue] (7) at (3,1) {$001$};
+            \node[my node, blue, fill=blue!20] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk1_0}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red] (1) at (1.5,3.5) {$111$};
+            \node[my node, red, fill=red!20] (2) at (0,2.5) {$110$};
+            \node[my node, red] (3) at (1.5,2.5) {$101$};
+            \node[my node, blue, fill=blue!20] (4) at (3,2.5) {$011$};;
+            \node[my node, blue] (5) at (0,1) {$100$};
+            \node[my node, blue] (6) at (1.5,1) {$010$};
+            \node[my node, blue] (7) at (3,1) {$001$};
+            \node[my node, blue, fill=blue!20] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk1_1}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \begin{tikzpicture}[node distance = 1cm,baseline=(current bounding box.center)]
+            \tikzset{my node/.style = {rectangle, draw, thick, inner sep=4pt, minimum size=0pt}}
+            \tikzset{my edge/.style = {-, very thick}}
+            \node[my node, red] (1) at (1.5,3.5) {$111$};
+            \node[my node, red, fill=red!20] (2) at (0,2.5) {$110$};
+            \node[my node, blue] (3) at (1.5,2.5) {$101$};
+            \node[my node, blue, fill=blue!20] (4) at (3,2.5) {$011$};;
+            \node[my node, blue] (5) at (0,1) {$100$};
+            \node[my node, blue] (6) at (1.5,1) {$010$};
+            \node[my node, blue] (7) at (3,1) {$001$};
+            \node[my node, blue, fill=blue!20] (8) at (1.5,0) {$000$};
+            
+            \draw[my edge] (1) -- (2);
+            \draw[my edge] (1) -- (3);
+            \draw[my edge] (1) -- (4);
+            \draw[my edge] (2) -- (5);
+            \draw[my edge] (2) -- (6);
+            \draw[my edge] (3) -- (5);
+            \draw[my edge] (3) -- (7);
+            \draw[my edge] (4) -- (6);
+            \draw[my edge] (4) -- (7);
+            \draw[my edge] (5) -- (8);
+            \draw[my edge] (6) -- (8);
+            \draw[my edge] (7) -- (8);
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:B3latk1_2}
+    \end{subfigure}
+  
+    \caption{\textbf{Counting functions $f_i$ that support multistability between single-high states.} Lattice of Boolean vectors $b\in \bbB^3$ with constraints imposed by $U(\beta(100)) \cap L(\beta(010)) \cap L(\beta(001))$ for $|\bZ_i|$ inhibitory inputs. \subref{fig:B3latk0}: $|\bZ_i|=0$, \subref{fig:B3latk1}: $|\bZ_i|=1$, \subref{fig:B3latk2}: $|\bZ_i|=2$. Blue nodes indicates $b$ for which $f_i(b)=0$ and red indicated $b$ for which $f_i(b) =1$. The shaded nodes denote direct constraints, while values of $f_i$ at nodes with a color outline are constrained by monotonicity. \subref{fig:B3latk1_0}-\subref{fig:B3latk1_2}: Three possible configurations of $f_i$ for $|\bZ_i|=1$ that follow monotonicity.}
+\end{figure}
+
+\begin{algorithm}
+Consider node $i$.
+The algorithm counts the number of monotone Boolean functions $f_i$ with $n$ inputs and $m\leq n-1$ inhibitory inputs. We
+assume without loss of generality that the first $m$ inputs excluding self-edges ($\Sources(i) \setminus \{i\}$) are inhibitory.
+Our main tool is the constraint (\ref{eq:W}) that determines which functions $f_i$ support full multistability.
+
+We follow the following steps:
+ \begin{enumerate}
+        \item We find the value $b_u$ such that $U(b_u)$ is a component of the intersection in (\ref{eq:W}) and collect all values $B:=\{b_l\}$ such that $L(b_l)$ is a component of the intersection in  (\ref{eq:W}). The function $f_i$ must satisfy 
+        \[ f_i(b_u) =1 \quad \mbox{ and } \quad f_i(b_l) =0 \quad \mbox{ for all } \quad b_l\in B.\]
+        \item We use the constraint that $f_i$ must be a monotone function. Therefore, 
+        \begin{align*}
+        b\prec b_l & \implies f_i(b) = 0 \\
+        b\succ b_u &\implies f_i(b) = 1.
+        \end{align*}
+        \item Let $C \subset \bbB^n$ be the set of vectors that have been assigned a value in steps (1) and (2). Consider the partially ordered set $P:=\bbB^n \setminus C$. This is the set of \textit{unconstrained} vectors. Assume 
+        $p:=|P|$ be the size of $P$.
+    \end{enumerate}
+    \cref{fig:B3latk0,fig:B3latk1,fig:B3latk2} illustrates the imposition of the constraints for $n=3$ and number of negative inputs $m=0,1,2$. Note that when $m=0$, the set $P=\{(011)\}$, when $m=1$ the set $P=\{(100) \prec (101)\}$ and when $m=2$ the set $P=\{(100) \prec\{ (110),(101),(011)\}\}$.
+    
+    Given a set $P$, we proceed to recursively count monotone functions $f_i$ that have values constrained on vectors $C$. Note that this number is bounded above by $2^p$, which would be achieved if vectors in $P$ were unordered. When there are values $b,c \in P$ such that $b \prec c$ are ordered, then monotonicity of $f_i$ implies $f_i(b) \leq f_i(c)$. This restricts the number of possible functions $f_i$. \cref{fig:B3latk1_0,fig:B3latk1_1,fig:B3latk1_2} show three functions $f_i$ that are compatible by constrains imposed by set $P=\{(100) \prec (101)\}$ for $n=3$ and $m=1.$
+
+    \begin{enumerate}
+        \item Find the current poset $P$.
+        \item Select the set of highest nodes $H$ in poset $P$.
+        \item Generate all binary assignments of values $\{0,1\}$ to nodes in $H$.
+        \item For each assignment, compute the set of vectors $C' \subset P$ that are newly constrained by the assigned values to $H$ using monotonicity. Compute a new unconstrained poset $P$ and return to step 1. 
+        \item Repeat steps 1-4 until the set $P$ is empty. Return 1 in this case.
+        \item Add the number of $1$s across all iterations.
+    \end{enumerate}
+    \label{alg:MScount}
+\end{algorithm}
+
+\section{Discussion}
+In this paper, we study a structural question in systems biology of regulatory networks: which network structure is optimal for supporting the full set of single high states as stable steady states. These states are observed in developmental networks where each cell fate is associated with a single activated master regulator. 
+
+Clearly, the optimality must be defined and will inevitably depend on the choice of the network model. We chose to address this question in the context of monotone Boolean models that are compatible with the regulatory network structure. The fact that we consider the collection of all such models derives from our desire to emulate
+ideas from continuous dynamical systems, where key insights are provided by the bifurcation theory. %, which derives its roots from singularity theory of smooth manifolds. 
+Bifurcation theory describes when the dynamics of the system qualitatively change and thus is intimately linked with questions of robustness of the dynamics. The key property that supports bifurcation theory is the smooth dependence of the dynamics on parameters. 
+
+In contrast, Boolean models are usually studied in isolation.
+However, there is a natural measure of closeness between Boolean maps based on the Hamming distance between their ranges, which allows studying changes in dynamics between nearby maps. This paper is thus a continuation of our program studying dynamics of the collection of all monotone Boolean functions compatible with the signed network structure~\cite{adigwe_characterization_2026,gedeon_lattice_2024, gedeon_network_2024} (see also~\cite{abou-jaoude_logical_2019} for early efforts in this direction.)
+
+In the previous paper~\cite{adigwe_characterization_2026}, we have characterized a set of monotone Boolean models $f=(f_1, \ldots, f_n)$ where each $f_i$ is an increasing monotone Boolean function that supports a state $b\in \bbB^n$ as a steady state. This corresponds to monotone Boolean models with an influence network that has only positive edges. In the same paper, we have generalized this result to \textit{balanced networks} which are directed graphs with no negative cycles. It is known that monotone Boolean models of balanced networks are related by a change of variables to models whose influence network has only positive edges. 
+
+
+
+The major theoretical advance in this paper is the characterization of all monotone Boolean models that support a state $b\in \bbB^n$ as a steady state for \underline{arbitrary} influence networks. Importantly, such networks may also support complex attractors. For any $b \in \bbB^n$ we characterize a set of models $V_b:=\{ h \;|\; h(b)=b \}$. If we denote by $MBM(N)$ the set of monotone Boolean models $h:\bbB^n \to \bbB^n$ with given influence network $N$, then the set 
+\[ P:= MBM(N) \setminus \bigcup_{b\in \bbB^n} V_b\]
+is non-empty and contains models $g$ for which all attractors are complex. Direct characterization of $g\in P$ remains an open problem. 
+
+We note that since the number of MBFs increases rapidly and is only explicitly known for $n \leq 9$, the scalability of numerical simulations is limited. However, our characterization provides a compact description of steady states and multistability for any network of any size $n$.
+
+
+We first examine network structures that support all single high states with the highest possible number of monotone Boolean models. We show that the network that achieves this number is a network with isolated nodes with positive self-edges. Since such a network cannot represent a decision-making network, we study sign structures in networks with $n=3,4,5$ nodes and all-to-all coupling that support maximal equipotency. Surprisingly, while for $n=3,4$ such networks have all negative incoming edges from other nodes, for $n=5$ the networks that support maximal equipotency have exactly one negative in-edge, with all other edges positive.
+We note that several networks that support maximal equipotency are relatively far apart from each other in the space of networks, requiring a change of sign on several edges. So the landscape of degree of equipotency in the space of networks has several well-separated optima.
+
+We then examine networks that support multistability among all single high states. Our main result shows that each node in such networks either has a positive self-regulation or all edges that terminate in it must be negative. Clearly, this class includes both networks with isolated nodes and positive self-edges, and fully connected networks where all mutual edges are negative. Since the first type of networks can be considered completely \textit{ structurally modular}, and the second type is most certainly not, this shows that the ability to support \textit{ functional modularity} of simultaneous stability of single high states does not depend on structural modularity.
+
+It is important to contextualize these results within the complexity of real biological networks. Such networks often involve significant redundancy and additional layers of regulation by signaling molecules, such as morphogens or cytokines, that play a key role in the process of differentiation. In this study, however, we focus our analysis on the core of the network, specifically investigating the expected effective regulation among the master regulators. This represents a coarse-grained or ``condensed" network architecture, which, while sacrificing some of the fine-grained dynamic behavior provided by intermediate interactions, considerably simplifies the analysis. As such, our study can be seen as analyzing densely connected motifs that may be part of larger hierarchical network structures \cite{peter_assessing_2017}. How these smaller motifs are integrated and give rise to emergent properties observed in coarse-grained networks is a topic of ongoing research \cite{adler_emergence_2022,singh_network_2026}.
+
+A primary assumption in our analysis is that a single network architecture governs differentiation into $n$ distinct cell fates. However, the process of differentiation to highly divergent lineages may involve context-specific interactions, especially among the intermediate regulations, altering the topology during intermediate stages of differentiation. By not explicitly incorporating irreversibility, which is characteristic of developmental systems, our results remain broadly applicable to systems with high plasticity, such as transdifferentiation and cell-state transitions in cancer. Beyond changes in network topology, the stability of these states can also be modulated by variations in regulatory strength. Epigenetic remodeling, for instance, can stabilize specific fates by modulating the effective strengths of regulatory edges \cite{ghaffarizadeh_multistable_2014}. While our formalism is limited to the presence or absence of activatory or inhibitory interactions, we can capture epigenetic remodeling by gradually excluding a specific subset of models (or by focusing on the complementary subset), effectively removing the influence of certain inputs \cite{zhou_relative_2016}. 
+
+It is important to connect our results to results that can be expected for differential equations (ODEs) models. 
+On one hand, there is a direct correspondence between monotone Boolean models and the behavior of Glass type ODE models~\cite{cummins_combinatorial_2016, gedeon_multi-parameter_2020,glass_logical_1973,edwards_chaos_2001,edwards_modelling_2015} with piece-wise constant nonlinearities. In fact, monotone Boolean model results are valid for an open subset of parameters for such ODEs~\cite{cummins_boolean_2026} as well as their counterparts with sufficiently steep nonlinearities~\cite{gameiro_global_2024}. We therefore view the network structures identified by our framework as a conservative estimate of all network structures supporting a particular property.
+
+However, connecting network structure with specific dynamical behavior within an ODE framework is hindered by two fundamental difficulties. One is the uncountability of the ODE parameter space, which makes it impossible to examine the set of compatible models; extensive parameter sampling can neither establish nor rule out the existence of particular dynamics. Despite this limitation, empirical explorations of network architectures from ODE simulations yield results that broadly align with the theoretical findings from our Boolean framework~\cite{rashid_operating_2025}. The second difficulty is the uncountability of the phase space, where identifying dynamics as "the same" for the purpose of their classification can only be approximate. Nevertheless, studies have conducted exhaustive explorations of the space of network structures, combined with clustering, to map properties of this space \cite{ye_enriched_2019, chakraborty_unified_2026, garayo_network_2025}. However, these methods are restricted to analysis of smaller motifs $(n\leq 3 \text{ or } 4)$ due to the computational complexity of the analysis and the fact that the set of potential network structures increases rapidly with $n$.
+
+Our results are complementary to efforts to develop methodologies for identifying gene regulatory networks from data \cite{pratapa_benchmarking_2020,zhao_comprehensive_2021}. Our theoretical understanding of network design principles may guide some of these efforts, which are challenged by high uncertainty and can both miss existing edges and produce spurious connections \cite{maizels_gene_2026}.
+
+
+Our framework enables the design of networks with targeted functional properties in synthetic biology. While ODE-based modeling has shown significant promise in the design of synthetic circuits \cite{santos-moreno_robustness_2023, zhu_synthetic_2022}, the scalability constrains its utility. A fundamental bottleneck for the broader implementation of our framework is its computational complexity. While the underlying mathematical theory of our framework is dimension-independent, current implementations are constrained by the difficulty of computing up-sets and down-sets in the lattice of monotone Boolean functions and the complexity of the Boolean satisfiability problem \cite{chevalier_synthesis_2019}. Further work is required to develop this tool to allow biologists to design complex circuits without the need to navigate the underlying mathematical formalism.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Additional Information}
+
+\subsection*{Author Contributions}
+HBV: Conceptualization, investigation, formal analysis, visualization, writing-original draft.
+SA: Investigation, formal analysis, visualization, writing-original draft. 
+MKJ: Conceptualization, writing-reviewing and editing. 
+TG: Conceptualization, formal analysis, writing-original draft, writing-reviewing and editing.
+ 
+\subsection*{Funding}
+This work was supported by the Prime Minister’s Research Fellowship (PMRF), (to HBV) and  Param Hansa Philanthropies (to MKJ). Work of TG on this  project was sponsored in part by the Air Force Research Laboratory under Agreement Number FA8750-25-C-B027.
+
+\subsection*{Data Accessibility}
+The code used are available at:\\ \url{https://github.com/Harshavardhan-BV/Monotone-Bool-Net}
+
+\subsection*{Declaration of AI use}
+Gemma4 was used to enhance clarity for parts of the Discussion. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the publication.
+
+\subsection*{Conflict of Interest}
+The authors declare no conflict of interest.
+
+\bibliographystyle{plain}
+\bibliography{SingleHigh}
+
+\end{document}

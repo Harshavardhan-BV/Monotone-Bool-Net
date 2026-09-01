@@ -87,8 +87,8 @@ nav:
     - 'usage/rep_tab2.ipynb'
     - 'usage/state_count.md'
     - 'usage/pg.ipynb'
-    - 'usage/ms.ipynb'
     - 'usage/lattice.ipynb'
+    - 'usage/ms.ipynb'
     - 'usage/ms_count.ipynb'
   - API:
     - 'api/pl.md'
