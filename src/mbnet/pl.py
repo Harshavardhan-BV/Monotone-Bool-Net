@@ -66,6 +66,28 @@ def PG(MBFs, x ,y, k=None ,save=False):
     plt.show()
 
 def network(A):
+    """
+    Visualizes a network as a directed graph with circular layout.
+
+    Plots nodes in a circular arrangement with edges colored and styled based on their sign. Positive edges are shown in red, negative edges in blue.
+
+    Parameters
+    ----------
+    A : pandas.DataFrame
+        Adjacency matrix representation of the network. Index and columns should contain node names.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        The figure object containing the plot.
+    ax : matplotlib.axes.Axes
+        The axes object containing the plot.
+
+    Notes
+    -----
+    The circular layout may not be ideal for all network types. The plots can get crowded for large networks.
+    """
+    
     edegprop = {
         1: ('red','->', 15),
         -1: ('blue','-[', 2)
@@ -76,7 +98,7 @@ def network(A):
         False: 'arc3,rad=0.1'
     }
     # Plot the graph
-    G = nx.from_pandas_adjacency(A)
+    G = nx.from_pandas_adjacency(A, create_using=nx.DiGraph)
     # Get the positions
     pos = nx.circular_layout(G)
     # print(pos)

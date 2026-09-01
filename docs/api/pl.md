@@ -5,3 +5,6 @@
 
 ## Parameter Graph
 ::: mbnet.pl.PG
+
+## Network Graph
+::: mbnet.pl.network
