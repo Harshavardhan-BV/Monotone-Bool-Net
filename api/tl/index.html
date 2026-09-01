@@ -435,6 +435,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../usage/ms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multistablilty of single high states
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../usage/lattice/" class="md-nav__link">
         
   
@@ -470,7 +498,7 @@
   <span class="md-ellipsis">
     
   
-    Multistable functions
+    Counting multistable functions
   
 
     
@@ -1856,7 +1884,7 @@ If explode is True, the sets are expanded into MBF combinations.</p>
 </span><span id="__span-0-213"><a id="__codelineno-0-213" name="__codelineno-0-213"></a>            <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">mn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">L_set</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">if</span> <span class="n">oupt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">mn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">U_set</span><span class="p">(</span><span class="n">row</span><span class="p">),</span>
 </span><span id="__span-0-214"><a id="__codelineno-0-214" name="__codelineno-0-214"></a>            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
 </span><span id="__span-0-215"><a id="__codelineno-0-215" name="__codelineno-0-215"></a>        <span class="p">)</span>
-</span><span id="__span-0-216"><a id="__codelineno-0-216" name="__codelineno-0-216"></a>        <span class="n">MBF_set</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">tgt</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="o">*</span><span class="n">temp</span><span class="p">)</span>
+</span><span id="__span-0-216"><a id="__codelineno-0-216" name="__codelineno-0-216"></a>        <span class="n">MBF_set</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">tgt</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="o">*</span><span class="n">temp</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">temp</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
 </span><span id="__span-0-217"><a id="__codelineno-0-217" name="__codelineno-0-217"></a>    <span class="k">if</span> <span class="n">explode</span><span class="p">:</span>
 </span><span id="__span-0-218"><a id="__codelineno-0-218" name="__codelineno-0-218"></a>        <span class="k">for</span> <span class="n">tgt</span> <span class="ow">in</span> <span class="n">MBF_set</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
 </span><span id="__span-0-219"><a id="__codelineno-0-219" name="__codelineno-0-219"></a>            <span class="n">MBF_set</span> <span class="o">=</span> <span class="n">MBF_set</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="n">tgt</span><span class="p">)</span>

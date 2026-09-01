@@ -16,7 +16,7 @@
         <link rel="prev" href="../state_count/">
       
       
-        <link rel="next" href="../lattice/">
+        <link rel="next" href="../ms/">
       
       
         
@@ -517,6 +517,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../ms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multistablilty of single high states
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../lattice/" class="md-nav__link">
         
   
@@ -552,7 +580,7 @@
   <span class="md-ellipsis">
     
   
-    Multistable functions
+    Counting multistable functions
   
 
     
@@ -836,7 +864,7 @@
 <p>We can then plot this as a parameter graph. The color of the heatmap gives the multistability it supports and the individual states are mentioned in the annotation, seperated by linebreak.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/dda4bac6b2244edb942f12a73ecfa09e.png" /></p>
+<p><img alt="img" src="../_data/f73f13eee2904c2bbd3a5ec3a17db3dd.png" /></p>
 <p>One can also get the parameter sets that support multistability between different states.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
@@ -851,7 +879,7 @@
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">ps</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">param_set</span><span class="p">(</span><span class="n">adjmat</span><span class="p">)</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/edaa78ec1e8545b28dd988f0f510ad59.png" /></p>
+<p><img alt="img" src="../_data/e17e8c0b1560486c879bd2ac2d1ea4fb.png" /></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
 </span></code></pre></div>
@@ -871,12 +899,12 @@
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">pssub</span> <span class="o">=</span> <span class="n">ps</span><span class="p">[</span><span class="n">ps</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">funC</span><span class="p">]</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">PG</span><span class="p">(</span><span class="n">pssub</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/4f068e33b1dc40819fc22f23c31036da.png" /></p>
-<p><img alt="img" src="../_data/7f9de55b5ae54dceb1c5846ea5a660e8.png" /></p>
-<p><img alt="img" src="../_data/bc5b3d6f77a84c3ebbc0a95232c8ce43.png" /></p>
-<p><img alt="img" src="../_data/81b9d8ab34734df48055e1f7d305b1e6.png" /></p>
-<p><img alt="img" src="../_data/fc4ba67a5f764226a97f962f58e2b6b6.png" /></p>
-<p><img alt="img" src="../_data/5bc77e90a8da4670b1f31c16178ac29d.png" /></p>
+<p><img alt="img" src="../_data/700513eaed754a57befbc980f71c729a.png" /></p>
+<p><img alt="img" src="../_data/da9f070a30044065b0bd6f675a0311a1.png" /></p>
+<p><img alt="img" src="../_data/15f70c3c13d144d3afc5b103a4f73309.png" /></p>
+<p><img alt="img" src="../_data/a4f1e9494b584c6faa946ce6c9d9ce40.png" /></p>
+<p><img alt="img" src="../_data/d04ee3bf94654f40b8cdbb4e2b6510ab.png" /></p>
+<p><img alt="img" src="../_data/e14507b062a64a2ead0e8f578172e307.png" /></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">adjmat</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">len</span><span class="p">(</span><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">multistable</span><span class="p">(</span><span class="n">adjmat</span><span class="p">,</span> <span class="n">states</span><span class="p">))</span>
 </span></code></pre></div>

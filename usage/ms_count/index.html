@@ -27,7 +27,7 @@
     
     
       
-        <title>Multistable functions - MBNet</title>
+        <title>Counting multistable functions - MBNet</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#multistable-functions" class="md-skip">
+        <a href="#counting-multistable-functions" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Multistable functions
+              Counting multistable functions
             
           </span>
         </div>
@@ -437,6 +437,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../ms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multistablilty of single high states
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../lattice/" class="md-nav__link">
         
   
@@ -481,7 +509,7 @@
   <span class="md-ellipsis">
     
   
-    Multistable functions
+    Counting multistable functions
   
 
     
@@ -499,7 +527,7 @@
   <span class="md-ellipsis">
     
   
-    Multistable functions
+    Counting multistable functions
   
 
     
@@ -770,7 +798,7 @@
 
 
 
-<h1 id="multistable-functions">Multistable functions</h1>
+<h1 id="counting-multistable-functions">Counting multistable functions</h1>
 <p>This tutorial demonstrates counting the number of Monotone Boolean Functions (MBFs) that support multistability between the single high states $(10\cdots0, 01\cdots0, \ldots, 00\cdots1)$ for fully connected networks with n nodes and m negative/inhibitory inputs. </p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -795,7 +823,7 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">BL</span> <span class="o">=</span> <span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">lattice_B</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/fee784f316f6400d86bda80b118ec06a.png" /></p>
+<p><img alt="img" src="../_data/0acfc97c68284101b8556621a36c32f0.png" /></p>
 <p>The adjacency matrix can be generated with 1 inhibition. This adjacency matrix helps tranform the single high states to inputs for positive MBFs using $T$. We consider the first node (0) for this case. The inputs also have to be converted to string as the Lattice nodes are represented as such.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">A</span> <span class="o">=</span> <span class="n">adj_full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">A</span>
@@ -820,7 +848,7 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">constraint_IO</span><span class="p">(</span><span class="n">BL</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">oup</span><span class="p">)</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">mn</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">lattice</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="img" src="../_data/a336d5bf5ea642cc9ceab8dbf477b1e5.png" /></p>
+<p><img alt="img" src="../_data/30ebdf0d5b4e4457ac046198b55d1b88.png" /></p>
 <p>We can see from the above plot that 2 nodes (vectors) remain unconstrained. While this puts an upper bound of $2^2 = 4$, one should note that monotonicity (via partial ordering) has to be maintained. We do this by generating combination of values for the top most layer, propagating values through the partial ordering and recursively performing this for nodes that remain unconstrained, to obtain the final count of number of multistable functions. </p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">mn</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">unconstrained_count</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 </span></code></pre></div>
