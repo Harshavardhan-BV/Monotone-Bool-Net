@@ -1,0 +1,4 @@
+source target weight
+x y 2
+y z 2
+z x 2
