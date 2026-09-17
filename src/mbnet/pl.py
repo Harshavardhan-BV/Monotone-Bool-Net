@@ -36,7 +36,7 @@ def lattice(G, save=False):
         plt.savefig(f'{save}')
     plt.show()
 
-def PG(MBFs, x ,y, k=None ,save=False):
+def PG(MBFs, x ,y, k=None ,save=False, **kwargs):
     """
     Plots the parameter graph based on the provided parameter set. 
 
@@ -60,10 +60,10 @@ def PG(MBFs, x ,y, k=None ,save=False):
         ordy = mn.utils._readfiles(f'MBF_B{k[1]}_names.csv')[0].values
         nstable = nstable.reindex(index=ordy[::-1], columns=ordx)
         nstates = nstates.reindex(index=ordy[::-1], columns=ordx)
-    sns.heatmap(nstable, cmap='magma_r', linewidth=4, annot=nstates, fmt='s')
+    sns.heatmap(nstable, cmap='magma_r', linewidth=4, annot=nstates, fmt='s', **kwargs)
     if save:
         plt.savefig(f'{save}')
-    plt.show()
+    # plt.show()
 
 def network(A):
     """
