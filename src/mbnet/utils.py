@@ -204,7 +204,28 @@ def L_set(state):
     """
     return _state_set(state,0)
 
-def T(adjmat,states,tgt):
+def alpha(adj, neg):
+    """
+    Applies the change of variable transformation on nodes to the adjacency matrix based on list of negative nodes.
+
+    Parameters
+    ----------
+    adj : pd.DataFrame
+        The adjacency matrix of the original network topology.
+    neg : list or array-like
+        List of node identifiers/column names that are negative.
+
+    Returns
+    -------
+    pd.DataFrame
+        Transformed adjacency matrix where the signs of edges connected to negative nodes are flipped.
+    """
+    adj = adj.copy()
+    adj.loc[neg,:] = -adj.loc[neg,:]
+    adj.loc[:, neg] = -adj.loc[:, neg]
+    return adj
+
+def beta(adjmat,states,tgt):
     """
     Applies transformation based on the topology for a given state to convert for inputs for increasing MBFs, split as inputs and outputs.
 
@@ -231,3 +252,6 @@ def T(adjmat,states,tgt):
     inpt = inpt.loc[:,inps!=0]
     oupt = states.loc[:,tgt]
     return inpt, oupt
+
+def T(adjmat,states,tgt):
+    return beta(adjmat,states,tgt)

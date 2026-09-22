@@ -218,6 +218,7 @@ def multistable(adjmat, states, explode=True):
         for tgt in MBF_set.columns:
             MBF_set = MBF_set.explode(tgt)
             MBF_set.reset_index(inplace=True, drop=True)
+            MBF_set.dropna(inplace=True)
     return MBF_set
 
     

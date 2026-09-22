@@ -16,7 +16,7 @@ def main():
         description="Counts the number of monotone Boolean models (MBMs) supporting each steady state for the given topologies",
     )
     parser.add_argument(
-        "topo", type=str, help="topo file name", default="all", nargs="?"
+        "topo", type=str, help="topo file name", default="all", nargs="*"
     )
     parser.add_argument(
         "--topodir", type=str, help="topo file directory", default=None
@@ -27,11 +27,12 @@ def main():
     args = parser.parse_args()
     
     # if no topo file is provided, use iterate over all the topo files
-    if args.topo == "all":
+    if not args.topo:
         topos = sorted(glob.glob(f"*.topo",root_dir = args.topodir))
         topo_full = [os.path.join(args.topodir,topo) for topo in topos]
     else:
-        topo_full = topos = [args.topo]
+        topo_full = args.topo
+        topos = [os.path.basename(topo) for topo in topo_full]
     # Print the parameters
     print(f"Number of topology files: {len(topos)}")
     # Iterate over each topofile and get the total counts

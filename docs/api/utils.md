@@ -5,7 +5,9 @@
 
 ## Boolean
 ::: mbnet.utils.B
-::: mbnet.utils.T
+::: mbnet.utils.alpha
+::: mbnet.utils.beta
+
 
 ## Monotone Boolean Functions
 ::: mbnet.utils.MBF
